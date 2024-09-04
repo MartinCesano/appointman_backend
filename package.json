@@ -1,8 +1,8 @@
 {
-  "name": "users-api",
+  "name": "appointman-backend-users",
   "version": "0.0.1",
-  "description": "",
-  "author": "",
+  "description": "Este repositorio contiene el backend de la aplicación de Appointman",
+  "author": "Martinchos",
   "private": true,
   "license": "UNLICENSED",
   "scripts": {
