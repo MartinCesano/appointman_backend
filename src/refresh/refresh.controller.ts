@@ -7,6 +7,7 @@ export class RefreshController {
     
     @Get()
     async refreshToken(@Headers('refresh-token') refreshToken: string) {
+        console.log(refreshToken)
         return await this.refresh.refreshToken(refreshToken);
     }
 }
