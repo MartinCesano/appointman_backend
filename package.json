@@ -43,6 +43,11 @@
     "typeorm": "^0.3.20"
   },
   "devDependencies": {
+    "@angular-devkit/build-angular": "^18.2.4",
+    "@angular/cli": "^18.2.4",
+    "@angular/common": "^18.2.5",
+    "@angular/core": "^18.2.5",
+    "@angular/platform-browser-dynamic": "^18.2.5",
     "@nestjs/cli": "^10.0.0",
     "@nestjs/schematics": "^10.0.0",
     "@nestjs/testing": "^10.0.0",
@@ -54,6 +59,7 @@
     "@types/supertest": "^6.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
     "@typescript-eslint/parser": "^6.0.0",
+    "cypress": "^13.14.2",
     "eslint": "^8.42.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
