@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus
 import { AuthService } from '../auth/auth.service';
 
 
-@Controller('authorization')
+@Controller('auth')
 export class AuthorizationController {
   constructor(private readonly authorizationService: AuthService) {}
 
