@@ -15,7 +15,7 @@ export class AuthGuard implements CanActivate {
       const request: Request & { user: UserEntity } = context.switchToHttp().getRequest();
       const authorizationHeader = request.headers.authorization;
     
-      if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
+      if (!authorizationHeader || !authorizationHeader.startsWith('Bearer')) {
         throw new UnauthorizedException('Invalid Authorization header');
       }
     

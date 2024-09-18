@@ -31,14 +31,14 @@
     "@nestjs/typeorm": "^10.0.2",
     "bcrypt": "^5.1.1",
     "bootstrap": "^5.3.3",
+    "cypress": "^13.14.2",
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
     "moment": "^2.30.1",
     "pg": "^8.13.0",
     "reflect-metadata": "^0.2.0",
     "sqlite3": "^5.1.7",
-    "typeorm": "^0.3.20",
-    "cypress": "^13.0.0"
+    "typeorm": "^0.3.20"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",
