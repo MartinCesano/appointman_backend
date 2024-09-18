@@ -8,7 +8,6 @@ import { AuthModule } from './auth/auth.module';
 import { PermissionsModule } from './permissions/permissions.module';
 import { RolesModule } from './roles/roles.module';
 import { UsersModule } from './users/users.module';
-import { LoginModule } from './login/login.module';
 import { RefreshModule } from './refresh/refresh.module';
 import { EstadoModule } from './estado/estado.module';
 import { ClienteModule } from './cliente/cliente.module';
@@ -36,7 +35,6 @@ import { PrestadorServicioModule } from './prestador-servicio/prestador-servicio
     PermissionsModule,
     RolesModule,
     UsersModule,
-    LoginModule, 
     RefreshModule, EstadoModule, ClienteModule, ReservaTurnoModule, ServicioModule, TurnoModule, HoraModule, HorarioModule, EmpleadoModule, DisponibilidadModule, SucursalModule, PrestadorServicioModule
   ],
   controllers: [AppController],

@@ -74,5 +74,3 @@ export class UsersController {
       return await this.usersService.assignRoleToUser(idUser, body);
     }
 }
-
-//13 - Gracias Fede
