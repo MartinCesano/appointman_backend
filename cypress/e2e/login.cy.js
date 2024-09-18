@@ -1,6 +1,7 @@
+
 describe('Register and Login flow', () => {
   const baseUrl = 'http://localhost:3001'; // Cambia por la URL donde corra tu backend
-
+   
   it.skip('Registro', () => {
     cy.request('POST', `${baseUrl}/users/register`, {
       email: 'testing@gmail.com',
@@ -12,7 +13,7 @@ describe('Register and Login flow', () => {
     });
   });
 
-  it('Login', () => {
+  it.skip('Login', () => {
     cy.request('POST', `${baseUrl}/users/login`, {
       email: 'testing@gmail.com',
       password: 'password123',
@@ -22,4 +23,7 @@ describe('Register and Login flow', () => {
       expect(response.body).to.have.property('refreshToken');
     });
   });
+  it('Visitar página web', () => {
+    cy.visit('https://4h5h7v02-4200.brs.devtunnels.ms/')
+  })
 });

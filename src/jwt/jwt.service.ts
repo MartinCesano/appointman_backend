@@ -24,7 +24,7 @@ export class JwtService {
       expiresIn: this.config[type].expiresIn,
     });
   }
-
+  
   refreshToken(refreshToken: string) {
     try {
       const payload = verify(refreshToken, this.config.refresh.secret) as Payload;
