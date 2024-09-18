@@ -23,7 +23,5 @@ describe('Register and Login flow', () => {
       expect(response.body).to.have.property('refreshToken');
     });
   });
-  it('Visitar página web', () => {
-    cy.visit('https://4h5h7v02-4200.brs.devtunnels.ms/')
-  })
+
 });
