@@ -1,26 +1,34 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, HttpException } from '@nestjs/common';
 import { CreateHoraDto } from './dto/create-hora.dto';
 import { UpdateHoraDto } from './dto/update-hora.dto';
+import { Hora } from './entities/hora.entity';
 
 @Injectable()
 export class HoraService {
-  create(createHoraDto: CreateHoraDto) {
-    return 'This action adds a new hora';
+  repository = Hora;
+
+  create(dto: CreateHoraDto){
+    const hora = this.repository.create(dto);
+    return this.repository.save(hora);
   }
 
   findAll() {
-    return `This action returns all hora`;
+    return this.repository.find();
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} hora`;
+    return `Esta acción devuelve la hora #${id}`;
   }
 
   update(id: number, updateHoraDto: UpdateHoraDto) {
-    return `This action updates a #${id} hora`;
+    return this.repository.update(id, updateHoraDto);
   }
 
   remove(id: number) {
-    return `This action removes a #${id} hora`;
+    try {
+      return this.repository.delete(id);
+    } catch (error) {
+      throw new HttpException('No se pudo borrar la hora.', error);
+    }
   }
 }
