@@ -1,8 +1,9 @@
 import { HttpException, Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { LoginDTO } from 'src/interfaces/login.dto';
 import { RegisterDTO } from 'src/interfaces/register.dto';
-import { UserI } from 'src/interfaces/user.interface';
-import { UserEntity } from '../entities/user.entity';
+import { IUsuario } from 'src/interfaces/user.interface';
+import { IPermiso } from 'src/interfaces/permisos.interface';
+import { UserEntity } from './user.entity';
 import { hashSync, compareSync } from 'bcrypt';
 import { JwtService } from 'src/jwt/jwt.service';
 import { Repository, DeepPartial} from 'typeorm';
@@ -59,13 +60,15 @@ export class UsersService {
     return this.jwtService.refreshToken(refreshToken);
   }
 
-  async canDo(user: UserI, permission: string) {   
-    const result = user.permissionCodes.includes(permission);
-    if (!result) {
+  async canDo(usuario: IUsuario, nombrePermiso: string) {   
+    const hasPermission = usuario.roles.some(role => 
+      role.permisos.some(permiso => permiso.nombre === nombrePermiso)
+    );
+    
+    if (!hasPermission) {
       throw new HttpException('El usuario no tiene el Permiso', 401);
     }
-
-
+  
     return true;
   }
 
@@ -73,7 +76,7 @@ export class UsersService {
     try {
       const user = new UserEntity();
       Object.assign(user, body);
-      user.password = hashSync(user.password, 10);
+      user.contrasena = hashSync(user.contrasena, 10);
       await this.repository.save(user);
       return { status: 'created'};
     } catch (error) {
@@ -87,7 +90,7 @@ export class UsersService {
       throw new UnauthorizedException();
     }
 
-    const compareResult = compareSync(body.password, user.password);
+    const compareResult = compareSync(body.password, user.contrasena);
     if (!compareResult) {
       throw new UnauthorizedException();
     }
@@ -106,26 +109,26 @@ export class UsersService {
   }
 
 
-  async assignPermissionToUser(userId: number, body: { permissionId: number }): Promise<UserEntity> {
+  async assignPermissionToUser(idUsuario: number, body: { idPermiso: number }): Promise<UserEntity> {
     
     const user = await this.repository.findOne({
-      where: { id: userId },
+      where: { id: idUsuario },
       relations: ['permissions'],
     });
 
     if (!user) {
-      throw new NotFoundException(`User with ID ${userId} not found`);
+      throw new NotFoundException(`User with ID ${idUsuario} not found`);
     }
-    const permission = await this.permissionsService.findPermissionById(body.permissionId );
+    const permission = await this.permissionsService.findPermissionById(body.idPermiso );
 
     if (!permission) {
-      throw new NotFoundException(`Permission with ID ${body.permissionId} not found`);
+      throw new NotFoundException(`Permission with ID ${body.idPermiso} not found`);
     }
 
-    if (!user.permissions) {
-      user.permissions = [];
+    if (!user.permisos) {
+      user.permisos = [];
     }
-    user.permissions.push(permission); //le agrega el permiso a users
+    user.permisos.push(permission); 
     await user.save();
     
     return user;
@@ -150,7 +153,7 @@ export class UsersService {
     if (!user.roles) {
       user.roles = [];
     }
-    user.roles.push(role); // le agrega el rol a user
+    user.roles.push(role);
     await user.save();
     
     return user;

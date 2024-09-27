@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
-import { HoraService } from './hora.service';
-import { CreateHoraDto } from './dto/create-hora.dto';
-import { UpdateHoraDto } from './dto/update-hora.dto';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
+import { HoraService } from './hora.service'; // Asegúrate de que esta ruta sea correcta
+import { CreateHoraDto } from './dto/create-hora.dto'; // Asegúrate de que esta ruta sea correcta
+import { UpdateHoraDto } from './dto/update-hora.dto'; // Asegúrate de que esta ruta sea correcta
 
-@Controller('hora')
+@Controller('hora') // Cambiado de 'appointment-time' a 'hora'
 export class HoraController {
   constructor(private readonly horaService: HoraService) {}
 
@@ -19,7 +19,7 @@ export class HoraController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.horaService.findOne(+id);
+    return this.horaService.findOne(+id); // Asegúrate de que el ID se convierta a número
   }
 
   @Patch(':id')

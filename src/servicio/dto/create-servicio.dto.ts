@@ -1,1 +1,3 @@
-export class CreateServicioDto {}
+export class CreateServicioDto {
+
+}

@@ -25,7 +25,7 @@ export class RolesGuard implements CanActivate {
       throw new ForbiddenException('El usuario no tiene roles asignados.');
     }
 
-    const hasRole = userEntity.roles.some(role => requiredRoles.includes(role.code));
+    const hasRole = userEntity.roles.some(role => requiredRoles.includes(role.nombre)); // antes estaba role.code
     if (!hasRole) {
       throw new ForbiddenException('El usuario no tiene el rol requerido.');
     }

@@ -1,6 +1,6 @@
 import { Body, Param, Post, Get, Put, Delete, Controller } from '@nestjs/common';
 import { PermissionsService } from './permissions.service';
-import { PermissionEntity } from 'src/entities/permission.entity';
+import { PermissionEntity } from 'src/permissions/entities/permission.entity';
 import { DeepPartial } from 'typeorm';
 
 @Controller('permissions')

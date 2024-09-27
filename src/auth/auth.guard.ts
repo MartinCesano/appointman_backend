@@ -2,7 +2,7 @@ import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from
 import { JwtService } from 'src/jwt/jwt.service';
 import { UsersService } from 'src/users/users.service';
 import { Request } from 'express';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from 'src/users/user.entity';
 
 @Injectable() // Añadir el decorador Injectable
 export class AuthGuard implements CanActivate {

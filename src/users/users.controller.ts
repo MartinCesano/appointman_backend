@@ -3,7 +3,7 @@ import { UsersService } from './users.service';
 import { LoginDTO } from '../interfaces/login.dto';
 import { RegisterDTO } from '../interfaces/register.dto';
 import { Request } from 'express';
-import { UserEntity } from 'src/entities/user.entity';
+import { UserEntity } from 'src/users/user.entity';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { DeepPartial } from 'typeorm';
 
@@ -12,7 +12,7 @@ export class UsersController {
   constructor(private usersService: UsersService) {}
 
   @Post(':id/permissions')
-    async assignPermissionToUser(@Param('id') idUser: number, @Body() body: { permissionId: number }): Promise<UserEntity> {
+    async assignPermissionToUser(@Param('id') idUser: number, @Body() body: { idPermiso: number }): Promise<UserEntity> {
       return await this.usersService.assignPermissionToUser(idUser, body);
     }
 

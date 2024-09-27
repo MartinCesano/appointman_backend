@@ -1,32 +1,34 @@
-import { Module } from '@nestjs/common';
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { entities } from './entities';
-import { JwtModule } from './jwt/jwt.module';
-import { AuthModule } from './auth/auth.module';
-import { PermissionsModule } from './permissions/permissions.module';
-import { RolesModule } from './roles/roles.module';
-import { UsersModule } from './users/users.module';
-import { RefreshModule } from './refresh/refresh.module';
-import { EstadoModule } from './estado/estado.module';
-import { ClienteModule } from './cliente/cliente.module';
-import { ReservaTurnoModule } from './reserva-turno/reserva-turno.module';
-import { ServicioModule } from './servicio/servicio.module';
-import { TurnoModule } from './turno/turno.module';
-import { HoraModule } from './hora/hora.module';
-import { HorarioModule } from './horario/horario.module';
-import { EmpleadoModule } from './empleado/empleado.module';
-import { DisponibilidadModule } from './disponibilidad/disponibilidad.module';
-import { SucursalModule } from './sucursal/sucursal.module';
-import { PrestadorServicioModule } from './prestador-servicio/prestador-servicio.module';
-
+import { Module } from "@nestjs/common";
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+import { TypeOrmModule } from "@nestjs/typeorm";
+import { entities } from "./entities";
+import { JwtModule } from "./jwt/jwt.module";
+import { AuthModule } from "./auth/auth.module";
+import { PermissionsModule } from "./permissions/permissions.module";
+import { RolesModule } from "./roles/roles.module";
+import { UsersModule } from "./users/users.module";
+import { RefreshModule } from "./refresh/refresh.module";
+import { EstadoModule } from "./estado/estado.module";
+import { ClienteModule } from "./cliente/cliente.module";
+import { ReservaTurnoModule } from "./reserva-turno/reserva-turno.module";
+import { ServicioModule } from "./servicio/servicio.module";
+import { TurnoModule } from "./turno/turno.module";
+import { HoraModule } from "./hora/hora.module";
+import { HorarioModule } from "./horario/horario.module";
+import { EmpleadoModule } from "./empleado/empleado.module";
+import { DisponibilidadModule } from "./disponibilidad/disponibilidad.module";
+import { SucursalModule } from "./sucursal/sucursal.module";
+import { PrestadorServicioModule } from "./prestador-servicio/prestador-servicio.module";
+import { GestorRegistrarTipoServicioService } from "./gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.service";
+import { GestorRegistrarTipoServicioController } from "./gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.controller";
+import { GestorRegistrarTipoServicioModule } from "./gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.module";
 
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db.sql',
+      type: "sqlite",
+      database: "db.sql",
       entities: entities,
       synchronize: true,
     }),
@@ -35,7 +37,19 @@ import { PrestadorServicioModule } from './prestador-servicio/prestador-servicio
     PermissionsModule,
     RolesModule,
     UsersModule,
-    RefreshModule, EstadoModule, ClienteModule, ReservaTurnoModule, ServicioModule, TurnoModule, HoraModule, HorarioModule, EmpleadoModule, DisponibilidadModule, SucursalModule, PrestadorServicioModule
+    RefreshModule,
+    EstadoModule,
+    ClienteModule,
+    ReservaTurnoModule,
+    ServicioModule,
+    TurnoModule,
+    HoraModule,
+    HorarioModule,
+    EmpleadoModule,
+    DisponibilidadModule,
+    SucursalModule,
+    PrestadorServicioModule,
+    GestorRegistrarTipoServicioModule,
   ],
   controllers: [AppController],
   providers: [AppService],

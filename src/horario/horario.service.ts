@@ -1,26 +1,58 @@
 import { Injectable } from '@nestjs/common';
 import { CreateHorarioDto } from './dto/create-horario.dto';
 import { UpdateHorarioDto } from './dto/update-horario.dto';
+import { Horario } from './entities/horario.entity';
 
 @Injectable()
 export class HorarioService {
-  create(createHorarioDto: CreateHorarioDto) {
-    return 'This action adds a new horario';
+  repository = Horario;
+
+  async create(createHorarioDto: CreateHorarioDto): Promise<Horario> {
+    let horario = new Horario();
+    horario.name = createHorarioDto.name;
+    horario.horas = createHorarioDto.horas;
+
+    return await this.repository.save(horario);
   }
 
-  findAll() {
-    return `This action returns all horario`;
+  async findAll(): Promise<Horario[]> {
+    return await this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} horario`;
+  async findOne(id: number) {
+    return await this.repository.findOne({ where: { id } });
   }
 
-  update(id: number, updateHorarioDto: UpdateHorarioDto) {
-    return `This action updates a #${id} horario`;
+  async update(id: number, updateHorarioDto: UpdateHorarioDto): Promise<Horario> {
+    let horario = await this.repository.findOne({ where: { id }, relations: ['horas'] });
+
+    if (!horario) {
+      throw new Error(`Horario with id ${id} not found`);
+    }
+
+    Object.assign(horario, updateHorarioDto);
+
+    if (updateHorarioDto.horas) {
+      horario.horas = horario.horas.filter(h =>
+        updateHorarioDto.horas.some(dtoH => dtoH.id === h.id)
+      );
+
+      for (const dtoH of updateHorarioDto.horas) {
+        const existingH = horario.horas.find(h => h.id === dtoH.id);
+        if (existingH) {
+          Object.assign(existingH, dtoH);
+        } else {
+          horario.horas.push(dtoH);
+        }
+      }
+    }
+
+    await this.repository.save(horario);
+
+    return horario;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} horario`;
+  async remove(id: number) {
+    return await this.repository.delete(id);
   }
 }

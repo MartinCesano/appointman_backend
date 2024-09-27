@@ -1,4 +1,4 @@
-import { PermissionEntity } from 'src/entities/permission.entity';
+import { PermissionEntity } from 'src/permissions/entities/permission.entity';
 import { PermissionsController } from './permissions.controller';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
