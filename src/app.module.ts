@@ -20,18 +20,13 @@ import { EmpleadoModule } from "./empleado/empleado.module";
 import { DisponibilidadModule } from "./disponibilidad/disponibilidad.module";
 import { SucursalModule } from "./sucursal/sucursal.module";
 import { PrestadorServicioModule } from "./prestador-servicio/prestador-servicio.module";
-import { GestorRegistrarTipoServicioService } from "./gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.service";
-import { GestorRegistrarTipoServicioController } from "./gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.controller";
 import { GestorRegistrarTipoServicioModule } from "./gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.module";
+import { DatabaseModule } from "./database/database.module";
+import { EmprendedorModule } from './emprendedor/emprendedor.module';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: "sqlite",
-      database: "db.sql",
-      entities: entities,
-      synchronize: true,
-    }),
+    DatabaseModule,
     JwtModule,
     AuthModule,
     PermissionsModule,
@@ -50,6 +45,7 @@ import { GestorRegistrarTipoServicioModule } from "./gestor-registrar-tipo-servi
     SucursalModule,
     PrestadorServicioModule,
     GestorRegistrarTipoServicioModule,
+    EmprendedorModule,
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -4,7 +4,7 @@ import { UserEntity } from '../../users/user.entity';
 import { IPermiso } from 'src/interfaces/permisos.interface';
 
 @Entity()
-export class PermissionEntity extends BaseEntity implements IPermiso	{
+export class Permiso extends BaseEntity implements IPermiso	{
  
   @PrimaryGeneratedColumn()
   id: number;

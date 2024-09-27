@@ -13,10 +13,10 @@ export class Hora extends BaseEntity {
   @Column()
   endTime: string;
 
-  @ManyToMany(() => Horario, horario => horario.horas) // Cambiado de Schedule a Horario
+  @ManyToMany(() => Horario, horario => horario.horas) // Relación con Horario
   @JoinTable()
-  horario: Horario[];
+  horarios: Horario[];
 
-  @OneToMany(() => Turno, turno => turno.horas) // Cambiado de Appointment a Turno
-  turno: Turno[];
+  @OneToMany(() => Turno, turno => turno.hora) // Relación a Turno corregida
+  turnos: Turno[]; // Cambiado a plural para seguir la convención
 }

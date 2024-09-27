@@ -1,5 +1,5 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity } from 'typeorm';
-import { PermissionEntity } from '../../permissions/entities/permission.entity';
+import { Permiso } from '../../permissions/entities/permission.entity';
 import { UserEntity } from '../../users/user.entity';
 import { IRol } from 'src/interfaces/rol.interface';
 
@@ -14,10 +14,10 @@ export class RoleEntity extends BaseEntity implements IRol{
   @Column({ nullable: true })
   description: string;
 
-  @ManyToMany(() => PermissionEntity, permisos => permisos.roles)
+  @ManyToMany(() => Permiso, permisos => permisos.roles)
   
   @JoinTable()
-  permisos: PermissionEntity[];
+  permisos: Permiso[];
 
   @ManyToMany(() => UserEntity, user => user.roles)
 
