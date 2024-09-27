@@ -1,8 +1,8 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity} from 'typeorm';
-import {IServicio} from "../../interfaces/servicio.interface";
+import { IServicio } from 'src/interfaces/servicio.interface';
 
 @Entity('servicio')
-export class ServicioEntity extends BaseEntity implements IServicio {
+export class Servicio extends BaseEntity implements IServicio {
     @PrimaryGeneratedColumn()
     id: number;
 

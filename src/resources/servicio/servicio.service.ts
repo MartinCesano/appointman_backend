@@ -1,17 +1,15 @@
 import {Injectable} from '@nestjs/common';
-import {CreateServicioDto} from './dto/create-servicio.dto';
 import {UpdateServicioDto} from './dto/update-servicio.dto';
-import {IServicio} from "../interfaces/servicio.interface";
-import {ServicioEntity} from "./entities/servicio.entity";
+import {Servicio} from "./entities/servicio.entity";
 import {DeepPartial, Repository} from 'typeorm';
 
 @Injectable()
 export class ServicioService {
-    repository = ServicioEntity;
+    repository = Servicio;
     constructor() {
     }
 
-    create(nuevoServicio: DeepPartial<ServicioEntity>): Promise<ServicioEntity> {
+    create(nuevoServicio: DeepPartial<Servicio>): Promise<Servicio> {
         try {
             return this.repository.save(nuevoServicio);
         } catch (error) {

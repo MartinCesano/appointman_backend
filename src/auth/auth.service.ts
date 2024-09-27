@@ -1,8 +1,8 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
 import { JwtService } from 'src/jwt/jwt.service';
-import { UsersService } from 'src/users/users.service';
+import { UsersService } from 'src/resources/users/users.service';
 import { Request } from 'express';
-import { UserEntity } from 'src/users/user.entity';
+import { UserEntity } from 'src/resources/users/user.entity';
 
 interface JwtPayload {
   sub: number; // Identificador del usuario (o el identificador que uses)

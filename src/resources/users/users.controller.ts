@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, Req,Put, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
-import { LoginDTO } from '../interfaces/login.dto';
-import { RegisterDTO } from '../interfaces/register.dto';
+import { LoginDTO } from '../../interfaces/login.dto';
+import { RegisterDTO } from '../../interfaces/register.dto';
 import { Request } from 'express';
-import { UserEntity } from 'src/users/user.entity';
+import { UserEntity } from 'src/resources/users/user.entity';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { DeepPartial } from 'typeorm';
 

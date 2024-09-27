@@ -7,8 +7,8 @@ import { UserEntity } from './user.entity';
 import { hashSync, compareSync } from 'bcrypt';
 import { JwtService } from 'src/jwt/jwt.service';
 import { Repository, DeepPartial} from 'typeorm';
-import { PermissionsService } from 'src/permissions/permissions.service';
-import { RolesService } from 'src/roles/roles.service';
+import { PermissionsService } from 'src/resources/permissions/permissions.service';
+import { RolesService } from 'src/resources/roles/roles.service';
 
 
 @Injectable()

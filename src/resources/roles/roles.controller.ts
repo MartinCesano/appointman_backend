@@ -1,14 +1,14 @@
 import { Body, Param, Post, Get, Put, Delete, Controller  } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { DeepPartial } from 'typeorm';
-import { RoleEntity } from 'src/roles/entities/role.entity';
+import { Rol } from 'src/resources/roles/entities/role.entity';
 
 @Controller('roles')
 export default class RolesController {
     constructor(private rolesService: RolesService) {}
     
     @Post(':id/permissions')
-    async assignPermissionToRole(@Param('id') idRole: number, @Body() body: { permissionId: number }): Promise<RoleEntity> {
+    async assignPermissionToRole(@Param('id') idRole: number, @Body() body: { permissionId: number }): Promise<Rol> {
         return await this.rolesService.assignPermissionToRole(idRole, body);
     }
 
@@ -18,17 +18,17 @@ export default class RolesController {
     }
 
     @Post()
-    async createRoles(@Body() bodyCreateRoles: DeepPartial<RoleEntity>): Promise<RoleEntity> {
+    async createRoles(@Body() bodyCreateRoles: DeepPartial<Rol>): Promise<Rol> {
         return await this.rolesService.createRoles(bodyCreateRoles);
     }
 
     @Delete(':id')
-    async deleteRole(@Param('id') id: number): Promise<RoleEntity> {
+    async deleteRole(@Param('id') id: number): Promise<Rol> {
         return await this.rolesService.deleteRole(id);
     }
     
     @Put(':id')
-    async updateRole(@Param('id') id: number, @Body() bodyUpdateRole: DeepPartial<RoleEntity>): Promise<RoleEntity>{
+    async updateRole(@Param('id') id: number, @Body() bodyUpdateRole: DeepPartial<Rol>): Promise<Rol>{
         return await this.rolesService.updateRole(id, bodyUpdateRole);
     }
 

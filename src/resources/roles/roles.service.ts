@@ -1,13 +1,13 @@
 import { Injectable, HttpException, NotFoundException} from '@nestjs/common';
-import { RoleEntity } from 'src/roles/entities/role.entity'
+import { Rol } from 'src/resources/roles/entities/role.entity'
 import { Repository, DeepPartial } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { PermissionsService } from 'src/permissions/permissions.service';
+import { PermissionsService } from 'src/resources/permissions/permissions.service';
 
 
 @Injectable()
 export class RolesService {
-    repository = RoleEntity; 
+    repository = Rol; 
     constructor(
       private permissionsService: PermissionsService
     ) {}
@@ -20,7 +20,7 @@ export class RolesService {
         }
     }
     
-    async findRoleById(id: number): Promise<RoleEntity> {
+    async findRoleById(id: number): Promise<Rol> {
         const role = await this.repository.findOne({where:{id}});
         if (!role) {
             throw new NotFoundException(`Role with id ${id} not found`);
@@ -53,7 +53,7 @@ export class RolesService {
         return role;
     }
 
-    async updateRole(id: number, role: DeepPartial<RoleEntity>) {
+    async updateRole(id: number, role: DeepPartial<Rol>) {
         const query = this.repository.createQueryBuilder('role').where('role.id = :id', { id });
         const roleActual = await query.getOne();
         this.repository.merge(roleActual, role);
@@ -70,7 +70,7 @@ export class RolesService {
         return await this.repository.remove(roleRemove);
     }
 
-    createRoles(role: DeepPartial<RoleEntity>) {
+    createRoles(role: DeepPartial<Rol>) {
         try {
             return this.repository.save(role);
         } catch (error) {

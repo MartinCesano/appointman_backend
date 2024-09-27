@@ -9,7 +9,7 @@ export class HorarioService {
 
   async create(createHorarioDto: CreateHorarioDto): Promise<Horario> {
     let horario = new Horario();
-    horario.name = createHorarioDto.name;
+    horario.nombre = createHorarioDto.name;
     horario.horas = createHorarioDto.horas;
 
     return await this.repository.save(horario);

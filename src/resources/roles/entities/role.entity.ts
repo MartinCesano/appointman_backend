@@ -4,7 +4,7 @@ import { UserEntity } from '../../users/user.entity';
 import { IRol } from 'src/interfaces/rol.interface';
 
 @Entity('roles')
-export class RoleEntity extends BaseEntity implements IRol{
+export class Rol extends BaseEntity implements IRol{
   @PrimaryGeneratedColumn()
   id: number;
 
