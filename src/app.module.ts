@@ -23,6 +23,7 @@ import { PrestadorServicioModule } from './prestador-servicio/prestador-servicio
 import { GestorRegistrarTipoServicioService } from './gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.service';
 import { GestorRegistrarTipoServicioController } from './gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.controller';
 import { GestorRegistrarTipoServicioModule } from './gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.module';
+import { GestorRegistrarClienteModule } from './Gestores/gestor-registrar-cliente/gestor-registrar-cliente.module';
 
 
 @Module({
@@ -38,7 +39,7 @@ import { GestorRegistrarTipoServicioModule } from './gestor-registrar-tipo-servi
     PermissionsModule,
     RolesModule,
     UsersModule,
-    RefreshModule, EstadoModule, ClienteModule, ReservaTurnoModule, ServicioModule, TurnoModule, HoraModule, HorarioModule, EmpleadoModule, DisponibilidadModule, SucursalModule, PrestadorServicioModule, GestorRegistrarTipoServicioModule
+    RefreshModule, EstadoModule, ClienteModule, ReservaTurnoModule, ServicioModule, TurnoModule, HoraModule, HorarioModule, EmpleadoModule, DisponibilidadModule, SucursalModule, PrestadorServicioModule, GestorRegistrarTipoServicioModule, GestorRegistrarClienteModule
   ],
   controllers: [AppController, GestorRegistrarTipoServicioController],
   providers: [AppService, GestorRegistrarTipoServicioService],
