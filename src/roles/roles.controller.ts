@@ -1,7 +1,7 @@
 import { Body, Param, Post, Get, Put, Delete, Controller  } from '@nestjs/common';
 import { RolesService } from './roles.service';
 import { DeepPartial } from 'typeorm';
-import { RoleEntity } from 'src/entities/role.entity';
+import { RoleEntity } from 'src/roles/entities/role.entity';
 
 @Controller('roles')
 export default class RolesController {

@@ -1,6 +1,11 @@
-export interface UserI {
+import { IRol } from "./rol.interface";
+
+export interface IUsuario {
   id: number;
   email: string;
-  password: string;
-  permissionCodes: string[];
+  telefono: string;
+  contrasena: string;
+  nombre: string;
+  apellido: string;
+  roles: IRol[];
 }

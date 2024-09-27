@@ -1,5 +1,5 @@
 import { Injectable, HttpException, NotFoundException} from '@nestjs/common';
-import { RoleEntity } from 'src/entities/role.entity'
+import { RoleEntity } from 'src/roles/entities/role.entity'
 import { Repository, DeepPartial } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PermissionsService } from 'src/permissions/permissions.service';
@@ -43,11 +43,11 @@ export class RolesService {
         if (!permission) {
             throw new NotFoundException(`Permission with ID ${body.permissionId} not found`);
           }
-        if (!role.permissions) {
-            role.permissions = [];
+        if (!role.permisos) {
+            role.permisos = [];
         }
 
-        role.permissions.push(permission); //le agrega el permiso a users
+        role.permisos.push(permission); 
         await role.save();
         
         return role;
