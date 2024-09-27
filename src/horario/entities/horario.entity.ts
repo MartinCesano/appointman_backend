@@ -1,5 +1,5 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
-import { IHorario } from './horario.interface';
+import { IHorario} from "../../interfaces/horario.interface";
 import { Hora } from '../../hora/entities/hora.entity';
 
 @Entity()

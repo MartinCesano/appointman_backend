@@ -20,6 +20,9 @@ import { EmpleadoModule } from './empleado/empleado.module';
 import { DisponibilidadModule } from './disponibilidad/disponibilidad.module';
 import { SucursalModule } from './sucursal/sucursal.module';
 import { PrestadorServicioModule } from './prestador-servicio/prestador-servicio.module';
+import { GestorRegistrarTipoServicioService } from './gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.service';
+import { GestorRegistrarTipoServicioController } from './gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.controller';
+import { GestorRegistrarTipoServicioModule } from './gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.module';
 
 
 @Module({
@@ -35,9 +38,9 @@ import { PrestadorServicioModule } from './prestador-servicio/prestador-servicio
     PermissionsModule,
     RolesModule,
     UsersModule,
-    RefreshModule, EstadoModule, ClienteModule, ReservaTurnoModule, ServicioModule, TurnoModule, HoraModule, HorarioModule, EmpleadoModule, DisponibilidadModule, SucursalModule, PrestadorServicioModule
+    RefreshModule, EstadoModule, ClienteModule, ReservaTurnoModule, ServicioModule, TurnoModule, HoraModule, HorarioModule, EmpleadoModule, DisponibilidadModule, SucursalModule, PrestadorServicioModule, GestorRegistrarTipoServicioModule
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers: [AppController, GestorRegistrarTipoServicioController],
+  providers: [AppService, GestorRegistrarTipoServicioService],
 })
 export class AppModule {}
