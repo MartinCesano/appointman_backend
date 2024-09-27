@@ -1,14 +1,16 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
 import { Hora } from '../../hora/entities/hora.entity';
+import { IHora } from 'src/interfaces/hora.interface';
+import { IHorario } from 'src/interfaces/horario.interface';
 
 @Entity()
-export class Horario extends BaseEntity   {
+export class Horario extends BaseEntity implements IHorario {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  name: string;
+  nombre: string;
 
   @ManyToMany(() => Hora, hora => hora.horarios, { cascade: true, onDelete: 'CASCADE', eager: true }) // Cambiado a 'horarios'
-  horas: Hora[];
+  horas: IHora[];
 }

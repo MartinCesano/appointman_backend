@@ -1,22 +1,25 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
-import { Turno } from '../../turno/entities/turno.entity'; // Asegúrate de que esta ruta sea correcta
-import { Horario } from '../../horario/entities/horario.entity'; // Asegúrate de que esta ruta sea correcta
+import { Turno } from '../../turno/entities/turno.entity'; 
+import { Horario } from '../../horario/entities/horario.entity'; 
+import { IHora } from 'src/interfaces/hora.interface';
+import { IHorario } from 'src/interfaces/horario.interface';
+import { ITurno } from 'src/interfaces/turno.interface';
 
 @Entity()
-export class Hora extends BaseEntity {
+export class Hora extends BaseEntity implements IHora {
   @PrimaryGeneratedColumn()
   id: number;
 
   @Column()
-  startTime: string;
+  horaInicio: string;
   
   @Column()
-  endTime: string;
+  horaFin: string;
 
-  @ManyToMany(() => Horario, horario => horario.horas) // Relación con Horario
+  @ManyToMany(() => Horario, horario => horario.horas)
   @JoinTable()
-  horarios: Horario[];
+  horarios: IHorario[];
 
-  @OneToMany(() => Turno, turno => turno.hora) // Relación a Turno corregida
-  turnos: Turno[]; // Cambiado a plural para seguir la convención
+  @OneToMany(() => Turno, turno => turno.hora) 
+  turnos: ITurno[]; 
 }

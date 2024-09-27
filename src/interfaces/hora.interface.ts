@@ -1,9 +1,9 @@
 import { IHorario } from './horario.interface';
 import { ITurno } from './turno.interface';
 export interface IHora {
-    id: number;
-    startTime: string;
-    endTime: string;
-    horario: IHorario[];
-    turno: ITurno[];
-  }
+  id: number;
+  horaInicio: string; // Se espera en formato "HH:mm"
+  horaFin: string; // Se espera en formato "HH:mm"
+  horarios: IHorario[];
+  turnos: ITurno[];
+}
