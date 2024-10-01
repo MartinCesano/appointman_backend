@@ -1,7 +1,7 @@
 import { HttpException, Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
-import { LoginDTO } from 'src/interfaces/login.dto';
-import { RegisterDTO } from 'src/interfaces/register.dto';
-import { IUsuario } from 'src/auth/interfaces/user.interface';
+import { LoginDTO } from '../../interfaces/login.dto';
+import { RegisterDTO } from '../../interfaces/register.dto';
+import { IUsuario } from '../../interfaces/user.interface';
 import { Usuario } from './usuario.entity';
 import { hashSync, compareSync } from 'bcrypt';
 import { JwtService } from '../jwt/jwt.service';
