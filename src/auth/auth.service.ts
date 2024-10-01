@@ -1,8 +1,8 @@
 import { Injectable, UnauthorizedException, HttpException, HttpStatus } from '@nestjs/common';
 import { JwtService } from './modules/jwt/jwt.service';
 import { UsuarioService } from './modules/usuario/usuario.service';
-import { LoginDTO } from 'src/interfaces/login.dto';
-import { RegisterDTO } from 'src/interfaces/register.dto';
+import { LoginDTO } from './interfaces/login.dto';
+import { RegisterDTO } from 'src/auth/interfaces/register.dto';
 import { compareSync } from 'bcrypt';
 import { Request } from 'express';
 import { CanActivate, ExecutionContext } from '@nestjs/common';

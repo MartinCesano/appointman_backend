@@ -1,6 +1,6 @@
 module.exports = {
   moduleFileExtensions: ['js', 'json', 'ts'],
-  rootDir: 'src',
+  rootDir: '.',
   testRegex: '.*\\.spec\\.ts$', // Busca archivos que terminen con .spec.ts
   transform: {
     '^.+\\.ts$': 'ts-jest', // Usa ts-jest para transformar archivos TypeScript

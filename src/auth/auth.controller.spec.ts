@@ -1,8 +1,8 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
-import { LoginDTO } from 'src/interfaces/login.dto';
-import { RegisterDTO } from 'src/interfaces/register.dto';
+import { LoginDTO } from './interfaces/login.dto';
+import { RegisterDTO } from './interfaces/register.dto';
 import { HttpException } from '@nestjs/common';
 
 describe('AuthController', () => {
@@ -32,7 +32,7 @@ describe('AuthController', () => {
   });
 
   describe('login', () => {
-    it('should return user data when login is successful', async () => {
+    it('debería devolver los datos del usuario cuando el inicio de sesión es exitoso', async () => {
       const loginDto: LoginDTO = { email: 'test@example.com', password: 'password' };
       const result = { accessToken: 'someAccessToken' };
       mockAuthService.login.mockResolvedValue(result);
@@ -41,16 +41,16 @@ describe('AuthController', () => {
       expect(mockAuthService.login).toHaveBeenCalledWith(loginDto);
     });
 
-    it('should throw an error if login fails', async () => {
+    it('debería lanzar un error si el inicio de sesión falla', async () => {
       const loginDto: LoginDTO = { email: 'wrong@example.com', password: 'wrongPassword' };
-      mockAuthService.login.mockRejectedValue(new HttpException('Invalid credentials', 401));
+      mockAuthService.login.mockRejectedValue(new HttpException('Credenciales inválidas', 401));
 
       await expect(authController.login(loginDto)).rejects.toThrow(HttpException);
     });
   });
 
   describe('register', () => {
-    it('should return success message when registration is successful', async () => {
+    it('debería devolver un mensaje de éxito cuando el registro es exitoso', async () => {
       const registerDto: RegisterDTO = { 
         email: 'newuser@example.com', 
         contrasena: 'newPassword',
@@ -58,14 +58,14 @@ describe('AuthController', () => {
         apellido: 'User',
         telefono: '1234567890'
       };
-      const result = { message: 'User registered successfully' };
+      const result = { message: 'Usuario registrado exitosamente' };
       mockAuthService.register.mockResolvedValue(result);
 
       expect(await authController.register(registerDto)).toEqual(result);
       expect(mockAuthService.register).toHaveBeenCalledWith(registerDto);
     });
 
-    it('should throw an error if registration fails', async () => {
+    it('debería lanzar un error si el registro falla', async () => {
       const registerDto: RegisterDTO = { 
         email: 'existinguser@example.com', 
         contrasena: 'password',
@@ -73,14 +73,14 @@ describe('AuthController', () => {
         apellido: 'User',
         telefono: '0987654321'
       };
-      mockAuthService.register.mockRejectedValue(new HttpException('User already exists', 409));
+      mockAuthService.register.mockRejectedValue(new HttpException('El usuario ya existe', 409));
 
       await expect(authController.register(registerDto)).rejects.toThrow(HttpException);
     });
   });
 
   describe('validateToken', () => {
-    it('should return valid true if token is valid', async () => {
+    it('debería devolver verdadero si el token es válido', async () => {
       const token = 'validToken';
       mockAuthService.validateToken.mockResolvedValue(true);
 
@@ -88,7 +88,7 @@ describe('AuthController', () => {
       expect(mockAuthService.validateToken).toHaveBeenCalledWith(token);
     });
 
-    it('should throw an error if token is invalid', async () => {
+    it('debería lanzar un error si el token es inválido', async () => {
       const token = 'invalidToken';
       mockAuthService.validateToken.mockResolvedValue(false);
 
@@ -98,7 +98,7 @@ describe('AuthController', () => {
   });
 
   describe('refreshToken', () => {
-    it('should return new access token when refresh token is valid', async () => {
+    it('debería devolver un nuevo token de acceso cuando el token de refresco es válido', async () => {
       const refreshToken = 'validRefreshToken';
       const result = { accessToken: 'newAccessToken' };
       mockAuthService.refreshToken.mockResolvedValue(result);
@@ -107,9 +107,9 @@ describe('AuthController', () => {
       expect(mockAuthService.refreshToken).toHaveBeenCalledWith(refreshToken);
     });
 
-    it('should throw an error if refresh token is invalid', async () => {
+    it('debería lanzar un error si el token de refresco es inválido', async () => {
       const refreshToken = 'invalidRefreshToken';
-      mockAuthService.refreshToken.mockRejectedValue(new HttpException('Invalid refresh token', 401));
+      mockAuthService.refreshToken.mockRejectedValue(new HttpException('Token de refresco inválido', 401));
 
       await expect(authController.refreshToken({ refreshToken })).rejects.toThrow(HttpException);
     });
