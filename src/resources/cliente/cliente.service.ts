@@ -1,7 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import {CreateClienteDto} from './dto/create-cliente.dto';
 import {UpdateClienteDto} from './dto/update-cliente.dto';
-import {ICliente} from "../interfaces/cliente.interface";
+import {ICliente} from "../../interfaces/cliente.interface";
 import {ClienteEntity} from './entities/cliente.entity';
 import {DeepPartial, Repository} from 'typeorm';
 
@@ -12,7 +12,6 @@ export class ClienteService {
 
     create(nuevoCliente: DeepPartial<ClienteEntity>): Promise<ClienteEntity> {
         try {
-            console.log(nuevoCliente);
             return this.repository.save(nuevoCliente);
         } catch (error) {
             throw new Error(`Error creating cliente: ${error.message}`);

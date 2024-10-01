@@ -19,6 +19,7 @@ import { PrestadorServicioModule } from "./resources/prestador-servicio/prestado
 import { GestorRegistrarTipoServicioModule } from "./gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.module";
 import { DatabaseModule } from "./database/database.module";
 import { EmprendedorModule } from './resources/emprendedor/emprendedor.module';
+import { GestorRegistrarClienteModule} from "./Gestores/gestor-registrar-cliente/gestor-registrar-cliente.module";
 
 @Module({
   imports: [
@@ -40,6 +41,7 @@ import { EmprendedorModule } from './resources/emprendedor/emprendedor.module';
     PrestadorServicioModule,
     GestorRegistrarTipoServicioModule,
     EmprendedorModule,
+    GestorRegistrarClienteModule
   ],
   controllers: [AppController],
   providers: [AppService],

@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cliente } from 'src/resources/cliente/entities/cliente.entity';
+import { ClienteEntity } from 'src/resources/cliente/entities/cliente.entity';
 import { Disponibilidad } from 'src/resources/disponibilidad/entities/disponibilidad.entity';
 import { Empleado } from 'src/resources/empleado/entities/empleado.entity';
 import { Emprendedor } from 'src/resources/emprendedor/entities/emprendedor.entity';
@@ -21,7 +21,7 @@ import { Usuario } from 'src/auth/modules/usuario/usuario.entity';
       type: 'sqlite',
       database: './appointman.db',
       entities: [
-        Cliente,
+        ClienteEntity,
         Estado,
         Disponibilidad,
         Empleado,

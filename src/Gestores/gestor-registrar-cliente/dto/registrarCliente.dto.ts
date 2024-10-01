@@ -1,22 +1,20 @@
-export class RegistrarTipoServicioDTO {
+export class RegistrarClienteDTO {
     nombre: string;
     apellido: string;
-    email: string;
-    telefono: number;
+    email: string | null;
     fechaNacimiento?: string | null;
     genero: string;
-    contraseña: string;
-    documento?: number | null;
+    contrasena: string;
+    telefono: string;
 
-    constructor(nombre: string, apellido: string, email: string, telefono: number, fechaNacimiento: string, genero: string, documento: number | null, contraseña: string) {
+    constructor(nombre: string, apellido: string, email: string | null, telefono: string, fechaNacimiento: string, genero: string, contrasena: string) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
-        this.telefono = telefono;
         this.fechaNacimiento = fechaNacimiento;
         this.genero = genero;
-        this.documento = documento;
-        this.contraseña = contraseña;
+        this.contrasena = contrasena;
+        this.telefono = telefono;
     }
 
 }

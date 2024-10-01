@@ -7,7 +7,7 @@ import { Permiso } from '../permiso/permiso.entity';
 export class Usuario extends BaseEntity implements IUsuario {
   @PrimaryGeneratedColumn()
   id: number;
-  @Column()
+  @Column({nullable: true})
   email: string;
   @Column()
   contrasena: string;
