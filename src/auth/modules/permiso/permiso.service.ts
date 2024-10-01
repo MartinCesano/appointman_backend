@@ -1,11 +1,10 @@
-import { Permiso } from 'src/resources/permissions/entities/permission.entity';
-import { PermissionsController } from './permissions.controller';
+import { Permiso } from './permiso.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository, DeepPartial} from 'typeorm';
 import { HttpException } from '@nestjs/common/exceptions/http.exception';
 @Injectable()
-export class PermissionsService {
+export class PermisoService {
     constructor(@InjectRepository(Permiso)
         private repository: Repository<Permiso>,
     ){}

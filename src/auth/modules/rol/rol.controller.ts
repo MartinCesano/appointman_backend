@@ -1,11 +1,11 @@
 import { Body, Param, Post, Get, Put, Delete, Controller  } from '@nestjs/common';
-import { RolesService } from './roles.service';
+import { RolService } from './rol.service';
 import { DeepPartial } from 'typeorm';
-import { Rol } from 'src/resources/roles/entities/role.entity';
+import { Rol } from './rol.entity';
 
 @Controller('roles')
-export default class RolesController {
-    constructor(private rolesService: RolesService) {}
+export default class RolController {
+    constructor(private rolesService: RolService) {}
     
     @Post(':id/permissions')
     async assignPermissionToRole(@Param('id') idRole: number, @Body() body: { permissionId: number }): Promise<Rol> {

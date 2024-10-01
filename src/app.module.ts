@@ -1,12 +1,10 @@
 import { Module } from "@nestjs/common";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
-import { JwtModule } from "./jwt/jwt.module";
 import { AuthModule } from "./auth/auth.module";
-import { PermissionsModule } from "./resources/permissions/permissions.module";
-import { RolesModule } from "./resources/roles/roles.module";
-import { UsersModule } from "./resources/users/users.module";
-import { RefreshModule } from "./refresh/refresh.module";
+import { PermisoModule } from "./auth/modules/permiso/permiso.module";
+import { RolModule } from "./auth/modules/rol/rol.module";
+import { UsuarioModule } from "./auth/modules/usuario/usuario.module";
 import { EstadoModule } from "./resources/estado/estado.module";
 import { ClienteModule } from "./resources/cliente/cliente.module";
 import { ReservaTurnoModule } from "./resources/reserva-turno/reserva-turno.module";
@@ -25,12 +23,10 @@ import { EmprendedorModule } from './resources/emprendedor/emprendedor.module';
 @Module({
   imports: [
     DatabaseModule,
-    JwtModule,
     AuthModule,
-    PermissionsModule,
-    RolesModule,
-    UsersModule,
-    RefreshModule,
+    PermisoModule,
+    RolModule,
+    UsuarioModule,
     EstadoModule,
     ClienteModule,
     ReservaTurnoModule,

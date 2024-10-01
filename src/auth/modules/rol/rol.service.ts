@@ -1,15 +1,14 @@
 import { Injectable, HttpException, NotFoundException} from '@nestjs/common';
-import { Rol } from 'src/resources/roles/entities/role.entity'
-import { Repository, DeepPartial } from 'typeorm';
-import { InjectRepository } from '@nestjs/typeorm';
-import { PermissionsService } from 'src/resources/permissions/permissions.service';
+import { Rol } from './rol.entity';
+import { DeepPartial } from 'typeorm';
+import { PermisoService } from '../permiso/permiso.service';
 
 
 @Injectable()
-export class RolesService {
+export class RolService {
     repository = Rol; 
     constructor(
-      private permissionsService: PermissionsService
+      private permissionsService: PermisoService
     ) {}
 
     async findRoles() {

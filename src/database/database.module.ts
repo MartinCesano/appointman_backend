@@ -7,12 +7,12 @@ import { Emprendedor } from 'src/resources/emprendedor/entities/emprendedor.enti
 import { Estado } from 'src/resources/estado/entities/estado.entity';
 import { Hora } from 'src/resources/hora/entities/hora.entity';
 import { Horario } from 'src/resources/horario/entities/horario.entity';
-import { Permiso } from 'src/resources/permissions/entities/permission.entity';
+import { Permiso } from 'src/auth/modules/permiso/permiso.entity';
 import { ReservaTurno } from 'src/resources/reserva-turno/entities/reserva-turno.entity';
-import { Rol } from 'src/resources/roles/entities/role.entity';
+import { Rol } from 'src/auth/modules/rol/rol.entity';
 import { Servicio } from 'src/resources/servicio/entities/servicio.entity';
 import { Turno } from 'src/resources/turno/entities/turno.entity';
-import { UserEntity as Usuario } from 'src/resources/users/user.entity';
+import { Usuario } from 'src/auth/modules/usuario/usuario.entity';
 
 
 @Module({
