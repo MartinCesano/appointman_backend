@@ -1,54 +1,97 @@
-import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from 'src/jwt/jwt.service';
-import { UsersService } from 'src/users/users.service';
+import { Injectable, UnauthorizedException, HttpException, HttpStatus } from '@nestjs/common';
+import { JwtService } from './modules/jwt/jwt.service';
+import { UsuarioService } from './modules/usuario/usuario.service';
+import { LoginDTO } from './interfaces/login.dto';
+import { RegisterDTO } from './interfaces/register.dto';
+import { compareSync } from 'bcrypt';
 import { Request } from 'express';
-import { UserEntity } from 'src/entities/user.entity';
+import { CanActivate, ExecutionContext } from '@nestjs/common';
+import { IUsuario } from './interfaces/user.interface';
 
-interface JwtPayload {
-  sub: number; // Identificador del usuario (o el identificador que uses)
-  username: string; // Nombre de usuario (o cualquier otro dato que necesites)
-  // Agrega otros campos según tus necesidades
-}
-
-@Injectable() // Añadir el decorador Injectable
+@Injectable()
 export class AuthService implements CanActivate {
   constructor(
     private readonly jwtService: JwtService, 
-    private readonly userService: UsersService
-  ){}
+    private readonly userService: UsuarioService
+  ) {}
 
+  async register(body: RegisterDTO) {
+    try {
+      const user = await this.userService.createUsers(body);
+      return { status: 'created', user };
+    } catch (error) {
+      throw new HttpException('Error en el registro', HttpStatus.INTERNAL_SERVER_ERROR);
+    }
+  }
+
+  async login(body: LoginDTO) {
+    const user = await this.userService.findByEmail(body.email);
+    
+    if (!user) {
+      throw new UnauthorizedException('User not found');
+    }
+
+    const compareResult = compareSync(body.password, user.contrasena);
+    
+    if (!compareResult) {
+      throw new UnauthorizedException('Invalid password');
+    }
+
+    return {
+      accessToken: this.jwtService.generateToken({ email: user.email }),
+      refreshToken: this.jwtService.generateToken({ email: user.email }, 'refresh'),
+    };
+  }
+
+  async refreshToken(refreshToken: string) {
+    return this.jwtService.refreshToken(refreshToken);
+  }
+
+  async validateToken(token: string): Promise<any> {
+    try {
+      return this.jwtService.validateToken(token);
+    } catch (error) {
+      throw new UnauthorizedException('Invalid or expired token');
+    }
+  }
+
+  // AuthGuard: Protección de rutas
   async canActivate(context: ExecutionContext): Promise<boolean> {
     try {
-      const request: Request & { user: UserEntity } = context.switchToHttp().getRequest();
+      const request: Request & { user: IUsuario } = context.switchToHttp().getRequest();
       const authorizationHeader = request.headers.authorization;
-    
+
       if (!authorizationHeader || !authorizationHeader.startsWith('Bearer ')) {
         throw new UnauthorizedException('Invalid Authorization header');
       }
-    
+
       const token = authorizationHeader.split(' ')[1];
-    
       if (!token) {
         throw new UnauthorizedException('Token not found');
       }
-    
+
+      // Validar token y obtener payload
       const payload = await this.jwtService.getPayload(token);
       const user = await this.userService.findByEmail(payload.email);
+      
+      // Adjuntar usuario al request
       request.user = user;
       return true;
     } catch (error) {
       throw new UnauthorizedException('Invalid token');
     }
   }
-  
-  async validateToken(token: string): Promise<any> {
-    try {
-      // Verifica el token
-      const decoded = this.jwtService.validateToken(token);
-      return decoded;
-    } catch (error) {
-      // Si el token no es válido o ha expirado
-      throw new UnauthorizedException('Invalid or expired token');
+
+  // Verificar permisos del usuario
+  async canDo(usuario: IUsuario, nombrePermiso: string) {   
+    const hasPermission = usuario.roles.some(role => 
+      role.permisos.some(permiso => permiso.nombre === nombrePermiso)
+    );
+    
+    if (!hasPermission) {
+      throw new HttpException('El usuario no tiene el Permiso', 401);
     }
+  
+    return true;
   }
 }
