@@ -1,26 +1,36 @@
-import { Injectable } from '@nestjs/common';
-import { CreateClienteDto } from './dto/create-cliente.dto';
-import { UpdateClienteDto } from './dto/update-cliente.dto';
+import {Injectable} from '@nestjs/common';
+import {CreateClienteDto} from './dto/create-cliente.dto';
+import {UpdateClienteDto} from './dto/update-cliente.dto';
+import {ICliente} from "../../interfaces/cliente.interface";
+import {ClienteEntity} from './entities/cliente.entity';
+import {DeepPartial, Repository} from 'typeorm';
+
 
 @Injectable()
 export class ClienteService {
-  create(createClienteDto: CreateClienteDto) {
-    return 'This action adds a new cliente';
-  }
+    repository = ClienteEntity;
 
-  findAll() {
-    return `This action returns all cliente`;
-  }
+    create(nuevoCliente: DeepPartial<ClienteEntity>): Promise<ClienteEntity> {
+        try {
+            return this.repository.save(nuevoCliente);
+        } catch (error) {
+            throw new Error(`Error creating cliente: ${error.message}`);
+        }
+    }
 
-  findOne(id: number) {
-    return `This action returns a #${id} cliente`;
-  }
+    findAll() {
+        return `This action returns all cliente`;
+    }
 
-  update(id: number, updateClienteDto: UpdateClienteDto) {
-    return `This action updates a #${id} cliente`;
-  }
+    findOne(id: number) {
+        return `This action returns a #${id} cliente`;
+    }
 
-  remove(id: number) {
-    return `This action removes a #${id} cliente`;
-  }
+    update(id: number, updateClienteDto: UpdateClienteDto) {
+        return `This action updates a #${id} cliente`;
+    }
+
+    remove(id: number) {
+        return `This action removes a #${id} cliente`;
+    }
 }
