@@ -16,10 +16,10 @@ import { EmpleadoModule } from "./resources/empleado/empleado.module";
 import { DisponibilidadModule } from "./resources/disponibilidad/disponibilidad.module";
 import { SucursalModule } from "./resources/sucursal/sucursal.module";
 import { PrestadorServicioModule } from "./resources/prestador-servicio/prestador-servicio.module";
-import { GestorRegistrarTipoServicioModule } from "./gestor-registrar-tipo-servicio/gestor-registrar-tipo-servicio.module";
+import { GestorRegistrarTipoServicioModule } from "./gestion-empresa/use-cases/registrar-tipo-servicio/gestor-registrar-tipo-servicio.module";
 import { DatabaseModule } from "./database/database.module";
 import { EmprendedorModule } from './resources/emprendedor/emprendedor.module';
-import { GestorRegistrarClienteModule} from "./Gestores/gestor-registrar-cliente/gestor-registrar-cliente.module";
+import { GestorRegistrarClienteModule } from "./gestion-reserva-cliente/use-cases/registar-cliente/gestor-registrar-cliente.module";
 
 @Module({
   imports: [

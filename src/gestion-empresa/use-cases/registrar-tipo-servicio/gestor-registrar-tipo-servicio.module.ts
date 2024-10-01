@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
-import {GestorRegistrarTipoServicioController} from "./gestor-registrar-tipo-servicio.controller";
-import {GestorRegistrarTipoServicioService} from "./gestor-registrar-tipo-servicio.service";
+import { GestorRegistrarTipoServicioController } from './gestor-registrar-tipo-servicio.controller';
+import { GestorRegistrarTipoServicioService } from './gestor-registrar-tipo-servicio.service';
 import { ServicioService } from 'src/resources/servicio/servicio.service';
 
 @Module({
