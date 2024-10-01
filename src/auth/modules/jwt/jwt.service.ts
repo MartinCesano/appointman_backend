@@ -16,21 +16,20 @@ export class JwtService {
     },
   };
 
-  generateToken(
-    payload: { email: string },
-    type: 'refresh' | 'auth' = 'auth',
-  ): string {
+  // Generar token
+  generateToken(payload: { email: string }, type: 'refresh' | 'auth' = 'auth'): string {
     return sign(payload, this.config[type].secret, {
       expiresIn: this.config[type].expiresIn,
     });
   }
-  
-  
+
+  // Refrescar token
   refreshToken(refreshToken: string) {
     try {
       const payload = verify(refreshToken, this.config.refresh.secret) as Payload;
       const currentTime = Math.floor(Date.now() / 1000);
       const timeToExpire = (payload.exp - currentTime) / 60;
+
       if (timeToExpire < 20) { // Si el token está a menos de 20 minutos de expirar
         return {
           accessToken: this.generateToken({ email: payload.email }),
@@ -44,13 +43,16 @@ export class JwtService {
         };
       }
     } catch (error) {
-      throw new UnauthorizedException();
+      throw new UnauthorizedException('Invalid refresh token');
     }
   }
 
-  getPayload(token: string, type: 'refresh' | 'auth' = 'auth'): Payload{
-    return  verify(token, this.config[type].secret) as Payload;
-  }  
+  // Obtener payload del token
+  getPayload(token: string, type: 'refresh' | 'auth' = 'auth'): Payload {
+    return verify(token, this.config[type].secret) as Payload;
+  }
+
+  // Validar token
   validateToken(token: string, type: 'refresh' | 'auth' = 'auth'): Payload {
     try {
       return verify(token, this.config[type].secret) as Payload;

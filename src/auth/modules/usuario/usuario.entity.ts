@@ -1,10 +1,10 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity } from 'typeorm';
-import { IUsuario } from '../../interfaces/user.interface';
-import { Rol } from '../roles/entities/role.entity';
-import { Permiso } from 'src/resources/permissions/entities/permission.entity';
+import { IUsuario } from 'src/auth/interfaces/user.interface';
+import { Rol } from '../rol/rol.entity';
+import { Permiso } from '../permiso/permiso.entity';
 
-@Entity('users')
-export class UserEntity extends BaseEntity implements IUsuario {
+@Entity()
+export class Usuario extends BaseEntity implements IUsuario {
   @PrimaryGeneratedColumn()
   id: number;
   @Column()

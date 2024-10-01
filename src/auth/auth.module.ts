@@ -1,12 +1,12 @@
 import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
-import { JwtService } from 'src/jwt/jwt.service';
-import { AuthGuard } from 'src/auth/auth.guard';
-import { UsersModule } from 'src/resources/users/users.module';
+import { AuthGuard } from './guards/auth.guard';
+import { UsuarioModule } from './modules/usuario/usuario.module';
+import { JwtModule } from './modules/jwt/jwt.module';
 
 @Module({
-  providers: [AuthService, AuthGuard,JwtService],
-  imports: [UsersModule],
-  exports: [AuthService, AuthGuard]
+  providers: [AuthService, AuthGuard],
+  imports: [JwtModule, UsuarioModule],
+  exports: [AuthService, AuthGuard],
 })
 export class AuthModule {}

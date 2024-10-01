@@ -1,18 +1,18 @@
 import { CanActivate, ExecutionContext, Injectable, UnauthorizedException } from '@nestjs/common';
-import { JwtService } from 'src/jwt/jwt.service';
-import { UsersService } from 'src/resources/users/users.service';
+import { JwtService } from '../modules/jwt/jwt.service';
+import { UsuarioService } from '../modules/usuario/usuario.service';
 import { Request } from 'express';
-import { UserEntity } from 'src/resources/users/user.entity';
+import { Usuario } from '../modules/usuario/usuario.entity';
 
 @Injectable() // Añadir el decorador Injectable
 export class AuthGuard implements CanActivate {
   constructor(
     private readonly jwtService: JwtService, 
-    private readonly userService: UsersService
+    private readonly userService: UsuarioService
   ){}
   async canActivate(context: ExecutionContext): Promise<boolean> {
     try {
-      const request: Request & { user: UserEntity } = context.switchToHttp().getRequest();
+      const request: Request & { user: Usuario } = context.switchToHttp().getRequest();
       const authorizationHeader = request.headers.authorization;
     
       if (!authorizationHeader || !authorizationHeader.startsWith('Bearer')) {
