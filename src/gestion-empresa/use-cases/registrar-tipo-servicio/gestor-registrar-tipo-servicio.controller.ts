@@ -1,7 +1,7 @@
 import { Controller } from '@nestjs/common';
 import { Post, Get, Body } from '@nestjs/common';
 import { GestorRegistrarTipoServicioService } from './gestor-registrar-tipo-servicio.service';
-import {RegistrarTipoServicioDTO} from "./dto/registrarTipoServicio";
+import { RegistrarTipoServicioDTO } from 'src/gestion-empresa/interfaces/registrarTipoServicio';
 
 
 @Controller('gestor-registrar-tipo-servicio')
