@@ -6,7 +6,7 @@ import { IRol } from 'src/auth/interfaces/rol.interface';
 @Entity('roles')
 export class Rol extends BaseEntity implements IRol{
   @PrimaryGeneratedColumn()
-  id: number;
+  codigo: number;
 
   @Column()
   nombre: string;
