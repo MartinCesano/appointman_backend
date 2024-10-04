@@ -7,6 +7,11 @@ import { RegisterDTO } from './interfaces/register.dto';
 export class AuthController {
   constructor(private readonly authorizationService: AuthService) {}
 
+  @Get()
+    getHello(): string {
+        return 'status:Hola loquito todo correcto, aguante el dortmund';
+    }
+
   @Post('login')
   @HttpCode(HttpStatus.OK)
   async login(@Body() body: LoginDTO) {

@@ -17,6 +17,5 @@ export class RegisterDTO {
   apellido: string; 
 
   @IsNotEmpty({ message: 'Phone number is required' })
-  @IsPhoneNumber(null, { message: 'Phone number is invalid' })
   telefono: string;
 }

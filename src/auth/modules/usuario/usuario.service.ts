@@ -16,7 +16,8 @@ export class UsuarioService {
   constructor(
     private permissionsService: PermisoService,
     private jwtService: JwtService,
-    private rolesService: RolService
+    private rolesService: RolService,
+
   ) {}
 
   async createUsers(users: DeepPartial<Usuario>) {
@@ -26,6 +27,7 @@ export class UsuarioService {
       throw new HttpException('Create user error', 500);
     }
   }
+
 
   async findUsers(): Promise<Usuario[]> {
     try {
@@ -62,15 +64,15 @@ export class UsuarioService {
     return this.jwtService.refreshToken(refreshToken);
   }
 
-  async canDo(usuario: IUsuario, nombrePermiso: string) {   
-    const hasPermission = usuario.roles.some(role => 
+  async canDo(usuario: IUsuario, nombrePermiso: string) {
+    const hasPermission = usuario.roles.some(role =>
       role.permisos.some(permiso => permiso.nombre === nombrePermiso)
     );
 
     if (!hasPermission) {
       throw new HttpException('El usuario no tiene el Permiso', 401);
     }
-  
+
     return true;
   }
 
@@ -93,7 +95,7 @@ export class UsuarioService {
       throw new UnauthorizedException('User not found');
     }
 
-    const compareResult = compareSync(body.password, user.contrasena);
+    const compareResult = compareSync(body.contrasena, user.contrasena);
 
     if (!compareResult) {
       throw new UnauthorizedException('Invalid password');
@@ -129,9 +131,9 @@ export class UsuarioService {
       user.permisos = [];
     }
 
-    user.permisos.push(permission); 
+    user.permisos.push(permission);
     await user.save();
-    
+
     return user;
   }
 
@@ -157,7 +159,7 @@ export class UsuarioService {
 
     user.roles.push(role);
     await user.save();
-    
+
     return user;
   }
 }

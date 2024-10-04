@@ -17,7 +17,7 @@ export class AuthService implements CanActivate {
 
   async register(body: RegisterDTO) {
     try {
-      const user = await this.userService.createUsers(body);
+      const user = await this.userService.register(body);
       return { status: 'created', user };
     } catch (error) {
       throw new HttpException('Error en el registro', HttpStatus.INTERNAL_SERVER_ERROR);
@@ -31,7 +31,7 @@ export class AuthService implements CanActivate {
       throw new UnauthorizedException('User not found');
     }
 
-    const compareResult = compareSync(body.password, user.contrasena);
+    const compareResult = compareSync(body.contrasena, user.contrasena);
     
     if (!compareResult) {
       throw new UnauthorizedException('Invalid password');

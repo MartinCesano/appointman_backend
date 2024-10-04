@@ -19,17 +19,17 @@ export class RolService {
         }
     }
     
-    async findRoleById(id: number): Promise<Rol> {
-        const role = await this.repository.findOne({where:{id}});
+    async findRoleById(codigo: number): Promise<Rol> {
+        const role = await this.repository.findOne({where:{codigo}});
         if (!role) {
-            throw new NotFoundException(`Role with id ${id} not found`);
+            throw new NotFoundException(`Role with id ${codigo} not found`);
         }
         return role;
     }
 
     async assignPermissionToRole(idRole: number, body: { permissionId: number }) {
         const role = await this.repository.findOne({
-            where: { id: idRole },
+            where: { codigo: idRole },
             relations: ['permissions'],
           });
 
@@ -52,19 +52,19 @@ export class RolService {
         return role;
     }
 
-    async updateRole(id: number, role: DeepPartial<Rol>) {
-        const query = this.repository.createQueryBuilder('role').where('role.id = :id', { id });
+    async updateRole(codigo: number, role: DeepPartial<Rol>) {
+        const query = this.repository.createQueryBuilder('role').where('role.codigo = :codigo', { codigo });
         const roleActual = await query.getOne();
         this.repository.merge(roleActual, role);
         if (!roleActual) {
-            throw new NotFoundException(`Role with id ${id} not found`);
+            throw new NotFoundException(`Role with id ${codigo} not found`);
         }
         return await this.repository.save(roleActual);
     }
 
-    async deleteRole(id: number){
+    async deleteRole(codigo: number){
         const roleRemove = await this.repository.findOneBy({
-            id: id
+            codigo: codigo
         })
         return await this.repository.remove(roleRemove);
     }
