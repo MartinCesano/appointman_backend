@@ -6,8 +6,8 @@ import { PermisoModule } from "./auth/modules/permiso/permiso.module";
 import { RolModule } from "./auth/modules/rol/rol.module";
 import { UsuarioModule } from "./auth/modules/usuario/usuario.module";
 import { EstadoModule } from "./resources/estado/estado.module";
-import { ClienteModule } from "./resources/cliente/cliente.module";
-import { ReservaTurnoModule } from "./resources/reserva-turno/reserva-turno.module";
+import { ClienteModule } from "./gestion-reserva-cliente/modules/cliente/cliente.module";
+import { ReservaTurnoModule } from "./gestion-reserva-cliente/modules/reserva-turno/reserva-turno.module";
 import { ServicioModule } from "./resources/servicio/servicio.module";
 import { TurnoModule } from "./resources/turno/turno.module";
 import { HoraModule } from "./resources/hora/hora.module";
@@ -18,8 +18,8 @@ import { SucursalModule } from "./resources/sucursal/sucursal.module";
 import { PrestadorServicioModule } from "./resources/prestador-servicio/prestador-servicio.module";
 import { DatabaseModule } from "./database/database.module";
 import { EmprendedorModule } from './resources/emprendedor/emprendedor.module';
-import { GestorRegistrarClienteModule } from "./gestion-reserva-cliente/use-cases/registar-cliente/gestor-registrar-cliente.module";
 import { GestionEmpresaModule } from './gestion-empresa/gestion-empresa.module';
+import { GestionReservaClienteModule } from './gestion-reserva-cliente/gestion-reserva-cliente.module';
 
 @Module({
   imports: [
@@ -40,8 +40,8 @@ import { GestionEmpresaModule } from './gestion-empresa/gestion-empresa.module';
     SucursalModule,
     PrestadorServicioModule,
     EmprendedorModule,
-    GestorRegistrarClienteModule,
-    GestionEmpresaModule
+    GestionEmpresaModule,
+    GestionReservaClienteModule
   ],
   controllers: [AppController],
   providers: [AppService],

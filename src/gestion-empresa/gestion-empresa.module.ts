@@ -6,7 +6,9 @@ import { ServicioModule } from 'src/resources/servicio/servicio.module';
 
 @Module({
   controllers: [GestionEmpresaController],
-  providers: [GestionEmpresaService,GestorRegistrarTipoServicioService],
+  providers: [
+    GestionEmpresaService,
+    GestorRegistrarTipoServicioService],
   imports: [ServicioModule]
 })
 export class GestionEmpresaModule {}

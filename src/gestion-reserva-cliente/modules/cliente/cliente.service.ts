@@ -4,7 +4,7 @@ import {UpdateClienteDto} from './dto/update-cliente.dto';
 import {ICliente} from "../../interfaces/cliente.interface";
 import {ClienteEntity} from './entities/cliente.entity';
 import {DeepPartial, Repository} from 'typeorm';
-import {UsuarioService} from "../../auth/modules/usuario/usuario.service";
+import {UsuarioService} from "../../../auth/modules/usuario/usuario.service";
 
 
 @Injectable()
