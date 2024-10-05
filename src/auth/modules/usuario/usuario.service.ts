@@ -8,16 +8,17 @@ import { JwtService } from '../jwt/jwt.service';
 import { DeepPartial } from 'typeorm';
 import { PermisoService } from '../permiso/permiso.service';
 import { RolService } from '../rol/rol.service';
+import { ClienteEntity } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
 
 @Injectable()
 export class UsuarioService {
-  repository = Usuario;
+  repository = ClienteEntity;
+  //repository = Usuario
 
   constructor(
     private permissionsService: PermisoService,
     private jwtService: JwtService,
     private rolesService: RolService,
-
   ) {}
 
   async createUsers(users: DeepPartial<Usuario>) {

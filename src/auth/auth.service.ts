@@ -30,7 +30,6 @@ export class AuthService implements CanActivate {
     if (!user) {
       throw new UnauthorizedException('User not found');
     }
-
     const compareResult = compareSync(body.contrasena, user.contrasena);
     
     if (!compareResult) {
