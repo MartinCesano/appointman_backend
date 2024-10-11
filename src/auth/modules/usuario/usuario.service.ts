@@ -8,7 +8,10 @@ import { DeepPartial, In, Repository, } from 'typeorm';
 import { PermisoService } from '../permiso/permiso.service';
 import { RolService } from '../rol/rol.service';
 import { RegistrarUsuarioDTO } from 'src/auth/interfaces/registrarUsuario.dto';
+import { RegistrarClienteDTO} from "../../interfaces/registrarCliente.dto";
 import {ClienteService} from "../../../gestion-reserva-cliente/modules/cliente/cliente.service";
+import {Cliente} from "../../../gestion-reserva-cliente/modules/cliente/entities/cliente.entity";
+import {ICliente} from "../../../gestion-reserva-cliente/interfaces/cliente.interface";
 
 @Injectable()
 export class UsuarioService {
@@ -73,35 +76,32 @@ export class UsuarioService {
       const user = new Usuario();
       Object.assign(user, body);
       user.contrasena = hashSync(user.contrasena, 10);
-      await this.repository.save(user);
       //creo un switch
-      if (body.roles){
-        body.roles.forEach((rol)=>{
-          switch (rol){
+      if (body.roles) {
+        for (const rol of body.roles) {
+          switch (rol) {
             case "cliente":
-              // creacionCliente()
-              break
+              user.cliente = await this.creacionCliente(body.cliente);
+              break;
             case "empleado":
-              console.log("empleado")
-              break
+              console.log("empleado");
+              break;
             case "emprendedor":
-              console.log("emprendedor")
-              break
+              console.log("emprendedor");
+              break;
           }
-
-        })
+        }
       }
-
-
-      return "se guardo"
+      return await this.repository.save(user);
     } catch (error) {
       throw new HttpException('Error de creación', 500);
     }
   }
 
-  // creacionCliente(datosCliente: RegisrearClienteDTO){ {
-  //   await this.clienteService.registrar(datosCliente)
-  // }
+  async creacionCliente(datosCliente: RegistrarClienteDTO): Promise<Cliente> {
+    return await this.clienteService.registrar(datosCliente)
+  }
+
 
   async login(body: LoginDTO) {
     const user = await this.findByEmail(body.email);
