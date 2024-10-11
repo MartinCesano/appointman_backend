@@ -14,10 +14,6 @@ export class UsuarioController {
     return await this.usersService.assignPermissionToUser(idUser, body);
   }
 
-  @Post()
-  async createUsers(@Body() bodyCreateUsers: DeepPartial<Usuario>): Promise<Usuario> {
-    return await this.usersService.register(bodyCreateUsers);
-  }
 
   @Get()
   async findUsers(): Promise<Usuario[]> {

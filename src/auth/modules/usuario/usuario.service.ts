@@ -7,7 +7,6 @@ import { JwtService } from '../jwt/jwt.service';
 import { DeepPartial, In, Repository, } from 'typeorm';
 import { PermisoService } from '../permiso/permiso.service';
 import { RolService } from '../rol/rol.service';
-import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
 import { RegistrarUsuarioDTO } from 'src/auth/interfaces/registrarUsuario.dto';
 
 @Injectable()
@@ -18,7 +17,6 @@ export class UsuarioService {
     private permissionsService: PermisoService,
     private jwtService: JwtService,
     private rolesService: RolService,
-
   ) {}
 
   async findUsers(): Promise<Usuario[]> {
