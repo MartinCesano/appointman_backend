@@ -3,4 +3,5 @@ import {RegistrarUsuarioDTO} from "./registrarUsuario.dto";
 
 export class RegistrarClienteDTO extends RegistrarUsuarioDTO{
 
+    
 }

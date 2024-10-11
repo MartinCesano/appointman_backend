@@ -3,6 +3,7 @@ import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { LoginDTO } from './interfaces/login.dto';
 import { HttpException } from '@nestjs/common';
+import { RegistrarUsuarioDTO } from './interfaces/registrarUsuario.dto';
 
 describe('AuthController', () => {
   let authController: AuthController;
