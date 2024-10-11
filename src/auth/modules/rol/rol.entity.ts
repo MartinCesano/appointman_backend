@@ -19,7 +19,7 @@ export class Rol extends BaseEntity implements IRol{
   @JoinTable()
   permisos: Permiso[];
 
-  @OneToMany(() => Usuario, user => user.rol)
+  @OneToMany(() => Usuario, user => user.roles)
 
   @JoinTable()
   users: Usuario[];

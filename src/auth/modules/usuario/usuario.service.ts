@@ -9,17 +9,14 @@ import { PermisoService } from '../permiso/permiso.service';
 import { RolService } from '../rol/rol.service';
 import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
 import { RegistrarUsuarioDTO } from 'src/auth/interfaces/registrarUsuario.dto';
-import { InjectRepository } from '@nestjs/typeorm';
 
 @Injectable()
 export class UsuarioService {
-
+  repository = Usuario
 
   constructor(
     private permissionsService: PermisoService,
     private jwtService: JwtService,
-    @InjectRepository (Usuario)
-    private repository: Repository<Usuario>,
     private rolesService: RolService,
 
   ) {}
@@ -75,8 +72,7 @@ export class UsuarioService {
       const user = new Usuario();
       Object.assign(user, body);
       user.contrasena = hashSync(user.contrasena, 10);
-      await this.repository.save(user);
-      return { status: 'created' };
+      return await this.repository.save(user);
     } catch (error) {
       throw new HttpException('Error de creación', 500);
     }

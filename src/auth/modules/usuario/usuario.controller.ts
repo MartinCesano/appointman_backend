@@ -16,7 +16,7 @@ export class UsuarioController {
 
   @Post()
   async createUsers(@Body() bodyCreateUsers: DeepPartial<Usuario>): Promise<Usuario> {
-    return await this.usersService.createUsers(bodyCreateUsers);
+    return await this.usersService.register(bodyCreateUsers);
   }
 
   @Get()

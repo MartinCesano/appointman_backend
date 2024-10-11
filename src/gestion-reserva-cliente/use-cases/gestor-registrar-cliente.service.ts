@@ -18,7 +18,7 @@ export class GestorRegistrarClienteService {
         datos.contrasena = hashSync(datos.contrasena, 10);
 
         //creo el cliente
-        const response = await this.clienteService.create(datos);
+        const response = await this.clienteService.registrar(datos);
 
 
         return response;

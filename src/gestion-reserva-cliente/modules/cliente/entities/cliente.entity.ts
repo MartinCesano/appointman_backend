@@ -6,7 +6,7 @@ import { IReserva } from 'src/gestion-reserva-cliente/interfaces/reserva.interfa
 import { IUsuario } from 'src/auth/interfaces/usuario.interface';
 
 @Entity("cliente")
-export class Cliente extends Usuario implements ICliente {
+export class Cliente extends BaseEntity implements ICliente {
     @PrimaryGeneratedColumn()
     id: number;
 

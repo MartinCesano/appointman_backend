@@ -21,5 +21,5 @@ export class Servicio extends BaseEntity implements IServicio {
     duracion: number;
 
     @ManyToMany(() => Empleado, empleado => empleado.capacidades)
-    empleados: IEmpleado[]
+    empleados: IEmpleado[];
 }

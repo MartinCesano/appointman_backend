@@ -30,13 +30,13 @@ export class Usuario extends BaseEntity implements IUsuario {
 
   @OneToOne(() => Empleado, empleado => empleado.usuario)
   @JoinTable()
-  empleado?: IEmpleado;
+  empleado: IEmpleado;
 
   @OneToOne(() => Cliente, cliente => cliente.usuario)
-  cliente?: ICliente;  
+  cliente: ICliente;
 
   @OneToOne(() => Emprendedor, emprendedor => emprendedor.usuario)
-  emprendedor?: IEmprendedor;
+  emprendedor: IEmprendedor;
 
 
   @ManyToMany(() => Permiso, permisos => permisos.users, { eager: true })
