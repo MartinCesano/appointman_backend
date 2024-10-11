@@ -1,17 +1,12 @@
 import {BadRequestException, Injectable} from '@nestjs/common';
 import {UpdateClienteDto} from './dto/update-cliente.dto';
 import {Cliente} from './entities/cliente.entity';
-import {DeepPartial, Repository, } from 'typeorm';
 import {RegistrarClienteDTO} from "../../../auth/interfaces/registrarCliente.dto";
-import { InjectRepository } from '@nestjs/typeorm';
 
 
 @Injectable()
 export class ClienteService {
-    constructor(
-        @InjectRepository(Cliente) // Inyecta el repositorio de Cliente
-        private readonly repository: Repository<Cliente>,
-    ) {}
+    repository = Cliente
 
     registrar(nuevoCliente: RegistrarClienteDTO): Promise<Cliente> {
         try {
@@ -23,7 +18,6 @@ export class ClienteService {
             throw new BadRequestException(`Error creating cliente: ${error.message}`);
         }
     }
-
 
     findAll() {
         return `This action returns all cliente`;
