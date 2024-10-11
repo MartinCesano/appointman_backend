@@ -1,5 +1,5 @@
 import { IUsuario } from "src/auth/interfaces/usuario.interface";
-import { Usuario } from "src/auth/modules/usuario/usuario.entity";
+import { Usuario } from "../../../auth/modules/usuario/usuario.entity";
 import { IEmprendedor } from "src/interfaces/emprendedor.interface";
 import { Column, Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
 
