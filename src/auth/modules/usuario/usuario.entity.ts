@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity, OneToOne } from 'typeorm';
+import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity, OneToOne, JoinColumn} from 'typeorm';
 import { IUsuario } from 'src/auth/interfaces/usuario.interface';
 import { Rol } from '../rol/rol.entity';
 import { Permiso } from '../permiso/permiso.entity';
@@ -29,13 +29,15 @@ export class Usuario extends BaseEntity implements IUsuario {
   roles: Rol[];
 
   @OneToOne(() => Empleado, empleado => empleado.usuario)
-  @JoinTable()
+  @JoinColumn()
   empleado: IEmpleado;
 
   @OneToOne(() => Cliente, cliente => cliente.usuario)
-  cliente: ICliente;
+  @JoinColumn()
+  cliente: Cliente;
 
   @OneToOne(() => Emprendedor, emprendedor => emprendedor.usuario)
+  @JoinColumn()
   emprendedor: IEmprendedor;
 
 

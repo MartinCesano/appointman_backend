@@ -5,4 +5,7 @@ export class RegistrarClienteDTO{
     @IsOptional()
     @IsString()
     fechaNacimiento?: string | null;
+
+    @IsInt()
+    documento: number;
 }

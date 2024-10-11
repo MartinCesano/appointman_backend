@@ -13,6 +13,9 @@ export class Cliente extends BaseEntity implements ICliente {
     @Column({nullable: true})
     fechaNacimiento?: string | null;
 
+    @Column()
+    documento: number;
+
     @OneToOne(() => Usuario, usuario => usuario.cliente)
     usuario: IUsuario;
 
