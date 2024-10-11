@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { AuthController } from './auth.controller';
 import { AuthService } from './auth.service';
 import { LoginDTO } from './interfaces/login.dto';
-import { RegisterDTO } from './interfaces/register.dto';
 import { HttpException } from '@nestjs/common';
 
 describe('AuthController', () => {
@@ -33,7 +32,7 @@ describe('AuthController', () => {
 
   describe('login', () => {
     it('debería devolver los datos del usuario cuando el inicio de sesión es exitoso', async () => {
-      const loginDto: LoginDTO = { email: 'test@example.com', password: 'password' };
+      const loginDto: LoginDTO = { email: 'test@example.com', contrasena: 'password' };
       const result = { accessToken: 'someAccessToken' };
       mockAuthService.login.mockResolvedValue(result);
 
@@ -42,7 +41,7 @@ describe('AuthController', () => {
     });
 
     it('debería lanzar un error si el inicio de sesión falla', async () => {
-      const loginDto: LoginDTO = { email: 'wrong@example.com', password: 'wrongPassword' };
+      const loginDto: LoginDTO = { email: 'wrong@example.com', contrasena: 'wrongPassword' };
       mockAuthService.login.mockRejectedValue(new HttpException('Credenciales inválidas', 401));
 
       await expect(authController.login(loginDto)).rejects.toThrow(HttpException);
@@ -51,7 +50,7 @@ describe('AuthController', () => {
 
   describe('register', () => {
     it('debería devolver un mensaje de éxito cuando el registro es exitoso', async () => {
-      const registerDto: RegisterDTO = { 
+      const registerDto: RegistrarUsuarioDTO = { 
         email: 'newuser@example.com', 
         contrasena: 'newPassword',
         nombre: 'New',
