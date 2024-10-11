@@ -6,7 +6,7 @@ export class GestionReservaClienteService {
     constructor(private gestorRegistrarClienteService: GestorRegistrarClienteService) {
     }
 
-    async registrarCliente(datos) {
-        return this.gestorRegistrarClienteService.registrarCliente(datos);
-    }
+    // async registrarCliente(datos) {
+    //     return this.gestorRegistrarClienteService.registrarCliente(datos);
+    // }
 }

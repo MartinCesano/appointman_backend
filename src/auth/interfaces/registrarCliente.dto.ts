@@ -1,7 +1,8 @@
-import { IsEmail, IsNotEmpty, MinLength, IsString, IsPhoneNumber } from 'class-validator';
-import {RegistrarUsuarioDTO} from "./registrarUsuario.dto";
+import { IsOptional, IsString, IsInt } from 'class-validator';
+import { IUsuario } from './usuario.interface';
 
-export class RegistrarClienteDTO extends RegistrarUsuarioDTO{
-
-    
+export class RegistrarClienteDTO{
+    @IsOptional()
+    @IsString()
+    fechaNacimiento?: string | null;
 }

@@ -1,6 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { ClienteService } from './cliente.service';
-import { RegistrarClienteDTO } from './dto/registrar-cliente.dto'; // Asegúrate de que la ruta sea correcta
+import { RegistrarClienteDTO } from 'src/auth/interfaces/registrarCliente.dto';// Asegúrate de que la ruta sea correcta
 import { getRepositoryToken } from '@nestjs/typeorm';
 import { Cliente } from './entities/cliente.entity'; // Asegúrate de que la ruta sea correcta
 import { Repository } from 'typeorm';
@@ -31,10 +31,7 @@ describe('ClienteService', () => {
   describe('registrar', () => {
     it('debería registrar un nuevo cliente', async () => {
       const registrarClienteDto: RegistrarClienteDTO = {
-        nombre: 'Juan',
-        apellido: 'Pérez',
-        email: 'juan.perez@example.com',
-        telefono: '1234567890',
+        fechaNacimiento : '1990-01-01',
       };
 
       const cliente = new Cliente();
@@ -50,10 +47,7 @@ describe('ClienteService', () => {
 
     it('debería lanzar un error si el registro falla', async () => {
       const registrarClienteDto: RegistrarClienteDTO = {
-        nombre: 'Juan',
-        apellido: 'Pérez',
-        email: 'juan.perez@example.com',
-        telefono: '1234567890',
+        fechaNacimiento : '1990-01-09',
       };
 
       jest.spyOn(repository, 'save').mockRejectedValue(new Error('Error al registrar el cliente'));

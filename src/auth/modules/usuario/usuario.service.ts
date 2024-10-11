@@ -8,15 +8,18 @@ import { DeepPartial, In, Repository, } from 'typeorm';
 import { PermisoService } from '../permiso/permiso.service';
 import { RolService } from '../rol/rol.service';
 import { RegistrarUsuarioDTO } from 'src/auth/interfaces/registrarUsuario.dto';
+import {ClienteService} from "../../../gestion-reserva-cliente/modules/cliente/cliente.service";
 
 @Injectable()
 export class UsuarioService {
   repository = Usuario
 
+
   constructor(
     private permissionsService: PermisoService,
     private jwtService: JwtService,
     private rolesService: RolService,
+    private clienteService: ClienteService,
   ) {}
 
   async findUsers(): Promise<Usuario[]> {
@@ -70,11 +73,35 @@ export class UsuarioService {
       const user = new Usuario();
       Object.assign(user, body);
       user.contrasena = hashSync(user.contrasena, 10);
-      return await this.repository.save(user);
+      await this.repository.save(user);
+      //creo un switch
+      if (body.roles){
+        body.roles.forEach((rol)=>{
+          switch (rol){
+            case "cliente":
+              // creacionCliente()
+              break
+            case "empleado":
+              console.log("empleado")
+              break
+            case "emprendedor":
+              console.log("emprendedor")
+              break
+          }
+
+        })
+      }
+
+
+      return "se guardo"
     } catch (error) {
       throw new HttpException('Error de creación', 500);
     }
   }
+
+  // creacionCliente(datosCliente: RegisrearClienteDTO){ {
+  //   await this.clienteService.registrar(datosCliente)
+  // }
 
   async login(body: LoginDTO) {
     const user = await this.findByEmail(body.email);

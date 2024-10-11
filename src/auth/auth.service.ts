@@ -9,6 +9,7 @@ import { IUsuario } from './interfaces/usuario.interface';
 import { RegistrarClienteDTO } from './interfaces/registrarCliente.dto';
 import { RegistrarEmpleadoDTO } from './interfaces/registrarEmpleado.dto';
 import { RegistrarEmprendedorDTO } from './interfaces/registrarEmprendedor.dto';
+import {RegistrarUsuarioDTO} from "./interfaces/registrarUsuario.dto";
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -17,7 +18,7 @@ export class AuthService implements CanActivate {
     private readonly userService: UsuarioService
   ) {}
 
-  async register(body: RegistrarClienteDTO| RegistrarEmpleadoDTO | RegistrarEmprendedorDTO) {
+  async register(body: RegistrarUsuarioDTO) {
     try {
       const user = await this.userService.register(body);
       
