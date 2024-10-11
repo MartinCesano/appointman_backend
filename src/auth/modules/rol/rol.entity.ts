@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity, OneToMany} from 'typeorm';
 import { Permiso } from '../permiso/permiso.entity';
 import { Usuario } from '../usuario/usuario.entity';
 import { IRol } from 'src/auth/interfaces/rol.interface';
@@ -19,7 +19,7 @@ export class Rol extends BaseEntity implements IRol{
   @JoinTable()
   permisos: Permiso[];
 
-  @ManyToMany(() => Usuario, user => user.roles)
+  @OneToMany(() => Usuario, user => user.rol)
 
   @JoinTable()
   users: Usuario[];

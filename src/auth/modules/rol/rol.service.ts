@@ -1,6 +1,6 @@
 import { Injectable, HttpException, NotFoundException} from '@nestjs/common';
 import { Rol } from './rol.entity';
-import { DeepPartial } from 'typeorm';
+import { DeepPartial, In } from 'typeorm';
 import { PermisoService } from '../permiso/permiso.service';
 
 
@@ -23,6 +23,14 @@ export class RolService {
         const role = await this.repository.findOne({where:{codigo}});
         if (!role) {
             throw new NotFoundException(`Role with id ${codigo} not found`);
+        }
+        return role;
+    }
+
+    async buscarRolPorNombre (nombre: string): Promise<Rol> {
+        const role = await this.repository.findOne({where:{nombre}});
+        if (!role) {
+            throw new NotFoundException(`Role with name ${nombre} not found`);
         }
         return role;
     }

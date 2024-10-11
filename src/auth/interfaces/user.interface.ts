@@ -7,5 +7,5 @@ export interface IUsuario {
   contrasena: string;
   nombre: string;
   apellido: string;
-  roles: IRol[];
+  rol: IRol;
 }

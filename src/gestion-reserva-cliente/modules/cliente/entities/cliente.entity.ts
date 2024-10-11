@@ -4,7 +4,7 @@ import {ICliente} from "../../../interfaces/cliente.interface";
 import { Usuario} from "../../../../auth/modules/usuario/usuario.entity";
 
 @Entity("cliente")
-export class ClienteEntity extends Usuario implements ICliente {
+export class Cliente extends Usuario implements ICliente {
     @PrimaryGeneratedColumn()
     id: number;
 
