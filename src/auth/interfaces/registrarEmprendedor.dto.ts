@@ -2,7 +2,7 @@ import { IsEmail, IsNotEmpty, MinLength, IsString, IsPhoneNumber } from 'class-v
 import {Column} from "typeorm";
 
 export class RegistrarEmprendedorDTO{
-    cuit:string;
+    cuil:string;
 
     domicilio: string;
 }

@@ -2,4 +2,5 @@ import { IsEmail, IsNotEmpty, MinLength, IsString, IsPhoneNumber } from 'class-v
 
 
 export class RegistrarEmpleadoDTO{
+    cuil:string;
 }

@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {BadRequestException, Injectable} from '@nestjs/common';
 import {UpdateClienteDto} from './dto/update-cliente.dto';
 import {Cliente} from './entities/cliente.entity';
 import {DeepPartial, } from 'typeorm';
@@ -19,7 +19,7 @@ export class ClienteService {
             Object.assign(newCliente, nuevoCliente);
             return this.repository.save(newCliente);
         } catch (error) {
-            throw new Error(`Error creating cliente: ${error.message}`);
+            throw new BadRequestException(`Error creating cliente: ${error.message}`);
         }
     }
 

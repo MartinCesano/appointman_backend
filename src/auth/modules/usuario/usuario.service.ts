@@ -15,6 +15,9 @@ import {ICliente} from "../../../gestion-reserva-cliente/interfaces/cliente.inte
 import {RegistrarEmprendedorDTO} from "../../interfaces/registrarEmprendedor.dto";
 import {Emprendedor} from "../../../resources/emprendedor/entities/emprendedor.entity";
 import {EmprendedorService} from "../../../resources/emprendedor/emprendedor.service";
+import {Empleado} from "../../../resources/empleado/entities/empleado.entity";
+import {EmpleadoService} from "../../../resources/empleado/empleado.service";
+import {RegistrarEmpleadoDTO} from "../../interfaces/registrarEmpleado.dto";
 
 @Injectable()
 export class UsuarioService {
@@ -25,8 +28,11 @@ export class UsuarioService {
     private jwtService: JwtService,
     private rolesService: RolService,
     private clienteService: ClienteService,
-    private emprendedorService: EmprendedorService
+    private emprendedorService: EmprendedorService,
+    private empleadoService: EmpleadoService
   ) {}
+
+
 
   async findUsers(): Promise<Usuario[]> {
     try {
@@ -88,7 +94,7 @@ export class UsuarioService {
               user.cliente = await this.creacionCliente(body.cliente);
               break;
             case "empleado":
-              console.log("empleado");
+                user.empleado = await this.creacionEmpleado(body.empleado);
               break;
             case "emprendedor":
               user.emprendedor = await this.creacionEmprendedor(body.emprendedor);
@@ -111,6 +117,9 @@ export class UsuarioService {
     return await this.emprendedorService.registrar(datosEmprendedor)
   }
 
+  async creacionEmpleado(datosEmpleado: RegistrarEmpleadoDTO): Promise<Empleado> {
+      return await this.empleadoService.registrar(datosEmpleado)
+  }
 
 
   async login(body: LoginDTO) {
