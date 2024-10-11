@@ -1,10 +1,7 @@
 import {Injectable} from '@nestjs/common';
-import {CreateClienteDto} from './dto/create-cliente.dto';
 import {UpdateClienteDto} from './dto/update-cliente.dto';
-import {ICliente} from "../../interfaces/cliente.interface";
 import {Cliente} from './entities/cliente.entity';
-import {DeepPartial, Repository} from 'typeorm';
-import {UsuarioService} from "../../../auth/modules/usuario/usuario.service";
+import {DeepPartial, } from 'typeorm';
 
 
 @Injectable()
@@ -12,7 +9,6 @@ export class ClienteService {
     repository = Cliente;
 
     constructor(
-        private usuarioService: UsuarioService
         ) {
     }
 

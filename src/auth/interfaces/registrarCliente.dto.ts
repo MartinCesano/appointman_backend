@@ -1,6 +1,6 @@
 import { IsEmail, IsNotEmpty, MinLength, IsString, IsPhoneNumber } from 'class-validator';
 
-export class RegisterDTO {
+export class RegistrarClienteDTO {
   @IsEmail({}, { message: 'Email is invalid' })
   email: string;
 
@@ -18,4 +18,6 @@ export class RegisterDTO {
 
   @IsNotEmpty({ message: 'Phone number is required' })
   telefono: string;
+
+  rol:string[];
 }

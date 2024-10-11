@@ -3,7 +3,7 @@ import { UsuarioService } from './usuario.service';
 import { DeepPartial } from 'typeorm';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { Usuario } from './usuario.entity';
-import { IUsuario } from 'src/auth/interfaces/user.interface';
+import { IUsuario } from 'src/auth/interfaces/usuario.interface';
 
 @Controller('usuarios')
 export class UsuarioController {

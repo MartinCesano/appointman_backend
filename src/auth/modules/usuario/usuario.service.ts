@@ -1,31 +1,27 @@
 import { HttpException, Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { LoginDTO } from '../../interfaces/login.dto';
-import { RegisterDTO } from '../../interfaces/register.dto';
-import { IUsuario } from '../../interfaces/user.interface';
+import { IUsuario } from '../../interfaces/usuario.interface';
 import { Usuario } from './usuario.entity';
 import { hashSync, compareSync } from 'bcrypt';
 import { JwtService } from '../jwt/jwt.service';
 import { DeepPartial, In, Repository, } from 'typeorm';
 import { PermisoService } from '../permiso/permiso.service';
 import { RolService } from '../rol/rol.service';
-import { ClienteService } from 'src/gestion-reserva-cliente/modules/cliente/cliente.service';
-import { EmpleadoService } from 'src/resources/empleado/empleado.service';
-import { EmprendedorService } from 'src/resources/emprendedor/emprendedor.service';
-import { ICliente } from 'src/gestion-reserva-cliente/interfaces/cliente.interface';
-import { IEmpleado } from 'src/interfaces/empleado.interface';
-import { IEmprendedor } from 'src/interfaces/emprendedor.interface';
+import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
+import { RegistrarUsuarioDTO } from 'src/auth/interfaces/registrarUsuario.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 
-
 @Injectable()
-export abstract class UsuarioService {
-  
+export class UsuarioService {
+
 
   constructor(
     private permissionsService: PermisoService,
     private jwtService: JwtService,
     @InjectRepository (Usuario)
     private repository: Repository<Usuario>,
+    private rolesService: RolService,
+
   ) {}
 
   async findUsers(): Promise<Usuario[]> {
@@ -65,7 +61,7 @@ export abstract class UsuarioService {
 
   async canDo(usuario: IUsuario, nombrePermiso: string) {
     let hasPermission = false;
-    if (usuario.rol.nombre === nombrePermiso){
+    if (usuario.roles.some(rol => rol.nombre === nombrePermiso)){
       hasPermission = true;
     }
     if (!hasPermission) {
@@ -74,12 +70,16 @@ export abstract class UsuarioService {
     return hasPermission;
   }
 
-  async registrar(userData: RegisterDTO) {
-    
-    return {
-      statusCode: 201,
-      message: 'Usuario creado con éxito',
-    };
+  async register(body: RegistrarUsuarioDTO) {
+    try {
+      const user = new Usuario();
+      Object.assign(user, body);
+      user.contrasena = hashSync(user.contrasena, 10);
+      await this.repository.save(user);
+      return { status: 'created' };
+    } catch (error) {
+      throw new HttpException('Error de creación', 500);
+    }
   }
 
   async login(body: LoginDTO) {
@@ -126,6 +126,32 @@ export abstract class UsuarioService {
     }
 
     user.permisos.push(permission);
+    await user.save();
+
+    return user;
+  }
+
+  async assignRoleToUser(userId: number, body: { roleId: number }): Promise<Usuario> {
+    const user = await this.repository.findOne({
+      where: { id: userId },
+      relations: ['roles'],
+    });
+
+    if (!user) {
+      throw new NotFoundException(`User with ID ${userId} not found`);
+    }
+
+    const role = await this.rolesService.findRoleById(body.roleId);
+
+    if (!role) {
+      throw new NotFoundException(`Role with ID ${body.roleId} not found`);
+    }
+
+    if (!user.roles) {
+      user.roles = [];
+    }
+
+    user.roles.push(role);
     await user.save();
 
     return user;

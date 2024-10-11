@@ -1,7 +1,10 @@
 import { Controller, Get, Post, Body, HttpCode, HttpStatus, HttpException, UseGuards } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { LoginDTO } from './interfaces/login.dto';
-import { RegisterDTO } from './interfaces/register.dto';
+import { RegistrarUsuarioDTO } from './interfaces/registrarUsuario.dto';
+import { RegistrarClienteDTO } from './interfaces/registrarCliente.dto';
+import { RegistrarEmpleadoDTO } from './interfaces/registrarEmpleado.dto';
+import { RegistrarEmprendedorDTO } from './interfaces/registrarEmprendedor.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -20,7 +23,7 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() body: RegisterDTO) {
+  async register(@Body() body: RegistrarClienteDTO | RegistrarEmpleadoDTO | RegistrarEmprendedorDTO) {
     return await this.authorizationService.register(body);
   }
 
