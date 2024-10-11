@@ -5,5 +5,6 @@ import { EmprendedorController } from './emprendedor.controller';
 @Module({
   controllers: [EmprendedorController],
   providers: [EmprendedorService],
+  exports: [EmprendedorService]
 })
 export class EmprendedorModule {}

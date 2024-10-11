@@ -12,6 +12,9 @@ import { RegistrarClienteDTO} from "../../interfaces/registrarCliente.dto";
 import {ClienteService} from "../../../gestion-reserva-cliente/modules/cliente/cliente.service";
 import {Cliente} from "../../../gestion-reserva-cliente/modules/cliente/entities/cliente.entity";
 import {ICliente} from "../../../gestion-reserva-cliente/interfaces/cliente.interface";
+import {RegistrarEmprendedorDTO} from "../../interfaces/registrarEmprendedor.dto";
+import {Emprendedor} from "../../../resources/emprendedor/entities/emprendedor.entity";
+import {EmprendedorService} from "../../../resources/emprendedor/emprendedor.service";
 
 @Injectable()
 export class UsuarioService {
@@ -22,6 +25,7 @@ export class UsuarioService {
     private jwtService: JwtService,
     private rolesService: RolService,
     private clienteService: ClienteService,
+    private emprendedorService: EmprendedorService
   ) {}
 
   async findUsers(): Promise<Usuario[]> {
@@ -75,21 +79,22 @@ export class UsuarioService {
       const user = new Usuario();
       Object.assign(user, body);
       user.contrasena = hashSync(user.contrasena, 10);
+      user.roles = [];
       //creo un switch
       if (body.roles) {
         for (const rol of body.roles) {
           switch (rol) {
             case "cliente":
               user.cliente = await this.creacionCliente(body.cliente);
-              user.roles = [await this.getRol("cliente")];
               break;
             case "empleado":
               console.log("empleado");
               break;
             case "emprendedor":
-              console.log("emprendedor");
+              user.emprendedor = await this.creacionEmprendedor(body.emprendedor);
               break;
           }
+          user.roles.push(await this.getRol(rol)); //asigno el rol correspondiente
         }
       }
       return await this.repository.save(user);
@@ -102,6 +107,9 @@ export class UsuarioService {
     return await this.clienteService.registrar(datosCliente)
   }
 
+  async creacionEmprendedor(datosEmprendedor: RegistrarEmprendedorDTO): Promise<Emprendedor> {
+    return await this.emprendedorService.registrar(datosEmprendedor)
+  }
 
 
 
