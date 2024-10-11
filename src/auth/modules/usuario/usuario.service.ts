@@ -27,9 +27,6 @@ export class UsuarioService {
     private permissionsService: PermisoService,
     private jwtService: JwtService,
     private rolesService: RolService,
-    private clienteService: ClienteService,
-    private emprendedorService: EmprendedorService,
-    private empleadoService: EmpleadoService
   ) {}
 
 
@@ -80,45 +77,16 @@ export class UsuarioService {
     return hasPermission;
   }
 
-  async register(body: RegistrarUsuarioDTO) {
+  async registrar(dataUsuario: RegistrarUsuarioDTO) {
     try {
-      const user = new Usuario();
-      Object.assign(user, body);
-      user.contrasena = hashSync(user.contrasena, 10);
-      user.roles = [];
-      //creo un switch
-      if (body.roles) {
-        for (const rol of body.roles) {
-          switch (rol) {
-            case "cliente":
-              user.cliente = await this.creacionCliente(body.cliente);
-              break;
-            case "empleado":
-                user.empleado = await this.creacionEmpleado(body.empleado);
-              break;
-            case "emprendedor":
-              user.emprendedor = await this.creacionEmprendedor(body.emprendedor);
-              break;
-          }
-          user.roles.push(await this.getRol(rol)); //asigno el rol correspondiente
-        }
-      }
-      return await this.repository.save(user);
+      const nuevoUsuario = new Usuario();
+        Object.assign(nuevoUsuario, dataUsuario);
+        nuevoUsuario.contrasena = hashSync(dataUsuario.contrasena, 10);
+        nuevoUsuario.roles = [];
+      return await this.repository.create(nuevoUsuario);
     } catch (error) {
       throw new HttpException('Error de creación', 500);
     }
-  }
-
-  async creacionCliente(datosCliente: RegistrarClienteDTO): Promise<Cliente> {
-    return await this.clienteService.registrar(datosCliente)
-  }
-
-  async creacionEmprendedor(datosEmprendedor: RegistrarEmprendedorDTO): Promise<Emprendedor> {
-    return await this.emprendedorService.registrar(datosEmprendedor)
-  }
-
-  async creacionEmpleado(datosEmpleado: RegistrarEmpleadoDTO): Promise<Empleado> {
-      return await this.empleadoService.registrar(datosEmpleado)
   }
 
 
@@ -171,9 +139,7 @@ export class UsuarioService {
     return user;
   }
 
-  getRol(rol: string) {
-    return this.rolesService.buscarRolPorNombre(rol)
-  }
+  
 
   async assignRoleToUser(userId: number, body: { roleId: number }): Promise<Usuario> {
     const user = await this.repository.findOne({
