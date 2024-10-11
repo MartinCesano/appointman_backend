@@ -1,34 +1,25 @@
 import { HttpException, Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { LoginDTO } from '../../interfaces/login.dto';
-import { RegisterDTO } from '../../interfaces/register.dto';
-import { IUsuario } from '../../interfaces/user.interface';
+import { IUsuario } from '../../interfaces/usuario.interface';
 import { Usuario } from './usuario.entity';
 import { hashSync, compareSync } from 'bcrypt';
 import { JwtService } from '../jwt/jwt.service';
-import { DeepPartial } from 'typeorm';
+import { DeepPartial, In, Repository, } from 'typeorm';
 import { PermisoService } from '../permiso/permiso.service';
 import { RolService } from '../rol/rol.service';
-import { ClienteEntity } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
+import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
+import { RegistrarUsuarioDTO } from 'src/auth/interfaces/registrarUsuario.dto';
 
 @Injectable()
 export class UsuarioService {
-  repository = ClienteEntity;
-  //repository = Usuario
+  repository = Usuario
 
   constructor(
     private permissionsService: PermisoService,
     private jwtService: JwtService,
     private rolesService: RolService,
+
   ) {}
-
-  async createUsers(users: DeepPartial<Usuario>) {
-    try {
-      return await this.repository.save(users);
-    } catch (error) {
-      throw new HttpException('Create user error', 500);
-    }
-  }
-
 
   async findUsers(): Promise<Usuario[]> {
     try {
@@ -66,24 +57,22 @@ export class UsuarioService {
   }
 
   async canDo(usuario: IUsuario, nombrePermiso: string) {
-    const hasPermission = usuario.roles.some(role =>
-      role.permisos.some(permiso => permiso.nombre === nombrePermiso)
-    );
-
+    let hasPermission = false;
+    if (usuario.roles.some(rol => rol.nombre === nombrePermiso)){
+      hasPermission = true;
+    }
     if (!hasPermission) {
       throw new HttpException('El usuario no tiene el Permiso', 401);
     }
-
-    return true;
+    return hasPermission;
   }
 
-  async register(body: RegisterDTO) {
+  async register(body: RegistrarUsuarioDTO) {
     try {
       const user = new Usuario();
       Object.assign(user, body);
       user.contrasena = hashSync(user.contrasena, 10);
-      await this.repository.save(user);
-      return { status: 'created' };
+      return await this.repository.save(user);
     } catch (error) {
       throw new HttpException('Error de creación', 500);
     }
@@ -163,4 +152,5 @@ export class UsuarioService {
 
     return user;
   }
+
 }

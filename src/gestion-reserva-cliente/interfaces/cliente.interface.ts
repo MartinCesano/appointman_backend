@@ -1,7 +1,6 @@
-import { IUsuario } from "src/auth/interfaces/user.interface";
+import { IUsuario } from "src/auth/interfaces/usuario.interface";
 
-export interface ICliente extends IUsuario {
+export interface ICliente {
     id: number;
     fechaNacimiento?: string | null;
-    genero: string;
 }

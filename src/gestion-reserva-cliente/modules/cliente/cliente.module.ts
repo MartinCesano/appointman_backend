@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { ClienteService } from './cliente.service';
 import { ClienteController } from './cliente.controller';
 import {TypeOrmModule} from "@nestjs/typeorm";
-import {ClienteEntity} from "./entities/cliente.entity";
+import {Cliente} from "./entities/cliente.entity";
 import {UsuarioModule} from "../../../auth/modules/usuario/usuario.module";
 import {UsuarioService} from "../../../auth/modules/usuario/usuario.service";
 
@@ -10,6 +10,6 @@ import {UsuarioService} from "../../../auth/modules/usuario/usuario.service";
   controllers: [ClienteController],
   providers: [ClienteService],
   exports: [ClienteService],
-  imports: [TypeOrmModule.forFeature([ClienteEntity]), UsuarioModule]
+  imports: [TypeOrmModule.forFeature([Cliente]), UsuarioModule]
 })
 export class ClienteModule {}
