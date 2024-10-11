@@ -30,7 +30,7 @@ export class RolService {
     async buscarRolPorNombre (nombre: string): Promise<Rol> {
         const role = await this.repository.findOne({where:{nombre}});
         if (!role) {
-            throw new NotFoundException(`Role with name ${nombre} not found`);
+            return null;
         }
         return role;
     }
