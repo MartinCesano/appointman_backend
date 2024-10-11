@@ -1,5 +1,7 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity} from 'typeorm';
 import { IServicio } from 'src/interfaces/servicio.interface';
+import { Empleado } from 'src/resources/empleado/entities/empleado.entity';
+import { IEmpleado } from 'src/interfaces/empleado.interface';
 
 @Entity('servicio')
 export class Servicio extends BaseEntity implements IServicio {
@@ -17,4 +19,7 @@ export class Servicio extends BaseEntity implements IServicio {
 
     @Column()
     duracion: number;
+
+    @ManyToMany(() => Empleado, empleado => empleado.capacidades)
+    empleados: IEmpleado[]
 }

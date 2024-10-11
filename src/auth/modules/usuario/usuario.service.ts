@@ -1,18 +1,18 @@
 import { HttpException, Injectable, UnauthorizedException, NotFoundException } from '@nestjs/common';
 import { LoginDTO } from '../../interfaces/login.dto';
-import { RegisterDTO } from '../../interfaces/register.dto';
-import { IUsuario } from '../../interfaces/user.interface';
+import { IUsuario } from '../../interfaces/usuario.interface';
 import { Usuario } from './usuario.entity';
 import { hashSync, compareSync } from 'bcrypt';
 import { JwtService } from '../jwt/jwt.service';
 import { DeepPartial } from 'typeorm';
 import { PermisoService } from '../permiso/permiso.service';
 import { RolService } from '../rol/rol.service';
-import { ClienteEntity } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
+import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
+import { RegistrarUsuarioDTO } from 'src/auth/interfaces/registrarUsuario.dto';
 
 @Injectable()
 export class UsuarioService {
-  repository = ClienteEntity;
+  repository = Cliente;
   //repository = Usuario
 
   constructor(
@@ -77,7 +77,7 @@ export class UsuarioService {
     return true;
   }
 
-  async register(body: RegisterDTO) {
+  async register(body: RegistrarUsuarioDTO) {
     try {
       const user = new Usuario();
       Object.assign(user, body);
@@ -163,4 +163,9 @@ export class UsuarioService {
 
     return user;
   }
+
+
+  // createCliente(cliente: DeepPartial<ClienteEntity>) {
+
+  // }
 }

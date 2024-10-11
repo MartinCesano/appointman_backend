@@ -2,11 +2,13 @@ import { Injectable, UnauthorizedException, HttpException, HttpStatus } from '@n
 import { JwtService } from './modules/jwt/jwt.service';
 import { UsuarioService } from './modules/usuario/usuario.service';
 import { LoginDTO } from './interfaces/login.dto';
-import { RegisterDTO } from './interfaces/register.dto';
 import { compareSync } from 'bcrypt';
 import { Request } from 'express';
 import { CanActivate, ExecutionContext } from '@nestjs/common';
-import { IUsuario } from './interfaces/user.interface';
+import { IUsuario } from './interfaces/usuario.interface';
+import { RegistrarClienteDTO } from './interfaces/registrarCliente.dto';
+import { RegistrarEmpleadoDTO } from './interfaces/registrarEmpleado.dto';
+import { RegistrarEmprendedorDTO } from './interfaces/registrarEmprendedor.dto';
 
 @Injectable()
 export class AuthService implements CanActivate {
@@ -15,9 +17,10 @@ export class AuthService implements CanActivate {
     private readonly userService: UsuarioService
   ) {}
 
-  async register(body: RegisterDTO) {
+  async register(body: RegistrarClienteDTO| RegistrarEmpleadoDTO | RegistrarEmprendedorDTO) {
     try {
       const user = await this.userService.register(body);
+      
       return { status: 'created', user };
     } catch (error) {
       throw new HttpException('Error en el registro', HttpStatus.INTERNAL_SERVER_ERROR);
