@@ -2,6 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {UpdateClienteDto} from './dto/update-cliente.dto';
 import {Cliente} from './entities/cliente.entity';
 import {DeepPartial, } from 'typeorm';
+import {RegistrarClienteDTO} from "../../../auth/interfaces/registrarCliente.dto";
 
 
 @Injectable()
@@ -12,9 +13,11 @@ export class ClienteService {
         ) {
     }
 
-    registrar(nuevoCliente: DeepPartial<Cliente>): Promise<Cliente> {
+    registrar(nuevoCliente: RegistrarClienteDTO): Promise<Cliente> {
         try {
-            return this.repository.save(nuevoCliente);
+            const newCliente = new Cliente();
+            Object.assign(newCliente, nuevoCliente);
+            return this.repository.save(newCliente);
         } catch (error) {
             throw new Error(`Error creating cliente: ${error.message}`);
         }

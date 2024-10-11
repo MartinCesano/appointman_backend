@@ -2,9 +2,7 @@ import { Controller, Get, Post, Body, HttpCode, HttpStatus, HttpException, UseGu
 import { AuthService } from './auth.service';
 import { LoginDTO } from './interfaces/login.dto';
 import { RegistrarUsuarioDTO } from './interfaces/registrarUsuario.dto';
-import { RegistrarClienteDTO } from './interfaces/registrarCliente.dto';
-import { RegistrarEmpleadoDTO } from './interfaces/registrarEmpleado.dto';
-import { RegistrarEmprendedorDTO } from './interfaces/registrarEmprendedor.dto';
+
 
 @Controller('auth')
 export class AuthController {
@@ -23,7 +21,7 @@ export class AuthController {
 
   @Post('register')
   @HttpCode(HttpStatus.CREATED)
-  async register(@Body() body: RegistrarClienteDTO | RegistrarEmpleadoDTO | RegistrarEmprendedorDTO) {
+  async register(@Body() body: RegistrarUsuarioDTO) {
     return await this.authorizationService.register(body);
   }
 

@@ -22,5 +22,11 @@ export class RegistrarUsuarioDTO {
     @IsNotEmpty({ message: 'Phone number is required' })
     telefono: string;
 
-    rol:string[];
+    roles:string[];
+
+    cliente?: RegistrarClienteDTO
+
+    empleado?: RegistrarEmpleadoDTO
+
+    emprendedor?: RegistrarEmprendedorDTO
 }
