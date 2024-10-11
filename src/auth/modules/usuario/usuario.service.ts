@@ -12,18 +12,24 @@ import { RegistrarClienteDTO} from "../../interfaces/registrarCliente.dto";
 import {ClienteService} from "../../../gestion-reserva-cliente/modules/cliente/cliente.service";
 import {Cliente} from "../../../gestion-reserva-cliente/modules/cliente/entities/cliente.entity";
 import {ICliente} from "../../../gestion-reserva-cliente/interfaces/cliente.interface";
+import {RegistrarEmprendedorDTO} from "../../interfaces/registrarEmprendedor.dto";
+import {Emprendedor} from "../../../resources/emprendedor/entities/emprendedor.entity";
+import {EmprendedorService} from "../../../resources/emprendedor/emprendedor.service";
+import {Empleado} from "../../../resources/empleado/entities/empleado.entity";
+import {EmpleadoService} from "../../../resources/empleado/empleado.service";
+import {RegistrarEmpleadoDTO} from "../../interfaces/registrarEmpleado.dto";
 
 @Injectable()
 export class UsuarioService {
   repository = Usuario
 
-
   constructor(
     private permissionsService: PermisoService,
     private jwtService: JwtService,
     private rolesService: RolService,
-    private clienteService: ClienteService,
   ) {}
+
+
 
   async findUsers(): Promise<Usuario[]> {
     try {
@@ -71,35 +77,16 @@ export class UsuarioService {
     return hasPermission;
   }
 
-  async register(body: RegistrarUsuarioDTO) {
+  async registrar(dataUsuario: RegistrarUsuarioDTO) {
     try {
-      const user = new Usuario();
-      Object.assign(user, body);
-      user.contrasena = hashSync(user.contrasena, 10);
-      //creo un switch
-      if (body.roles) {
-        for (const rol of body.roles) {
-          switch (rol) {
-            case "cliente":
-              user.cliente = await this.creacionCliente(body.cliente);
-              break;
-            case "empleado":
-              console.log("empleado");
-              break;
-            case "emprendedor":
-              console.log("emprendedor");
-              break;
-          }
-        }
-      }
-      return await this.repository.save(user);
+      const nuevoUsuario = new Usuario();
+        Object.assign(nuevoUsuario, dataUsuario);
+        nuevoUsuario.contrasena = hashSync(dataUsuario.contrasena, 10);
+        nuevoUsuario.roles = [];
+      return await this.repository.create(nuevoUsuario);
     } catch (error) {
       throw new HttpException('Error de creación', 500);
     }
-  }
-
-  async creacionCliente(datosCliente: RegistrarClienteDTO): Promise<Cliente> {
-    return await this.clienteService.registrar(datosCliente)
   }
 
 
@@ -151,6 +138,8 @@ export class UsuarioService {
 
     return user;
   }
+
+  
 
   async assignRoleToUser(userId: number, body: { roleId: number }): Promise<Usuario> {
     const user = await this.repository.findOne({

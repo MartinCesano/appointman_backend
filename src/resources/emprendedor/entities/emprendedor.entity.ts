@@ -1,15 +1,12 @@
 import { IUsuario } from "src/auth/interfaces/usuario.interface";
 import { Usuario } from "../../../auth/modules/usuario/usuario.entity";
 import { IEmprendedor } from "src/interfaces/emprendedor.interface";
-import { Column, Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn } from "typeorm";
+import {BaseEntity, Column, Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()
-export class Emprendedor implements IEmprendedor {
+export class Emprendedor extends BaseEntity implements IEmprendedor {
     @PrimaryGeneratedColumn() 
-    id:number; 
-
-    @Column() 
-    nombre: string;
+    id:number;
 
     @Column() 
     cuit:string; 

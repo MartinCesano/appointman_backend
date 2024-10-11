@@ -10,17 +10,19 @@ import { RegistrarClienteDTO } from './interfaces/registrarCliente.dto';
 import { RegistrarEmpleadoDTO } from './interfaces/registrarEmpleado.dto';
 import { RegistrarEmprendedorDTO } from './interfaces/registrarEmprendedor.dto';
 import {RegistrarUsuarioDTO} from "./interfaces/registrarUsuario.dto";
+import { GestorRegistrarUsuarioService } from './use-cases/gestor-registrar-usuario.service';
 
 @Injectable()
 export class AuthService implements CanActivate {
   constructor(
     private readonly jwtService: JwtService, 
-    private readonly userService: UsuarioService
+    private readonly userService: UsuarioService,
+    private readonly gestorRegistrarUsuario: GestorRegistrarUsuarioService
   ) {}
 
   async register(body: RegistrarUsuarioDTO) {
     try {
-      const user = await this.userService.register(body);
+      const user = await this.userService.registrar(body);
       
       return { status: 'created', user };
     } catch (error) {

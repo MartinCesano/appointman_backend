@@ -14,7 +14,6 @@ export class ClienteService {
             Object.assign(newCliente, nuevoCliente);
             return this.repository.save(newCliente);
         } catch (error) {
-            
             throw new BadRequestException(`Error creating cliente: ${error.message}`);
         }
     }
