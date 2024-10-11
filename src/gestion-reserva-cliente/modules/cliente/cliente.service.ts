@@ -2,11 +2,16 @@ import {BadRequestException, Injectable} from '@nestjs/common';
 import {UpdateClienteDto} from './dto/update-cliente.dto';
 import {Cliente} from './entities/cliente.entity';
 import {RegistrarClienteDTO} from "../../../auth/interfaces/registrarCliente.dto";
+import { Repository } from 'typeorm';
+import { InjectRepository } from '@nestjs/typeorm';
 
 
 @Injectable()
 export class ClienteService {
-    repository = Cliente
+    constructor(
+        @InjectRepository(Cliente) // Inyecta el repositorio de Cliente
+        private readonly repository: Repository<Cliente>,
+    ) {}
 
     registrar(nuevoCliente: RegistrarClienteDTO): Promise<Cliente> {
         try {
