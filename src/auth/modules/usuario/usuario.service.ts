@@ -17,7 +17,6 @@ import {ICliente} from "../../../gestion-reserva-cliente/interfaces/cliente.inte
 export class UsuarioService {
   repository = Usuario
 
-
   constructor(
     private permissionsService: PermisoService,
     private jwtService: JwtService,
@@ -82,6 +81,7 @@ export class UsuarioService {
           switch (rol) {
             case "cliente":
               user.cliente = await this.creacionCliente(body.cliente);
+              user.roles = [await this.getRol("cliente")];
               break;
             case "empleado":
               console.log("empleado");
@@ -101,6 +101,8 @@ export class UsuarioService {
   async creacionCliente(datosCliente: RegistrarClienteDTO): Promise<Cliente> {
     return await this.clienteService.registrar(datosCliente)
   }
+
+
 
 
   async login(body: LoginDTO) {
@@ -150,6 +152,10 @@ export class UsuarioService {
     await user.save();
 
     return user;
+  }
+
+  getRol(rol: string) {
+    return this.rolesService.buscarRolPorNombre(rol)
   }
 
   async assignRoleToUser(userId: number, body: { roleId: number }): Promise<Usuario> {
