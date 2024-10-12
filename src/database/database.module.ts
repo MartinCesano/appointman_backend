@@ -1,17 +1,17 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
-import { Disponibilidad } from 'src/resources/disponibilidad/entities/disponibilidad.entity';
-import { Empleado } from 'src/resources/empleado/entities/empleado.entity';
-import { Emprendedor } from 'src/resources/emprendedor/entities/emprendedor.entity';
-import { Estado } from 'src/resources/estado/entities/estado.entity';
-import { Hora } from 'src/resources/hora/entities/hora.entity';
-import { Horario } from 'src/resources/horario/entities/horario.entity';
+import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/cliente.entity';
+import { Disponibilidad } from 'src/gestion-empresa/modules/disponibilidad/disponibilidad.entity';
+import { Empleado } from 'src/gestion-empresa/modules/empleado/empleado.entity';
+import { Emprendedor } from 'src/gestion-empresa/modules/emprendedor/emprendedor.entity';
+import { Estado } from 'src/estado/estado.entity';
+import { Hora } from 'src/gestion-reserva-cliente/modules/hora/hora.entity';
+import { Horario } from 'src/gestion-empresa/modules/horario/horario.entity';
 import { Permiso } from 'src/auth/modules/permiso/permiso.entity';
-import { ReservaTurno } from 'src/gestion-reserva-cliente/modules/reserva-turno/entities/reserva-turno.entity';
+import { ReservaTurno } from 'src/gestion-reserva-cliente/modules/reserva-turno/reserva-turno.entity';
 import { Rol } from 'src/auth/modules/rol/rol.entity';
-import { Servicio } from 'src/resources/servicio/entities/servicio.entity';
-import { Turno } from 'src/resources/turno/entities/turno.entity';
+import { Servicio } from 'src/gestion-empresa/modules/servicio/servicio.entity';
+import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
 import { Usuario } from 'src/auth/modules/usuario/usuario.entity';
 
 

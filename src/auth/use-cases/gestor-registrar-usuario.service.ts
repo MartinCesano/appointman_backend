@@ -1,16 +1,16 @@
 import { HttpException, Injectable } from '@nestjs/common';
 import { RegistrarUsuarioDTO } from '../interfaces/registrarUsuario.dto';
 import { ClienteService } from 'src/gestion-reserva-cliente/modules/cliente/cliente.service';
-import { EmpleadoService } from 'src/resources/empleado/empleado.service';
-import { EmprendedorService } from 'src/resources/emprendedor/emprendedor.service';
+import { EmpleadoService } from 'src/gestion-empresa/modules/empleado/empleado.service';
+import { EmprendedorService } from 'src/gestion-empresa/modules/emprendedor/emprendedor.service';
 import { Usuario } from '../modules/usuario/usuario.entity';
 import { RolService } from '../modules/rol/rol.service';
 import { hashSync } from 'bcrypt';
 import { RegistrarClienteDTO } from '../interfaces/registrarCliente.dto';
 import { RegistrarEmprendedorDTO } from '../interfaces/registrarEmprendedor.dto';
-import { Emprendedor } from 'src/resources/emprendedor/entities/emprendedor.entity';
-import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/entities/cliente.entity';
-import { Empleado } from 'src/resources/empleado/entities/empleado.entity';
+import { Emprendedor } from 'src/gestion-empresa/modules/emprendedor/emprendedor.entity';
+import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/cliente.entity';
+import { Empleado } from 'src/gestion-empresa/modules/empleado/empleado.entity';
 import { RegistrarEmpleadoDTO } from '../interfaces/registrarEmpleado.dto';
 import { UsuarioService } from '../modules/usuario/usuario.service';
 

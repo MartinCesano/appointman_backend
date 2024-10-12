@@ -1,6 +1,5 @@
 import {BadRequestException, Injectable} from '@nestjs/common';
-import {UpdateClienteDto} from './dto/update-cliente.dto';
-import {Cliente} from './entities/cliente.entity';
+import {Cliente} from './cliente.entity';
 import {DeepPartial, } from 'typeorm';
 import {RegistrarClienteDTO} from "../../../auth/interfaces/registrarCliente.dto";
 
@@ -24,19 +23,4 @@ export class ClienteService {
     }
 
 
-    findAll() {
-        return `This action returns all cliente`;
-    }
-
-    findOne(id: number) {
-        return `This action returns a #${id} cliente`;
-    }
-
-    update(id: number, updateClienteDto: UpdateClienteDto) {
-        return `This action updates a #${id} cliente`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} cliente`;
-    }
 }
