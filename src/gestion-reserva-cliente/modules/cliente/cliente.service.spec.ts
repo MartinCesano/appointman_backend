@@ -2,7 +2,7 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { ClienteService } from './cliente.service';
 import { RegistrarClienteDTO } from '../../../auth/interfaces/registrarCliente.dto'; // Asegúrate de que la ruta sea correcta
 import { getRepositoryToken } from '@nestjs/typeorm';
-import { Cliente } from './entities/cliente.entity'; // Asegúrate de que la ruta sea correcta
+import { Cliente } from './cliente.entity'; // Asegúrate de que la ruta sea correcta
 import { Repository } from 'typeorm';
 import { BadRequestException } from '@nestjs/common';
 

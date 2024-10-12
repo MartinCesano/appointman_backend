@@ -10,13 +10,13 @@ import { RolService } from '../rol/rol.service';
 import { RegistrarUsuarioDTO } from 'src/auth/interfaces/registrarUsuario.dto';
 import { RegistrarClienteDTO} from "../../interfaces/registrarCliente.dto";
 import {ClienteService} from "../../../gestion-reserva-cliente/modules/cliente/cliente.service";
-import {Cliente} from "../../../gestion-reserva-cliente/modules/cliente/entities/cliente.entity";
+import {Cliente} from "../../../gestion-reserva-cliente/modules/cliente/cliente.entity";
 import {ICliente} from "../../../gestion-reserva-cliente/interfaces/cliente.interface";
 import {RegistrarEmprendedorDTO} from "../../interfaces/registrarEmprendedor.dto";
-import {Emprendedor} from "../../../resources/emprendedor/entities/emprendedor.entity";
-import {EmprendedorService} from "../../../resources/emprendedor/emprendedor.service";
-import {Empleado} from "../../../resources/empleado/entities/empleado.entity";
-import {EmpleadoService} from "../../../resources/empleado/empleado.service";
+import {Emprendedor} from "../../../gestion-empresa/modules/emprendedor/emprendedor.entity";
+import {EmprendedorService} from "../../../gestion-empresa/modules/emprendedor/emprendedor.service";
+import {Empleado} from "../../../gestion-empresa/modules/empleado/empleado.entity";
+import {EmpleadoService} from "../../../gestion-empresa/modules/empleado/empleado.service";
 import {RegistrarEmpleadoDTO} from "../../interfaces/registrarEmpleado.dto";
 
 @Injectable()

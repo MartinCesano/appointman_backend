@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
-export class ReservaTurnoService {
+export class EstadoService {
+ 
 }

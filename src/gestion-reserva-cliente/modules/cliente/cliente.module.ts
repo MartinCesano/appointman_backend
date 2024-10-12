@@ -4,7 +4,7 @@ import { ClienteController } from './cliente.controller';
 import {TypeOrmModule} from "@nestjs/typeorm";
 
 import {UsuarioService} from "../../../auth/modules/usuario/usuario.service";
-import { Cliente } from './entities/cliente.entity';
+import { Cliente } from './cliente.entity';
 
 @Module({
   controllers: [ClienteController],

@@ -2,7 +2,7 @@ import { Module } from '@nestjs/common';
 import { GestionEmpresaService } from './gestion-empresa.service';
 import { GestorRegistrarTipoServicioService } from './use-cases/gestor-registrar-tipo-servicio.service';
 import { GestionEmpresaController } from './gestion-empresa.controller';
-import { ServicioModule } from 'src/resources/servicio/servicio.module';
+import { ServicioModule } from 'src/gestion-empresa/modules/servicio/servicio.module';
 
 @Module({
   controllers: [GestionEmpresaController],
