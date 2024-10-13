@@ -1,8 +1,10 @@
-import {BaseEntity, Column, Entity, ManyToMany, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Sucursal} from "../sucursal/sucursal.entity";
 import {IEmpresa} from "src/gestion-empresa/interfaces/empresa.interface";
 import {Empleado} from "../empleado/empleado.entity";
 import {IEmpleado} from "src/gestion-empresa/interfaces/empleado.interface";
+import { IPrestadorServicio } from "src/gestion-empresa/interfaces/prestador-servicio.interface";
+import { PrestadorServicio } from "../prestador-servicio/prestador-servicio.entity";
 
 @Entity("empresa")
 export class Empresa extends BaseEntity implements IEmpresa {
@@ -11,6 +13,9 @@ export class Empresa extends BaseEntity implements IEmpresa {
 
     @Column()
     nombre: string;
+
+    @Column()
+    fotoPerfil: string;
 
     @Column()
     cuit: string;
@@ -30,7 +35,10 @@ export class Empresa extends BaseEntity implements IEmpresa {
     @OneToMany(() => Sucursal, sucursal => sucursal.empresa)
     sucursales: Sucursal[];
 
+    @ManyToOne(() => PrestadorServicio, prestador => prestador.empresa)
+    prestadores: IPrestadorServicio[];
+
     @OneToMany(() => Empleado, empleado => empleado.empresa)
-    empleados?: IEmpleado[];
+    empleados: IEmpleado[];
 
 }

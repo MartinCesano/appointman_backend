@@ -12,4 +12,11 @@ export class GestionEmpresaController {
         return this.gestionEmpresaService.registrarTipoServicio(datos);
     }
 
+    @Post('registrar-disponibilidad-aplicando-horario-forzado')
+    async registrarDisponibilidadAplicandoHorarioForzado(@Body() datos: any) {
+        return this.gestionEmpresaService.registrarDisponibilidadAplicandoHorarioForzado(datos);
+    }
+
+    
+
 }

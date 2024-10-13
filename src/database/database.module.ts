@@ -13,6 +13,9 @@ import { Rol } from 'src/auth/modules/rol/rol.entity';
 import { Servicio } from 'src/gestion-empresa/modules/servicio/servicio.entity';
 import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
 import { Usuario } from 'src/auth/modules/usuario/usuario.entity';
+import { Sucursal } from 'src/gestion-empresa/modules/sucursal/sucursal.entity';
+import { Empresa } from 'src/gestion-empresa/modules/empresa/empresa.entity';
+import { PrestadorServicio } from 'src/gestion-empresa/modules/prestador-servicio/prestador-servicio.entity';
 
 
 @Module({
@@ -34,6 +37,9 @@ import { Usuario } from 'src/auth/modules/usuario/usuario.entity';
         Servicio,
         Turno,
         Usuario,
+        Sucursal,
+        Empresa,
+        PrestadorServicio,
       ],
       synchronize: true, // Solo para desarrollo, no usar en producción
     }),
