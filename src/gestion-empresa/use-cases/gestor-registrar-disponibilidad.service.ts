@@ -65,18 +65,13 @@ export class GestorRegistrarDisponibilidadService {
                         disponibilidad = new Disponibilidad();
                         disponibilidad.empleado = await this.empleadoService.buscar(empleadoId);
                         disponibilidad.fecha = nextDate.toISODate();
+                        disponibilidad.horaInicio = horario.horaInicio;
+                        disponibilidad.horaFin = horario.horaFin
                         disponibilidad.turnos = []; // Inicializar el array de turnos
                     } else {
                         // Si la disponibilidad ya existe, borrar todos los turnos asociados
                         await this.turnoService.borrar(disponibilidad.id);
                         disponibilidad.turnos = []; // Reinicializar el array de turnos
-                    }
-
-                    // Crear turnos para la disponibilidad usando las horas definidas
-                    for (const hora of horas) {
-                        const turno = new Turno();
-                        turno.disponibilidad = disponibilidad;
-                        disponibilidad.turnos.push(turno); // Agregar el turno a la disponibilidad
                     }
 
                     // Registrar la disponibilidad al final
@@ -86,6 +81,18 @@ export class GestorRegistrarDisponibilidadService {
                         // Actualizar la disponibilidad si ya existe
                         await this.disponibilidadService.actualizar(disponibilidad);
                     }
+
+                    // Crear turnos para la disponibilidad usando las horas definidas
+                    for (const hora of horas) {
+                        const turno = new Turno();
+                        turno.hora = hora;
+                        await this.turnoService.registrar(turno); // Usar el método registrar y esperar a que se complete
+                        disponibilidad.turnos.push(turno); // Agregar el turno al array de turnos de la disponibilidad
+                    }
+
+                    await this.disponibilidadService.actualizar(disponibilidad); // Guardar la disponibilidad con los turnos actualizados
+
+                    console.log(disponibilidad);
                 }
             }
             currentDate = currentDate.plus({ weeks: 1 });
