@@ -8,7 +8,6 @@ import { Disponibilidad } from '../modules/disponibilidad/disponibilidad.entity'
 import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
 import { EmpleadoService } from '../modules/empleado/empleado.service';
 import { HorarioService } from '../modules/horario/horario.service';
-
 @Injectable()
 export class GestorRegistrarDisponibilidadService {
     constructor(
@@ -21,83 +20,100 @@ export class GestorRegistrarDisponibilidadService {
 
     async registrarDisponibilidadAplicandoHorarioForzado(aplicarHorarioDTO: aplicarHorarioDTO) {
         const empleadoId = aplicarHorarioDTO.empleadoId;
-        const fechaInicio = aplicarHorarioDTO.fechaInicio;
-        const fechaFin = aplicarHorarioDTO.fechaFin;
-        const lunes = aplicarHorarioDTO.lunes;
-        const martes = aplicarHorarioDTO.martes;
-        const miercoles = aplicarHorarioDTO.miercoles;
-        const jueves = aplicarHorarioDTO.jueves;
-        const viernes = aplicarHorarioDTO.viernes;
-        const sabado = aplicarHorarioDTO.sabado;
-        const domingo = aplicarHorarioDTO.domingo;
-        const horarioId = aplicarHorarioDTO.horarioId;
-
-        const startDate = DateTime.fromISO(fechaInicio).startOf('day');
-        const endDate = DateTime.fromISO(fechaFin).startOf('day');
-
-        const diasSemana = {
-            1: { nombre: 'lunes', activo: lunes },
-            2: { nombre: 'martes', activo: martes },
-            3: { nombre: 'miércoles', activo: miercoles },
-            4: { nombre: 'jueves', activo: jueves },
-            5: { nombre: 'viernes', activo: viernes },
-            6: { nombre: 'sábado', activo: sabado },
-            7: { nombre: 'domingo', activo: domingo }
-        };
-
-        // Filtrar los días activos
-        const diasActivos = Object.entries(diasSemana)
-            .filter(([_, diaInfo]) => diaInfo.activo)
-            .map(([diaNumero, diaInfo]) => ({ diaNumero: parseInt(diaNumero), nombre: diaInfo.nombre }));
-
-        // Obtener las horas definidas en el horario
-        const horario = await this.horarioService.buscar(horarioId);
-        const horas = horario.horas;
+        const { startDate, endDate, diasActivos, horas } = await this.prepararDatos(aplicarHorarioDTO);
 
         let currentDate = startDate.startOf('week');
         while (currentDate <= endDate) {
             for (const { diaNumero } of diasActivos) {
-                const nextDate = currentDate.plus({ days: (diaNumero - currentDate.weekday + 7) % 7 });
+                const nextDate = this.calcularSiguienteFecha(currentDate, diaNumero);
                 if (nextDate <= endDate && nextDate >= startDate) {
-                    // Buscar o crear el objeto de disponibilidad para el empleado en la fecha indicada
-                    let disponibilidad = await this.disponibilidadService.buscarDisponibilidad(empleadoId, nextDate.toISODate());
-                    if (!disponibilidad) {
-                        disponibilidad = new Disponibilidad();
-                        disponibilidad.empleado = await this.empleadoService.buscar(empleadoId);
-                        disponibilidad.fecha = nextDate.toISODate();
-                        disponibilidad.horaInicio = horario.horaInicio;
-                        disponibilidad.horaFin = horario.horaFin
-                        disponibilidad.turnos = []; // Inicializar el array de turnos
-                    } else {
-                        // Si la disponibilidad ya existe, borrar todos los turnos asociados
-                        await this.turnoService.borrar(disponibilidad.id);
-                        disponibilidad.turnos = []; // Reinicializar el array de turnos
-                    }
-
-                    // Registrar la disponibilidad al final
-                    if (!disponibilidad.id) {
-                        await this.disponibilidadService.registrar(disponibilidad);
-                    } else {
-                        // Actualizar la disponibilidad si ya existe
-                        await this.disponibilidadService.actualizar(disponibilidad);
-                    }
-
-                    // Crear turnos para la disponibilidad usando las horas definidas
-                    for (const hora of horas) {
-                        const turno = new Turno();
-                        turno.hora = hora;
-                        await this.turnoService.registrar(turno); // Usar el método registrar y esperar a que se complete
-                        disponibilidad.turnos.push(turno); // Agregar el turno al array de turnos de la disponibilidad
-                    }
-
-                    await this.disponibilidadService.actualizar(disponibilidad); // Guardar la disponibilidad con los turnos actualizados
-
-                    console.log(disponibilidad);
+                    await this.procesarDisponibilidad(empleadoId, nextDate, horas, aplicarHorarioDTO.horarioId);
                 }
             }
             currentDate = currentDate.plus({ weeks: 1 });
         }
 
         return "Peticion Recibida";
+    }
+
+    // Submétodo para preparar los datos principales
+    private async prepararDatos(aplicarHorarioDTO: aplicarHorarioDTO) {
+        const startDate = DateTime.fromISO(aplicarHorarioDTO.fechaInicio).startOf('day');
+        const endDate = DateTime.fromISO(aplicarHorarioDTO.fechaFin).startOf('day');
+        const diasActivos = this.obtenerDiasActivos(aplicarHorarioDTO);
+
+        // Obtener las horas definidas en el horario
+        const horario = await this.horarioService.buscar(aplicarHorarioDTO.horarioId);
+        const horas = horario.horas;
+
+        return { startDate, endDate, diasActivos, horas };
+    }
+
+    // Submétodo para obtener los días activos
+    private obtenerDiasActivos(aplicarHorarioDTO: aplicarHorarioDTO) {
+        const diasSemana = {
+            1: { nombre: 'lunes', activo: aplicarHorarioDTO.lunes },
+            2: { nombre: 'martes', activo: aplicarHorarioDTO.martes },
+            3: { nombre: 'miércoles', activo: aplicarHorarioDTO.miercoles },
+            4: { nombre: 'jueves', activo: aplicarHorarioDTO.jueves },
+            5: { nombre: 'viernes', activo: aplicarHorarioDTO.viernes },
+            6: { nombre: 'sábado', activo: aplicarHorarioDTO.sabado },
+            7: { nombre: 'domingo', activo: aplicarHorarioDTO.domingo }
+        };
+
+        return Object.entries(diasSemana)
+            .filter(([_, diaInfo]) => diaInfo.activo)
+            .map(([diaNumero, diaInfo]) => ({ diaNumero: parseInt(diaNumero), nombre: diaInfo.nombre }));
+    }
+
+    // Submétodo para calcular la siguiente fecha del día activo
+    private calcularSiguienteFecha(currentDate: DateTime, diaNumero: number) {
+        return currentDate.plus({ days: (diaNumero - currentDate.weekday + 7) % 7 });
+    }
+
+    // Submétodo para procesar la disponibilidad de un empleado
+    private async procesarDisponibilidad(empleadoId: number, nextDate: DateTime, horas: any[], horarioId: number) {
+        let disponibilidad = await this.disponibilidadService.buscarDisponibilidad(empleadoId, nextDate.toISODate());
+
+        if (!disponibilidad) {
+            disponibilidad = await this.crearNuevaDisponibilidad(empleadoId, nextDate, horarioId);
+        } else {
+            await this.actualizarDisponibilidadExistente(disponibilidad);
+        }
+
+        await this.crearTurnosParaDisponibilidad(disponibilidad, horas);
+        await this.disponibilidadService.actualizar(disponibilidad);
+        console.log(disponibilidad);
+    }
+
+    // Submétodo para crear una nueva disponibilidad
+    private async crearNuevaDisponibilidad(empleadoId: number, nextDate: DateTime, horarioId: number) {
+        const disponibilidad = new Disponibilidad();
+        disponibilidad.empleado = await this.empleadoService.buscar(empleadoId);
+        disponibilidad.fecha = nextDate.toISODate();
+
+        const horario = await this.horarioService.buscar(horarioId);
+        disponibilidad.horaInicio = horario.horaInicio;
+        disponibilidad.horaFin = horario.horaFin;
+        disponibilidad.turnos = [];
+        
+        await this.disponibilidadService.registrar(disponibilidad);
+        return disponibilidad;
+    }
+
+    // Submétodo para actualizar la disponibilidad existente
+    private async actualizarDisponibilidadExistente(disponibilidad: Disponibilidad) {
+        await this.turnoService.borrar(disponibilidad.id);
+        disponibilidad.turnos = [];
+    }
+
+    // Submétodo para crear turnos para la disponibilidad
+    private async crearTurnosParaDisponibilidad(disponibilidad: Disponibilidad, horas: any[]) {
+        for (const hora of horas) {
+            const turno = new Turno();
+            turno.hora = hora;
+            await this.turnoService.registrar(turno);
+            disponibilidad.turnos.push(turno);
+        }
     }
 }
