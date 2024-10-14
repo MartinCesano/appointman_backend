@@ -7,24 +7,22 @@ import { IDisponibilidad } from 'src/gestion-empresa/interfaces/disponibilidad.i
 
 @Injectable()
 export class DisponibilidadService {
-    constructor(
-        @InjectRepository(Disponibilidad)
-        private readonly disponibilidadRepository: Repository<Disponibilidad>,
-    ) {}
+    repository = Disponibilidad
 
-    async registrar(disponibilidad: IDisponibilidad): Promise<IDisponibilidad> {
-        return this.disponibilidadRepository.save(disponibilidad);
+
+    async registrar(disponibilidad: Disponibilidad): Promise<Disponibilidad> {
+        return this.repository.save(disponibilidad);
     }
 
-    async actualizar(disponibilidad: IDisponibilidad): Promise<IDisponibilidad> {
-        return this.disponibilidadRepository.save(disponibilidad);
+    async actualizar(disponibilidad: Disponibilidad): Promise<Disponibilidad> {
+        return this.repository.save(disponibilidad);
     }
 
     async buscarDisponibilidad(empleadoId: number, fecha: string): Promise<Disponibilidad | null> {
         // Convertir la fecha a formato ISO
         const fechaISO = DateTime.fromISO(fecha).toISODate();
         
-        return this.disponibilidadRepository.findOne({
+        return this.repository.findOne({
             where: {
                 empleado: { id: empleadoId },
                 fecha: fechaISO,

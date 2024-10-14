@@ -8,17 +8,15 @@ import { IHora } from 'src/gestion-reserva-cliente/interfaces/hora.interface';
 
 @Injectable()
 export class TurnoService {
-    constructor(
-        @InjectRepository(Turno)
-        private readonly turnoRepository: Repository<Turno>,
-    ) {}
+    repository = Turno;
+    
 
-    async registrar(turno: ITurno): Promise<Turno> {
-        return this.turnoRepository.save(turno);
+    async registrar(turno: Turno): Promise<Turno> {
+        return this.repository.save(turno);
     }
 
     async buscar(id: number): Promise<Turno> {
-        return this.turnoRepository.findOne({ where: { id } });
+        return this.repository.findOne({ where: { id } });
     }
 
     async setHora(id: number, hora: Hora): Promise<void> {
@@ -27,10 +25,10 @@ export class TurnoService {
             throw new Error('Turno not found');
         }
         turno.hora = hora;
-        await this.turnoRepository.save(turno);
+        await this.repository.save(turno);
     }
 
     async borrar(id: number): Promise<void> {
-        await this.turnoRepository.delete(id);
+        await this.repository.delete(id);
     }
 }

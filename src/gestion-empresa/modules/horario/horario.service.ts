@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateHorarioDto } from 'src/gestion-empresa/interfaces/create-horario.dto';
 import { UpdateHorarioDto } from 'src/gestion-empresa/interfaces/update-horario';
 import { Horario } from './horario.entity';
@@ -19,8 +19,12 @@ export class HorarioService {
     return await this.repository.find();
   }
 
-  async buscar(id: number) {
-    return await this.repository.findOne({ where: { id } });
+  async buscar(id: number): Promise<Horario> {
+    const horario = await this.repository.findOne({ where: { id } });
+    if (!horario) {
+      throw new NotFoundException('Horario no encontrado');
+    }
+    return horario;
   }
 
   async update(id: number, updateHorarioDto: UpdateHorarioDto): Promise<Horario> {

@@ -5,5 +5,6 @@ import { HoraController } from './hora.controller';
 @Module({
   controllers: [HoraController],
   providers: [HoraService],
+  exports: [HoraService]
 })
 export class HoraModule {}
