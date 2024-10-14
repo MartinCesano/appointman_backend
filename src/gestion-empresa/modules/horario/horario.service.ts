@@ -19,7 +19,7 @@ export class HorarioService {
     return await this.repository.find();
   }
 
-  async findOne(id: number) {
+  async buscar(id: number) {
     return await this.repository.findOne({ where: { id } });
   }
 
