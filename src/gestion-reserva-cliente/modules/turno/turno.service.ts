@@ -13,7 +13,7 @@ export class TurnoService {
     
 
     async registrar(turno: Turno): Promise<Turno> {
-        return this.repository.save(turno);
+        return await this.repository.save(turno);
     }
 
     async buscar(id: number): Promise<Turno> {
