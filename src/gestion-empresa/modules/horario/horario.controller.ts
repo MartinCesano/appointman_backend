@@ -19,7 +19,7 @@ export class HorarioController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.horarioService.findOne(+id);
+    return this.horarioService.buscar(+id);
   }
 
   @Patch(':id')

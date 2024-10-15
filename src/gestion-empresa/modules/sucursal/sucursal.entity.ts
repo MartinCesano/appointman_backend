@@ -12,6 +12,8 @@ export class Sucursal extends BaseEntity implements ISucursal {
     @Column()
     domicilio: string;
 
+    @Column() 
+    nombre: string;
 
     @Column()
     telefono?: string;
