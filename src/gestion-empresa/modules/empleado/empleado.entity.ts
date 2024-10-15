@@ -1,13 +1,10 @@
-import { IUsuario } from "src/auth/interfaces/usuario.interface";
 import { Usuario } from "src/auth/modules/usuario/usuario.entity";
 import { IEmpleado } from "src/gestion-empresa/interfaces/empleado.interface";
-import { IServicio } from "src/gestion-empresa/interfaces/servicio.interface";
 import { Servicio } from "src/gestion-empresa/modules/servicio/servicio.entity";
 import {BaseEntity, Column, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, Entity, ManyToOne, OneToMany} from "typeorm";
 import { Empresa } from "../empresa/empresa.entity";
 import { IEmpresa } from "src/gestion-empresa/interfaces/empresa.interface";
-import { Disponibilidad } from "../disponibilidad/disponibilidad.entity";
-import { IDisponibilidad } from "src/gestion-empresa/interfaces/disponibilidad.interface";
+import { PrestadorServicio } from "../prestador-servicio/prestador-servicio.entity";
 
 @Entity('empleado')
 export class Empleado extends BaseEntity implements IEmpleado {
@@ -27,8 +24,6 @@ export class Empleado extends BaseEntity implements IEmpleado {
     @ManyToOne(() => Empresa, empresa => empresa.empleados)
     empresa?: IEmpresa;
 
-    @OneToMany(() => Disponibilidad, disponibilidad => disponibilidad.empleado)
-    disponibilidades: IDisponibilidad[];
-
-
+    @ManyToMany(()=> PrestadorServicio, prestadorServicio => prestadorServicio.empleados)
+    prestadores: PrestadorServicio[];
 }

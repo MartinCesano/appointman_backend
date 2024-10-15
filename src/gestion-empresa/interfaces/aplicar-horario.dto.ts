@@ -3,7 +3,7 @@ import {DateTime} from 'luxon';
 
 export class aplicarHorarioDTO {
     horarioId: number;
-    empleadoId: number;
+    prestadorId: number;
     fechaInicio: DateTime;
     fechaFin: DateTime;
     lunes: boolean;

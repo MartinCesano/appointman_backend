@@ -19,13 +19,13 @@ export class DisponibilidadService {
         return this.repository.save(disponibilidad);
     }
 
-    async buscarDisponibilidad(empleadoId: number, fecha: string): Promise<Disponibilidad | null> {
+    async buscarDisponibilidad(prestadorId: number, fecha: string): Promise<Disponibilidad | null> {
         // Convertir la fecha a formato ISO
         const fechaISO = DateTime.fromISO(fecha).toISODate();
         
         return this.repository.findOne({
             where: {
-                empleado: { id: empleadoId },
+                prestadorServicio: { id: prestadorId },
                 fecha: fechaISO,
             },
         });

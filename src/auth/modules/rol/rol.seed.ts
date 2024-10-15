@@ -13,7 +13,6 @@ export class RolSeeder {
       { nombre: 'empleado', description: 'Usuario de la pagina que brinda servicios a una empresa y gestiona sus horarios' },
       { nombre: 'emprendedor', description: 'Usuario de la pagina propietario de una empresa' },
       { nombre: 'admin', description: 'Usuario de la pagina con permisos de administrador' },
-
     ];
 
     for (const role of roles) {

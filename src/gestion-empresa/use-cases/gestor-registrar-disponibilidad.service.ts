@@ -3,26 +3,24 @@ import { aplicarHorarioDTO } from '../interfaces/aplicar-horario.dto';
 import { DateTime } from 'luxon';
 import { DisponibilidadService } from '../modules/disponibilidad/disponibilidad.service';
 import { TurnoService } from 'src/gestion-reserva-cliente/modules/turno/turno.service';
-import { HoraService } from 'src/gestion-reserva-cliente/modules/hora/hora.service';
 import { Disponibilidad } from '../modules/disponibilidad/disponibilidad.entity';
 import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
-import { EmpleadoService } from '../modules/empleado/empleado.service';
 import { HorarioService } from '../modules/horario/horario.service';
 import { IHora } from 'src/gestion-reserva-cliente/interfaces/hora.interface';
+import { PrestadorServicioService } from '../modules/prestador-servicio/prestador-servicio.service';
 
 @Injectable()
 export class GestorRegistrarDisponibilidadService {
     constructor(
         private readonly disponibilidadService: DisponibilidadService,
         private readonly turnoService: TurnoService,
-        private readonly horaService: HoraService,
-        private readonly empleadoService: EmpleadoService,
+        private readonly prestadorServicioService: PrestadorServicioService,
         private readonly horarioService: HorarioService,
     ) { }
 
     async registrarDisponibilidadAplicandoHorarioForzado(aplicarHorarioDTO: aplicarHorarioDTO) {
         try {
-            const empleadoId = aplicarHorarioDTO.empleadoId;
+            const prestadorId = aplicarHorarioDTO.prestadorId;
             const startDate = DateTime.fromISO(aplicarHorarioDTO.fechaInicio).startOf('day');
             const endDate = DateTime.fromISO(aplicarHorarioDTO.fechaFin).startOf('day');
             const diasActivos = this.filtrarDiasActivos(aplicarHorarioDTO);
@@ -33,7 +31,7 @@ export class GestorRegistrarDisponibilidadService {
 
             // Generar disponibilidades y turnos
             const { disponibilidades, turnosCreados } = await this.generarDisponibilidadesYTurnos(
-                empleadoId, 
+                prestadorId, 
                 startDate, 
                 endDate, 
                 diasActivos, 
@@ -90,7 +88,7 @@ export class GestorRegistrarDisponibilidadService {
     }
 
     private async generarDisponibilidadesYTurnos(
-        empleadoId: number,
+        prestadorId: number,
         startDate: DateTime,
         endDate: DateTime,
         diasActivos: any[],
@@ -106,7 +104,7 @@ export class GestorRegistrarDisponibilidadService {
                 try {
                     const nextDate = currentDate.plus({ days: (diaNumero - currentDate.weekday + 7) % 7 });
                     if (nextDate <= endDate && nextDate >= startDate) {
-                        let disponibilidad = await this.obtenerOcrearDisponibilidad(empleadoId, nextDate, horario);
+                        let disponibilidad = await this.obtenerOcrearDisponibilidad(prestadorId, nextDate, horario);
                         disponibilidades.push(disponibilidad);
 
                         await this.turnoService.borrar(disponibilidad.id);
@@ -128,12 +126,12 @@ export class GestorRegistrarDisponibilidadService {
         return { disponibilidades, turnosCreados };
     }
 
-    private async obtenerOcrearDisponibilidad(empleadoId: number, nextDate: DateTime, horario: any) {
+    private async obtenerOcrearDisponibilidad(prestadorId: number, nextDate: DateTime, horario: any) {
         try {
-            let disponibilidad = await this.disponibilidadService.buscarDisponibilidad(empleadoId, nextDate.toISODate());
+            let disponibilidad = await this.disponibilidadService.buscarDisponibilidad(prestadorId, nextDate.toISODate());
             if (!disponibilidad) {
                 disponibilidad = new Disponibilidad();
-                disponibilidad.empleado = await this.empleadoService.buscar(empleadoId);
+                disponibilidad.prestadorServicio = await this.prestadorServicioService.buscar(prestadorId);
                 disponibilidad.fecha = nextDate.toISODate();
                 disponibilidad.horaInicio = horario.horaInicio;
                 disponibilidad.horaFin = horario.horaFin;

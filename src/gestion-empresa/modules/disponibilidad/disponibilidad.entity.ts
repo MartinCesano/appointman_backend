@@ -5,6 +5,8 @@ import { IEmpleado } from 'src/gestion-empresa/interfaces/empleado.interface';
 import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
 import { ITurno } from 'src/gestion-reserva-cliente/interfaces/turno.interface';
 import { DateTime } from 'luxon';
+import { PrestadorServicio } from '../prestador-servicio/prestador-servicio.entity';
+import { IPrestadorServicio } from 'src/gestion-empresa/interfaces/prestador-servicio.interface';
 
 @Entity()
 export class Disponibilidad extends BaseEntity implements IDisponibilidad {
@@ -20,8 +22,8 @@ export class Disponibilidad extends BaseEntity implements IDisponibilidad {
   @Column({ type: 'time' })
   horaFin: DateTime;
 
-  @ManyToOne(() => Empleado, empleado => empleado.disponibilidades)
-  empleado: IEmpleado;
+  @ManyToOne(() => PrestadorServicio, prestadorServicio => prestadorServicio.disponibilidades)
+  prestadorServicio: IPrestadorServicio;
 
   @OneToMany(() => Turno, turno => turno.disponibilidad)
   turnos: ITurno[];

@@ -9,6 +9,7 @@ import { TurnoModule } from 'src/gestion-reserva-cliente/modules/turno/turno.mod
 import { HorarioModule } from './modules/horario/horario.module';
 import { HoraModule } from 'src/gestion-reserva-cliente/modules/hora/hora.module';
 import { DisponibilidadModule } from './modules/disponibilidad/disponibilidad.module';
+import { PrestadorServicioModule } from './modules/prestador-servicio/prestador-servicio.module';
 
 @Module({
   controllers: [GestionEmpresaController],
@@ -25,6 +26,7 @@ import { DisponibilidadModule } from './modules/disponibilidad/disponibilidad.mo
     HoraModule,
     DisponibilidadModule, 
     TurnoModule,
+    PrestadorServicioModule,
   ]
 })
 export class GestionEmpresaModule {}
