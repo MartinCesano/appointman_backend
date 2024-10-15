@@ -23,6 +23,7 @@ export class PrestadorServicio extends BaseEntity implements IPrestadorServicio 
     empresa: IEmpresa;
 
     @ManyToMany(()=> Empleado, empleado => empleado.prestadores)
+    @JoinTable()
     empleados: Empleado[];
     
     @OneToMany(() => Disponibilidad, disponibilidad => disponibilidad.prestadorServicio)
