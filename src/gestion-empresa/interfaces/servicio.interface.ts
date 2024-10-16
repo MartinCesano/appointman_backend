@@ -5,5 +5,4 @@ export interface IServicio {
     duracion: number;
     descripcion?: string | null;
     empresa: IEmpresa;
-
 }
