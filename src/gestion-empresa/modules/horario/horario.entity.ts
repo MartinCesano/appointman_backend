@@ -20,6 +20,6 @@ export class Horario extends BaseEntity implements IHorario {
   @ManyToMany(() => Hora, hora => hora.horarios, { cascade: true, onDelete: 'CASCADE', eager: true }) // Cambiado a 'horarios'
   horas: IHora[];
 
-  @Column("simple-array")
+  @Column("simple-array", {default: ''})
   diasActivos: string;
 }
