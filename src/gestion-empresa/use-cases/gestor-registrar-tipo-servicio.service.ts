@@ -3,6 +3,7 @@ import { RegistrarTipoServicioDTO } from '../interfaces/registrarTipoServicio';
 import { ServicioService } from 'src/gestion-empresa/modules/servicio/servicio.service';
 import { SucursalService } from 'src/gestion-empresa/modules/sucursal/sucursal.service';
 import { IServicio} from "../interfaces/servicio.interface";
+import { EmpresaService} from "src/gestion-empresa/modules/empresa/empresa.service";
 
 @Injectable()
 export class GestorRegistrarTipoServicioService {
@@ -18,13 +19,13 @@ export class GestorRegistrarTipoServicioService {
         // como se verifico que la duracion es correcta, se procede a registrar el tipo de servicio
 
         // obtengo la sucursal
-        const sucursalService = new SucursalService();
-        const sucursal = await sucursalService.getSucursalById(datos.idSucursal);
+        const empresaService = new EmpresaService();
+        const empresa = await empresaService.getSucursalById(datos.idEmpresa);
         const servicioNuevo = {
             nombre: datos.nombre,
             duracion: datos.duracion,
             precio: datos.precio,
-            sucursal: [sucursal]
+            empresa: empresa
         }
 
         const response = await this.servicioService.create(servicioNuevo);

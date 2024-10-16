@@ -5,6 +5,8 @@ import {Empleado} from "../empleado/empleado.entity";
 import {IEmpleado} from "src/gestion-empresa/interfaces/empleado.interface";
 import { IPrestadorServicio } from "src/gestion-empresa/interfaces/prestador-servicio.interface";
 import { PrestadorServicio } from "../prestador-servicio/prestador-servicio.entity";
+import { IServicio } from "src/gestion-empresa/interfaces/servicio.interface";
+import { Servicio } from "../servicio/servicio.entity";
 
 @Entity("empresa")
 export class Empresa extends BaseEntity implements IEmpresa {
@@ -41,4 +43,6 @@ export class Empresa extends BaseEntity implements IEmpresa {
     @OneToMany(() => Empleado, empleado => empleado.empresa)
     empleados: IEmpleado[];
 
+    @OneToMany(() => Servicio, servicio => servicio.empresa)
+    servicio: IServicio[];
 }
