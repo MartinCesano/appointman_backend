@@ -7,6 +7,8 @@ import { IPrestadorServicio } from "src/gestion-empresa/interfaces/prestador-ser
 import { PrestadorServicio } from "../prestador-servicio/prestador-servicio.entity";
 import { IServicio } from "src/gestion-empresa/interfaces/servicio.interface";
 import { Servicio } from "../servicio/servicio.entity";
+import {Emprendedor} from "src/gestion-empresa/modules/emprendedor/emprendedor.entity";
+import {IEmprendedor} from "src/gestion-empresa/interfaces/emprendedor.interface";
 
 @Entity("empresa")
 export class Empresa extends BaseEntity implements IEmpresa {
@@ -45,4 +47,8 @@ export class Empresa extends BaseEntity implements IEmpresa {
 
     @OneToMany(() => Servicio, servicio => servicio.empresa)
     servicio: IServicio[];
+
+    @OneToOne(() => Emprendedor, emprendedor => emprendedor.empresa)
+    emprendedor: IEmprendedor;
+
 }

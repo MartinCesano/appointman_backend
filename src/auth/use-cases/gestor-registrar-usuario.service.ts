@@ -13,6 +13,7 @@ import {Cliente} from 'src/gestion-reserva-cliente/modules/cliente/cliente.entit
 import {Empleado} from 'src/gestion-empresa/modules/empleado/empleado.entity';
 import {RegistrarEmpleadoDTO} from '../interfaces/registrarEmpleado.dto';
 import {UsuarioService} from '../modules/usuario/usuario.service';
+import {EmpresaService} from 'src/gestion-empresa/modules/empresa/empresa.service';
 
 @Injectable()
 export class GestorRegistrarUsuarioService {
@@ -62,6 +63,10 @@ export class GestorRegistrarUsuarioService {
     }
 
     async creacionEmprendedor(datosEmprendedor: RegistrarEmprendedorDTO): Promise<Emprendedor> {
+        // obtengo la empresa
+        const empresaService = new EmpresaService()
+        const empresaDeEmpprendedor = await empresaService.getEmpresaById(datosEmprendedor.idEmpresa)
+        datosEmprendedor.empresa = empresaDeEmpprendedor
         return await this.emprendedorService.registrar(datosEmprendedor)
     }
 

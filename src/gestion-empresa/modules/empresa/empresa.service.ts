@@ -9,7 +9,7 @@ import {IEmpresa} from "src/gestion-empresa/interfaces/empresa.interface";
 export class EmpresaService {
   repository = Empresa;
 
-  getSucursalById(id: number): Promise<IEmpresa> {
+  getEmpresaById(id: number): Promise<IEmpresa> {
     try {
       return this.repository.findOne({ where: { id }});
     } catch (error) {

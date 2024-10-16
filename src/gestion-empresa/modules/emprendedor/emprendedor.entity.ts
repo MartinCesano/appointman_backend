@@ -1,7 +1,9 @@
 import { IUsuario } from "../../../auth/interfaces/usuario.interface";
 import { Usuario } from "../../../auth/modules/usuario/usuario.entity";
 import { IEmprendedor } from "../../interfaces/emprendedor.interface";
-import {BaseEntity, Column, Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {BaseEntity, Column, Entity, JoinColumn, ManyToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Empresa} from "src/gestion-empresa/modules/empresa/empresa.entity";
+import {IEmpresa} from "src/gestion-empresa/interfaces/empresa.interface";
 
 @Entity()
 export class Emprendedor extends BaseEntity implements IEmprendedor {
@@ -16,5 +18,9 @@ export class Emprendedor extends BaseEntity implements IEmprendedor {
 
     @OneToOne(()=> Usuario, usuario => usuario.empleado)
     usuario:IUsuario;
+
+    @OneToOne(()=> Empresa, empresa => empresa.emprendedor)
+    @JoinColumn()
+    empresa:IEmpresa;
 
 }

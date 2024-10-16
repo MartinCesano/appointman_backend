@@ -20,7 +20,7 @@ export class GestorRegistrarTipoServicioService {
 
         // obtengo la sucursal
         const empresaService = new EmpresaService();
-        const empresa = await empresaService.getSucursalById(datos.idEmpresa);
+        const empresa = await empresaService.getEmpresaById(datos.idEmpresa);
         const servicioNuevo = {
             nombre: datos.nombre,
             duracion: datos.duracion,
