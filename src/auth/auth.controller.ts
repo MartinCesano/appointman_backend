@@ -25,7 +25,7 @@ export class AuthController {
     return await this.authorizationService.register(body);
   }
 
-  @Post('validate-token')
+  @Post('authorization')
   @HttpCode(HttpStatus.OK)
   async validateToken(@Body() body: { token: string }) {
     const isValid = await this.authorizationService.validateToken(body.token);

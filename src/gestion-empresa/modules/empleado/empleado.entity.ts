@@ -1,7 +1,10 @@
-import { Usuario } from "../../../auth/modules/usuario/usuario.entity";
-import { IEmpleado } from "../../interfaces/empleado.interface";
-import { Servicio } from "../../modules/servicio/servicio.entity";
-import { BaseEntity, Column, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, Entity } from "typeorm";
+import { Usuario } from "src/auth/modules/usuario/usuario.entity";
+import { IEmpleado } from "src/gestion-empresa/interfaces/empleado.interface";
+import { Servicio } from "src/gestion-empresa/modules/servicio/servicio.entity";
+import {BaseEntity, Column, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, Entity, ManyToOne, OneToMany} from "typeorm";
+import { Empresa } from "../empresa/empresa.entity";
+import { IEmpresa } from "src/gestion-empresa/interfaces/empresa.interface";
+import { PrestadorServicio } from "../prestador-servicio/prestador-servicio.entity";
 
 @Entity('empleado')
 export class Empleado extends BaseEntity implements IEmpleado {
@@ -17,4 +20,10 @@ export class Empleado extends BaseEntity implements IEmpleado {
 
     @OneToOne(() => Usuario, usuario => usuario.empleado)
     usuario: Usuario;
+
+    @ManyToOne(() => Empresa, empresa => empresa.empleados)
+    empresa?: IEmpresa;
+
+    @ManyToMany(()=> PrestadorServicio, prestadorServicio => prestadorServicio.empleados)
+    prestadores: PrestadorServicio[];
 }

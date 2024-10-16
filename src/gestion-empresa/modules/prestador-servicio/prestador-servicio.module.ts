@@ -5,5 +5,6 @@ import { PrestadorServicioController } from './prestador-servicio.controller';
 @Module({
   controllers: [PrestadorServicioController],
   providers: [PrestadorServicioService],
+  exports: [PrestadorServicioService]
 })
 export class PrestadorServicioModule {}

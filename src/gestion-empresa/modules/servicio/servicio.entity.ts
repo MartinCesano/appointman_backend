@@ -1,7 +1,11 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity} from 'typeorm';
-import { IServicio } from '../../interfaces/servicio.interface';
-import { Empleado } from '../empleado/empleado.entity';
-import { IEmpleado } from '../../interfaces/empleado.interface';
+import { IServicio } from 'src/gestion-empresa/interfaces/servicio.interface';
+import { Empleado } from 'src/gestion-empresa/modules/empleado/empleado.entity';
+import { IEmpleado } from 'src/gestion-empresa/interfaces/empleado.interface';
+import {Sucursal} from "../sucursal/sucursal.entity";
+import {ISucursal} from "../../interfaces/sucursal.interface";
+import { IPrestadorServicio } from 'src/gestion-empresa/interfaces/prestador-servicio.interface';
+import { PrestadorServicio } from '../prestador-servicio/prestador-servicio.entity';
 
 @Entity('servicio')
 export class Servicio extends BaseEntity implements IServicio {
@@ -22,4 +26,10 @@ export class Servicio extends BaseEntity implements IServicio {
 
     @ManyToMany(() => Empleado, empleado => empleado.capacidades)
     empleados: IEmpleado[];
+
+    @ManyToMany(() => Sucursal, sucursal => sucursal.servicios)
+    sucursales: ISucursal[];
+
+    @ManyToMany(() => PrestadorServicio, prestador => prestador.servicios)
+    prestadores: IPrestadorServicio[];
 }

@@ -5,5 +5,6 @@ import { HorarioController } from './horario.controller';
 @Module({
   controllers: [HorarioController],
   providers: [HorarioService],
+  exports: [HorarioService]
 })
 export class HorarioModule {}

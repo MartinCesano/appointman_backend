@@ -37,6 +37,7 @@
     "cypress": "^13.14.2",
     "dotenv": "^16.4.5",
     "jsonwebtoken": "^9.0.2",
+    "luxon": "^3.5.0",
     "moment": "^2.30.1",
     "pg": "^8.13.0",
     "reflect-metadata": "^0.2.0",

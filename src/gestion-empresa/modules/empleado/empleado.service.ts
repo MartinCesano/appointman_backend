@@ -17,4 +17,8 @@ export class EmpleadoService {
     }
   }
 
+  buscar(id: number): Promise<Empleado> {
+    return this.repository.findOne({ where: { id } });
+  }
+
 }
