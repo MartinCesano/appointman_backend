@@ -1,6 +1,8 @@
 import {Injectable} from '@nestjs/common';
 import { RegistrarTipoServicioDTO } from '../interfaces/registrarTipoServicio';
 import { ServicioService } from 'src/gestion-empresa/modules/servicio/servicio.service';
+import { SucursalService } from 'src/gestion-empresa/modules/sucursal/sucursal.service';
+import { IServicio} from "../interfaces/servicio.interface";
 
 @Injectable()
 export class GestorRegistrarTipoServicioService {
@@ -14,7 +16,19 @@ export class GestorRegistrarTipoServicioService {
             return {error: "La duracion debe ser mayor a 0 y multiplo de 5"};
         }
         // como se verifico que la duracion es correcta, se procede a registrar el tipo de servicio
-        const response = await this.servicioService.create(datos);
+
+        // obtengo la sucursal
+        const sucursalService = new SucursalService();
+        const sucursal = await sucursalService.getSucursalById(datos.idSucursal);
+        const servicioNuevo = {
+            nombre: datos.nombre,
+            duracion: datos.duracion,
+            precio: datos.precio,
+            sucursal: [sucursal]
+        }
+
+        const response = await this.servicioService.create(servicioNuevo);
+
 
         return response;
     }

@@ -9,13 +9,17 @@ import { TurnoModule } from 'src/gestion-reserva-cliente/modules/turno/turno.mod
 import { HorarioModule } from './modules/horario/horario.module';
 import { HoraModule } from 'src/gestion-reserva-cliente/modules/hora/hora.module';
 import { DisponibilidadModule } from './modules/disponibilidad/disponibilidad.module';
+import { JwtModule} from "../auth/modules/jwt/jwt.module";
+import { JwtService} from "../auth/modules/jwt/jwt.service";
+import { UsuarioModule} from "../auth/modules/usuario/usuario.module";
 
 @Module({
   controllers: [GestionEmpresaController],
   providers: [
     GestionEmpresaService,
     GestorRegistrarTipoServicioService,
-    GestorRegistrarDisponibilidadService, 
+    GestorRegistrarDisponibilidadService,
+    JwtService,
   ],
   imports: [
     ServicioModule, 
@@ -25,6 +29,8 @@ import { DisponibilidadModule } from './modules/disponibilidad/disponibilidad.mo
     HoraModule,
     DisponibilidadModule, 
     TurnoModule,
+    JwtModule,
+    UsuarioModule
   ]
 })
 export class GestionEmpresaModule {}
