@@ -8,6 +8,7 @@ import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
 import { HorarioService } from '../modules/horario/horario.service';
 import { IHora } from 'src/gestion-reserva-cliente/interfaces/hora.interface';
 import { PrestadorServicioService } from '../modules/prestador-servicio/prestador-servicio.service';
+import { IHorario } from 'src/gestion-reserva-cliente/interfaces/horario.interface';
 
 @Injectable()
 export class GestorRegistrarDisponibilidadService {
@@ -23,11 +24,13 @@ export class GestorRegistrarDisponibilidadService {
             const prestadorId = aplicarHorarioDTO.prestadorId;
             const startDate = DateTime.fromISO(aplicarHorarioDTO.fechaInicio).startOf('day');
             const endDate = DateTime.fromISO(aplicarHorarioDTO.fechaFin).startOf('day');
-            const diasActivos = this.filtrarDiasActivos(aplicarHorarioDTO);
 
             // Obtener horas del horario
             const horario = await this.obtenerHorario(aplicarHorarioDTO.horarioId);
             const horas = horario.horas;
+            const diasActivos = this.filtrarDiasActivos(horario);
+            console.log('Días activos:', diasActivos);
+
 
             // Generar disponibilidades y turnos
             const { disponibilidades, turnosCreados } = await this.generarDisponibilidadesYTurnos(
@@ -53,16 +56,18 @@ export class GestorRegistrarDisponibilidadService {
         }
     }
 
-    private filtrarDiasActivos(aplicarHorarioDTO: aplicarHorarioDTO) {
+    private filtrarDiasActivos(horario: IHorario) {
         try {
+            const diasActivos = horario.diasActivos
             const diasSemana = {
-                1: { nombre: 'lunes', activo: aplicarHorarioDTO.lunes },
-                2: { nombre: 'martes', activo: aplicarHorarioDTO.martes },
-                3: { nombre: 'miércoles', activo: aplicarHorarioDTO.miercoles },
-                4: { nombre: 'jueves', activo: aplicarHorarioDTO.jueves },
-                5: { nombre: 'viernes', activo: aplicarHorarioDTO.viernes },
-                6: { nombre: 'sábado', activo: aplicarHorarioDTO.sabado },
-                7: { nombre: 'domingo', activo: aplicarHorarioDTO.domingo }
+                1: { nombre: 'lunes', activo: diasActivos.includes('lunes') },
+                2: { nombre: 'martes', activo: diasActivos.includes('martes') },
+                3: { nombre: 'miércoles', activo: diasActivos.includes('miercoles') },
+                4: { nombre: 'jueves', activo: diasActivos.includes('jueves') },
+                5: { nombre: 'viernes', activo: diasActivos.includes('viernes') },
+                6: { nombre: 'sabado', activo: diasActivos.includes('sabado') },
+                7: { nombre: 'domingo', activo: diasActivos.includes('domingo') },
+
             };
 
             return Object.entries(diasSemana)
