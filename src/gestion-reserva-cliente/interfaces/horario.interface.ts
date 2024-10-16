@@ -5,4 +5,5 @@ export interface IHorario {
   horaInicio: string;
   horaFin: string;
   horas: IHora[];
+  diasActivos: string;
 }
