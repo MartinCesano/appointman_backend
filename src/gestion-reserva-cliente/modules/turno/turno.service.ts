@@ -1,11 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { Turno } from './turno.entity';
 import { Hora } from '../hora/hora.entity';
-import { ITurno } from 'src/gestion-reserva-cliente/interfaces/turno.interface';
-import { IHora } from 'src/gestion-reserva-cliente/interfaces/hora.interface';
-import { Disponibilidad } from 'src/gestion-empresa/modules/disponibilidad/disponibilidad.entity';
+import { Disponibilidad } from '../../../gestion-empresa/modules/disponibilidad/disponibilidad.entity';
 
 @Injectable()
 export class TurnoService {

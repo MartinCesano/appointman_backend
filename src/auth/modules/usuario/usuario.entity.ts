@@ -1,13 +1,12 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToMany, JoinTable, BaseEntity, OneToOne, JoinColumn} from 'typeorm';
-import { IUsuario } from 'src/auth/interfaces/usuario.interface';
+import { IUsuario } from '../../interfaces/usuario.interface';
 import { Rol } from '../rol/rol.entity';
 import { Permiso } from '../permiso/permiso.entity';
-import { IEmpleado } from 'src/gestion-empresa/interfaces/empleado.interface';
-import { ICliente } from 'src/gestion-reserva-cliente/interfaces/cliente.interface';
-import { IEmprendedor } from 'src/gestion-empresa/interfaces/emprendedor.interface';
-import { Emprendedor } from 'src/gestion-empresa/modules/emprendedor/emprendedor.entity';
-import { Empleado } from 'src/gestion-empresa/modules/empleado/empleado.entity';
-import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/cliente.entity';
+import { IEmpleado } from '../../../gestion-empresa/interfaces/empleado.interface';
+import { IEmprendedor } from '../../../gestion-empresa/interfaces/emprendedor.interface';
+import { Emprendedor } from '../../../gestion-empresa/modules/emprendedor/emprendedor.entity';
+import { Empleado } from '../../../gestion-empresa/modules/empleado/empleado.entity';
+import { Cliente } from '../../../gestion-reserva-cliente/modules/cliente/cliente.entity';
 
 @Entity()
 export class Usuario extends BaseEntity implements IUsuario {

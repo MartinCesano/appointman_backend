@@ -1,7 +1,7 @@
 import {BaseEntity, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import { Empresa } from "../empresa/empresa.entity";
-import { ISucursal } from "src/gestion-empresa/interfaces/sucursal.interface";
-import { IEmpresa } from "src/gestion-empresa/interfaces/empresa.interface";
+import { ISucursal } from "../../interfaces/sucursal.interface";
+import { IEmpresa } from "../../interfaces/empresa.interface";
 import { Servicio } from "../servicio/servicio.entity";
 
 @Entity("sucursal")

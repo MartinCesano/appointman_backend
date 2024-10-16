@@ -1,9 +1,9 @@
 import { Body, Controller, Get, Param, Post, Put, Delete, UseGuards } from '@nestjs/common';
 import { UsuarioService } from './usuario.service';
 import { DeepPartial } from 'typeorm';
-import { AuthGuard } from 'src/auth/guards/auth.guard';
+import { AuthGuard } from '../../guards/auth.guard';
 import { Usuario } from './usuario.entity';
-import { IUsuario } from 'src/auth/interfaces/usuario.interface';
+import { IUsuario } from '../../interfaces/usuario.interface';
 
 @Controller('usuarios')
 export class UsuarioController {

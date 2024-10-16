@@ -1,9 +1,9 @@
-import { Usuario } from "src/auth/modules/usuario/usuario.entity";
-import { IEmpleado } from "src/gestion-empresa/interfaces/empleado.interface";
-import { Servicio } from "src/gestion-empresa/modules/servicio/servicio.entity";
+import { Usuario } from "../../../auth/modules/usuario/usuario.entity";
+import { IEmpleado } from "../../interfaces/empleado.interface";
+import { Servicio } from "../servicio/servicio.entity";
 import {BaseEntity, Column, JoinTable, ManyToMany, OneToOne, PrimaryGeneratedColumn, Entity, ManyToOne, OneToMany} from "typeorm";
 import { Empresa } from "../empresa/empresa.entity";
-import { IEmpresa } from "src/gestion-empresa/interfaces/empresa.interface";
+import { IEmpresa } from "../../interfaces/empresa.interface";
 import { PrestadorServicio } from "../prestador-servicio/prestador-servicio.entity";
 
 @Entity('empleado')

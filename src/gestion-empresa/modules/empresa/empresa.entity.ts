@@ -1,9 +1,9 @@
 import {BaseEntity, Column, Entity, ManyToMany, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {Sucursal} from "../sucursal/sucursal.entity";
-import {IEmpresa} from "src/gestion-empresa/interfaces/empresa.interface";
+import { IEmpresa } from "../../interfaces/empresa.interface";
 import {Empleado} from "../empleado/empleado.entity";
-import {IEmpleado} from "src/gestion-empresa/interfaces/empleado.interface";
-import { IPrestadorServicio } from "src/gestion-empresa/interfaces/prestador-servicio.interface";
+import { IEmpleado } from "../../interfaces/empleado.interface";
+import { IPrestadorServicio } from "../../interfaces/prestador-servicio.interface";
 import { PrestadorServicio } from "../prestador-servicio/prestador-servicio.entity";
 
 @Entity("empresa")

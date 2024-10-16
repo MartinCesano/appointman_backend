@@ -2,13 +2,13 @@ import { Injectable } from '@nestjs/common';
 import { aplicarHorarioDTO } from '../interfaces/aplicar-horario.dto';
 import { DateTime } from 'luxon';
 import { DisponibilidadService } from '../modules/disponibilidad/disponibilidad.service';
-import { TurnoService } from 'src/gestion-reserva-cliente/modules/turno/turno.service';
+import { TurnoService } from '../../gestion-reserva-cliente/modules/turno/turno.service';
 import { Disponibilidad } from '../modules/disponibilidad/disponibilidad.entity';
-import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
+import { Turno } from '../../gestion-reserva-cliente/modules/turno/turno.entity';
 import { HorarioService } from '../modules/horario/horario.service';
-import { IHora } from 'src/gestion-reserva-cliente/interfaces/hora.interface';
+import { IHora } from '../../gestion-reserva-cliente/interfaces/hora.interface';
 import { PrestadorServicioService } from '../modules/prestador-servicio/prestador-servicio.service';
-import { IHorario } from 'src/gestion-reserva-cliente/interfaces/horario.interface';
+import { IHorario } from '../../gestion-reserva-cliente/interfaces/horario.interface';
 
 @Injectable()
 export class GestorRegistrarDisponibilidadService {

@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
 import { GestionReservaClienteController } from './gestion-reserva-cliente.controller';
 import { GestionReservaClienteService } from './gestion-reserva-cliente.service';
-import { ClienteModule } from 'src/gestion-reserva-cliente/modules/cliente/cliente.module';
+import { ClienteModule } from './modules/cliente/cliente.module';
 import { GestorRegistrarClienteService } from './use-cases/gestor-registrar-cliente.service';
 
 @Module({

@@ -1,6 +1,6 @@
-import { IUsuario } from "src/auth/interfaces/usuario.interface";
-import { Usuario } from "src/auth/modules/usuario/usuario.entity";
-import { IEmprendedor } from "src/gestion-empresa/interfaces/emprendedor.interface";
+import { IUsuario } from "../../../auth/interfaces/usuario.interface";
+import { Usuario } from "../../../auth/modules/usuario/usuario.entity";
+import { IEmprendedor } from "../../interfaces/emprendedor.interface";
 import {BaseEntity, Column, Entity, ManyToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 
 @Entity()

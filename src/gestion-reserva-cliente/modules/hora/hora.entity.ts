@@ -1,9 +1,9 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToMany, JoinTable, OneToMany } from 'typeorm';
 import { Turno } from '../turno/turno.entity'; 
-import { Horario } from 'src/gestion-empresa/modules/horario/horario.entity';
-import { IHora } from 'src/gestion-reserva-cliente/interfaces/hora.interface';
-import { IHorario } from 'src/gestion-reserva-cliente/interfaces/horario.interface';
-import { ITurno } from 'src/gestion-reserva-cliente/interfaces/turno.interface';
+import { Horario } from '../../../gestion-empresa/modules/horario/horario.entity';
+import { IHora } from '../../interfaces/hora.interface';
+import { IHorario } from '../../interfaces/horario.interface';
+import { ITurno } from '../../interfaces/turno.interface';
 
 @Entity()
 export class Hora extends BaseEntity implements IHora {

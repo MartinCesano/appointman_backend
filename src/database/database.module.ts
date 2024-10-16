@@ -1,22 +1,21 @@
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { Cliente } from 'src/gestion-reserva-cliente/modules/cliente/cliente.entity';
-import { Disponibilidad } from 'src/gestion-empresa/modules/disponibilidad/disponibilidad.entity';
-import { Empleado } from 'src/gestion-empresa/modules/empleado/empleado.entity';
-import { Emprendedor } from 'src/gestion-empresa/modules/emprendedor/emprendedor.entity';
-import { Estado } from 'src/estado/estado.entity';
-import { Hora } from 'src/gestion-reserva-cliente/modules/hora/hora.entity';
-import { Horario } from 'src/gestion-empresa/modules/horario/horario.entity';
-import { Permiso } from 'src/auth/modules/permiso/permiso.entity';
-import { ReservaTurno } from 'src/gestion-reserva-cliente/modules/reserva-turno/reserva-turno.entity';
-import { Rol } from 'src/auth/modules/rol/rol.entity';
-import { Servicio } from 'src/gestion-empresa/modules/servicio/servicio.entity';
-import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
-import { Usuario } from 'src/auth/modules/usuario/usuario.entity';
-import { Sucursal } from 'src/gestion-empresa/modules/sucursal/sucursal.entity';
-import { Empresa } from 'src/gestion-empresa/modules/empresa/empresa.entity';
-import { PrestadorServicio } from 'src/gestion-empresa/modules/prestador-servicio/prestador-servicio.entity';
-
+import { Cliente } from '../gestion-reserva-cliente/modules/cliente/cliente.entity';
+import { Estado } from '../estado/estado.entity';
+import { Disponibilidad } from '../gestion-empresa/modules/disponibilidad/disponibilidad.entity';
+import { Empleado } from '../gestion-empresa/modules/empleado/empleado.entity';
+import { Emprendedor } from '../gestion-empresa/modules/emprendedor/emprendedor.entity';
+import { Hora } from '../gestion-reserva-cliente/modules/hora/hora.entity';
+import { Horario } from '../gestion-empresa/modules/horario/horario.entity';
+import { Permiso } from '../auth/modules/permiso/permiso.entity';
+import { ReservaTurno } from '../gestion-reserva-cliente/modules/reserva-turno/reserva-turno.entity';
+import { Rol } from '../auth/modules/rol/rol.entity';
+import { Servicio } from '../gestion-empresa/modules/servicio/servicio.entity';
+import { Turno } from '../gestion-reserva-cliente/modules/turno/turno.entity';
+import { Usuario } from '../auth/modules/usuario/usuario.entity';
+import { Sucursal } from '../gestion-empresa/modules/sucursal/sucursal.entity';
+import { Empresa } from '../gestion-empresa/modules/empresa/empresa.entity';
+import { PrestadorServicio } from '../gestion-empresa/modules/prestador-servicio/prestador-servicio.entity';
 
 @Module({
   imports: [

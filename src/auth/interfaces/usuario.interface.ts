@@ -1,7 +1,7 @@
-import { IEmpleado } from "src/gestion-empresa/interfaces/empleado.interface";
+import { IEmpleado } from "../../gestion-empresa/interfaces/empleado.interface";
 import { IRol } from "./rol.interface";
-import { ICliente } from "src/gestion-reserva-cliente/interfaces/cliente.interface";
-import { IEmprendedor } from "src/gestion-empresa/interfaces/emprendedor.interface";
+import { ICliente } from "../../gestion-reserva-cliente/interfaces/cliente.interface";
+import { IEmprendedor } from "../../gestion-empresa/interfaces/emprendedor.interface";
 
 export interface IUsuario {
   id: number;

@@ -1,7 +1,7 @@
 import { Entity, PrimaryGeneratedColumn, Column, ManyToMany, BaseEntity} from 'typeorm';
 import { Rol } from '../rol/rol.entity';
 import { Usuario } from '../usuario/usuario.entity';
-import { IPermiso } from 'src/auth/interfaces/permisos.interface';
+import { IPermiso } from '../../interfaces/permisos.interface';
 
 @Entity()
 export class Permiso extends BaseEntity implements IPermiso	{

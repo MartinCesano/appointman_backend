@@ -1,8 +1,7 @@
 import {Injectable} from '@nestjs/common';
 import { RegistrarTipoServicioDTO } from '../interfaces/registrarTipoServicio';
-import { ServicioService } from 'src/gestion-empresa/modules/servicio/servicio.service';
-import { SucursalService } from 'src/gestion-empresa/modules/sucursal/sucursal.service';
-import { IServicio} from "../interfaces/servicio.interface";
+import { ServicioService } from '../modules/servicio/servicio.service';
+import { SucursalService } from '../modules/sucursal/sucursal.service';
 
 @Injectable()
 export class GestorRegistrarTipoServicioService {
