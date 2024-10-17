@@ -1,12 +1,10 @@
-import { IDisponibilidad } from 'src/gestion-empresa/interfaces/disponibilidad.interface';
+import { IDisponibilidad } from '../../interfaces/disponibilidad.interface';
 import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, OneToMany, BaseEntity } from 'typeorm';
-import { Empleado } from '../empleado/empleado.entity';
-import { IEmpleado } from 'src/gestion-empresa/interfaces/empleado.interface';
-import { Turno } from 'src/gestion-reserva-cliente/modules/turno/turno.entity';
-import { ITurno } from 'src/gestion-reserva-cliente/interfaces/turno.interface';
+import { Turno } from '../../../gestion-reserva-cliente/modules/turno/turno.entity';
+import { ITurno } from '../../../gestion-reserva-cliente/interfaces/turno.interface';
 import { DateTime } from 'luxon';
 import { PrestadorServicio } from '../prestador-servicio/prestador-servicio.entity';
-import { IPrestadorServicio } from 'src/gestion-empresa/interfaces/prestador-servicio.interface';
+import { IPrestadorServicio } from '../../interfaces/prestador-servicio.interface';
 
 @Entity()
 export class Disponibilidad extends BaseEntity implements IDisponibilidad {

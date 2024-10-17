@@ -1,18 +1,17 @@
 import {HttpException, Injectable} from '@nestjs/common';
 import {RegistrarUsuarioDTO} from '../interfaces/registrarUsuario.dto';
-import {ClienteService} from 'src/gestion-reserva-cliente/modules/cliente/cliente.service';
-import {EmpleadoService} from 'src/gestion-empresa/modules/empleado/empleado.service';
-import {EmprendedorService} from 'src/gestion-empresa/modules/emprendedor/emprendedor.service';
+import { ClienteService } from '../../gestion-reserva-cliente/modules/cliente/cliente.service';
+import { EmpleadoService } from '../../gestion-empresa/modules/empleado/empleado.service';
+import { EmprendedorService } from '../../gestion-empresa/modules/emprendedor/emprendedor.service';
 import {Usuario} from '../modules/usuario/usuario.entity';
 import {RolService} from '../modules/rol/rol.service';
-import {hashSync} from 'bcrypt';
 import {RegistrarClienteDTO} from '../interfaces/registrarCliente.dto';
 import {RegistrarEmprendedorDTO} from '../interfaces/registrarEmprendedor.dto';
-import {Emprendedor} from 'src/gestion-empresa/modules/emprendedor/emprendedor.entity';
-import {Cliente} from 'src/gestion-reserva-cliente/modules/cliente/cliente.entity';
-import {Empleado} from 'src/gestion-empresa/modules/empleado/empleado.entity';
+import { Emprendedor } from '../../gestion-empresa/modules/emprendedor/emprendedor.entity';
+import { Cliente } from '../../gestion-reserva-cliente/modules/cliente/cliente.entity';
+import { Empleado } from '../../gestion-empresa/modules/empleado/empleado.entity';
 import {RegistrarEmpleadoDTO} from '../interfaces/registrarEmpleado.dto';
-import {UsuarioService} from '../modules/usuario/usuario.service';
+import { UsuarioService } from '../modules/usuario/usuario.service';
 
 @Injectable()
 export class GestorRegistrarUsuarioService {

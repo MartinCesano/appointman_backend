@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
 import { HorarioService } from './horario.service';
 import { CreateHorarioDto } from '../../interfaces/create-horario.dto';
-import { UpdateHorarioDto } from 'src/gestion-empresa/interfaces/update-horario';
+import { UpdateHorarioDto } from '../../interfaces/update-horario';
 
 @Controller('horario')
 export class HorarioController {

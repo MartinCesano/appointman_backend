@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Sucursal } from './sucursal.entity';
-import { ISucursal } from 'src/gestion-empresa/interfaces/sucursal.interface';
+import { ISucursal } from '../../interfaces/sucursal.interface';
 
 @Injectable()
 export class SucursalService {

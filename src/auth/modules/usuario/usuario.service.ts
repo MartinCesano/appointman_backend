@@ -4,20 +4,9 @@ import {IUsuario} from '../../interfaces/usuario.interface';
 import {Usuario} from './usuario.entity';
 import {hashSync, compareSync} from 'bcrypt';
 import {JwtService} from '../jwt/jwt.service';
-import {DeepPartial, In, Repository,} from 'typeorm';
+import {DeepPartial} from 'typeorm';
 import {PermisoService} from '../permiso/permiso.service';
 import {RolService} from '../rol/rol.service';
-import {RegistrarUsuarioDTO} from 'src/auth/interfaces/registrarUsuario.dto';
-import {RegistrarClienteDTO} from "../../interfaces/registrarCliente.dto";
-import {ClienteService} from "../../../gestion-reserva-cliente/modules/cliente/cliente.service";
-import {Cliente} from "../../../gestion-reserva-cliente/modules/cliente/cliente.entity";
-import {ICliente} from "../../../gestion-reserva-cliente/interfaces/cliente.interface";
-import {RegistrarEmprendedorDTO} from "../../interfaces/registrarEmprendedor.dto";
-import {Emprendedor} from "../../../gestion-empresa/modules/emprendedor/emprendedor.entity";
-import {EmprendedorService} from "../../../gestion-empresa/modules/emprendedor/emprendedor.service";
-import {Empleado} from "../../../gestion-empresa/modules/empleado/empleado.entity";
-import {EmpleadoService} from "../../../gestion-empresa/modules/empleado/empleado.service";
-import {RegistrarEmpleadoDTO} from "../../interfaces/registrarEmpleado.dto";
 
 @Injectable()
 export class UsuarioService {

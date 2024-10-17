@@ -1,6 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { CreateHorarioDto } from 'src/gestion-empresa/interfaces/create-horario.dto';
-import { UpdateHorarioDto } from 'src/gestion-empresa/interfaces/update-horario';
+import { CreateHorarioDto } from '../../interfaces/create-horario.dto';
+import { UpdateHorarioDto } from '../../interfaces/update-horario';
 import { Horario } from './horario.entity';
 
 @Injectable()

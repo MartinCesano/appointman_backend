@@ -1,7 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { Empleado } from './empleado.entity';
-import { RegistrarEmpleadoDTO } from 'src/auth/interfaces/registrarEmpleado.dto';
-
+import { RegistrarEmpleadoDTO } from '../../../auth/interfaces/registrarEmpleado.dto';
 @Injectable()
 export class EmpleadoService {
   repository = Empleado;

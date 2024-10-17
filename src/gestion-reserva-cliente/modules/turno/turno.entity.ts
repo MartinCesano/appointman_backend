@@ -1,9 +1,9 @@
 import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToOne } from 'typeorm';
 import { Hora } from '../hora/hora.entity'; // Asegúrate de que esta ruta sea correcta
-import { ITurno } from 'src/gestion-reserva-cliente/interfaces/turno.interface';
-import { Disponibilidad } from 'src/gestion-empresa/modules/disponibilidad/disponibilidad.entity';
-import { IDisponibilidad } from 'src/gestion-empresa/interfaces/disponibilidad.interface';
-import { IHora } from 'src/gestion-reserva-cliente/interfaces/hora.interface';
+import { ITurno } from '../../interfaces/turno.interface';
+import { Disponibilidad } from '../../../gestion-empresa/modules/disponibilidad/disponibilidad.entity';
+import { IDisponibilidad } from '../../../gestion-empresa/interfaces/disponibilidad.interface';
+import { IHora } from '../../interfaces/hora.interface';
 import { Exclude } from 'class-transformer';
 
 @Entity() // Agregar el decorador @Entity
