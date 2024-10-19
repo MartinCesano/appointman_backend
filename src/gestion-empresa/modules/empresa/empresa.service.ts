@@ -4,6 +4,7 @@ import {UpdateEmpresaDto} from './dto/update-empresa.dto';
 import {ISucursal} from "src/gestion-empresa/interfaces/sucursal.interface";
 import {Empresa} from "./empresa.entity";
 import {IEmpresa} from "src/gestion-empresa/interfaces/empresa.interface";
+import {IServicio} from "../../interfaces/servicio.interface";
 
 @Injectable()
 export class EmpresaService {
@@ -15,6 +16,18 @@ export class EmpresaService {
         } catch (error) {
             throw new Error(`Error getting sucursal: ${error.message}`);
         }
+    }
+
+    getServicios(id: number): Promise<IServicio[]> {
+        return this.repository.findOne({
+            where: {id},
+            relations: ['servicio'] // Ensure this matches the property name in the Empresa entity
+        }).then(empresa => {
+            if (!empresa) {
+                throw new Error(`Empresa with id ${id} not found`);
+            }
+            return empresa.servicio as IServicio[];
+        });
     }
 
     create(createEmpresaDto: CreateEmpresaDto) {

@@ -172,4 +172,12 @@ export class UsuarioService {
         return this.emprendedorService.getEmpresa(emprendedorEncontrado.id);
     }
 
+    async getServicios(idUsuario: number) {
+        return this.getEmprendedor(idUsuario).then(emprendedor => {
+            return this.emprendedorService.getServicios(emprendedor.id);
+        });
+    }
+
+
+
 }

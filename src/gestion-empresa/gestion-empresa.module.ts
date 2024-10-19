@@ -13,6 +13,7 @@ import { JwtModule} from "../auth/modules/jwt/jwt.module";
 import { JwtService} from "../auth/modules/jwt/jwt.service";
 import { UsuarioModule} from "../auth/modules/usuario/usuario.module";
 import { PrestadorServicioModule } from './modules/prestador-servicio/prestador-servicio.module';
+import { GestorObtenerServiciosService} from "./use-cases/gestor-obtener-servicios.service";
 
 @Module({
   controllers: [GestionEmpresaController],
@@ -20,6 +21,7 @@ import { PrestadorServicioModule } from './modules/prestador-servicio/prestador-
     GestionEmpresaService,
     GestorRegistrarTipoServicioService,
     GestorRegistrarDisponibilidadService,
+    GestorObtenerServiciosService,
     JwtService,
   ],
   imports: [
