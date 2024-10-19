@@ -3,6 +3,8 @@ import { GestorRegistrarTipoServicioService } from './use-cases/gestor-registrar
 import { RegistrarTipoServicioDTO } from './interfaces/registrarTipoServicio';
 import { GestorRegistrarDisponibilidadService } from './use-cases/gestor-registrar-disponibilidad.service';
 import { aplicarHorarioDTO } from './interfaces/aplicar-horario.dto';
+import { IUsuario} from "../auth/interfaces/usuario.interface";
+
 @Injectable()
 export class GestionEmpresaService {
     constructor(
@@ -11,8 +13,8 @@ export class GestionEmpresaService {
     ) {
     }
 
-    async registrarTipoServicio(datos: RegistrarTipoServicioDTO) {
-        return this.gestorRegistrarTipoServicioService.registrarTipoServicio(datos);
+    async registrarTipoServicio(datos: RegistrarTipoServicioDTO, usuario: IUsuario) {
+        return this.gestorRegistrarTipoServicioService.registrarTipoServicio(datos, usuario);
     }
 
     async registrarDisponibilidadAplicandoHorarioForzado(datos: aplicarHorarioDTO) {

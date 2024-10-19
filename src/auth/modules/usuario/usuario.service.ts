@@ -7,6 +7,10 @@ import {JwtService} from '../jwt/jwt.service';
 import {DeepPartial} from 'typeorm';
 import {PermisoService} from '../permiso/permiso.service';
 import {RolService} from '../rol/rol.service';
+import {IEmpresa} from "../../../gestion-empresa/interfaces/empresa.interface";
+import {EmprendedorService} from "../../../gestion-empresa/modules/emprendedor/emprendedor.service";
+import {IEmprendedor} from "../../../gestion-empresa/interfaces/emprendedor.interface";
+import {Emprendedor} from "../../../gestion-empresa/modules/emprendedor/emprendedor.entity";
 
 @Injectable()
 export class UsuarioService {
@@ -16,6 +20,7 @@ export class UsuarioService {
         private permissionsService: PermisoService,
         private jwtService: JwtService,
         private rolesService: RolService,
+        private emprendedorService: EmprendedorService
     ) {
     }
 
@@ -152,6 +157,19 @@ export class UsuarioService {
         await user.save();
 
         return user;
+    }
+
+    getEmprendedor(id: number): Promise<Emprendedor> {
+        return this.repository.findOne({
+            where: {id},
+            relations: ['emprendedor']
+        }).then(usuario => usuario.emprendedor as Emprendedor);
+    }
+
+    async getEmpresa(usuario: IUsuario): Promise<IEmpresa> {
+        //obtengo el id del emprendedor
+        const emprendedorEncontrado = await this.getEmprendedor(usuario.id);
+        return this.emprendedorService.getEmpresa(emprendedorEncontrado.id);
     }
 
 }

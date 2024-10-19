@@ -8,11 +8,11 @@ export class GestionEmpresaController {
     constructor(private gestionEmpresaService: GestionEmpresaService) {
     }
 
-    // @UseGuards(AuthGuard)
+    @UseGuards(AuthGuard)
     @Post('registrar-tipo-servicio')
     async registrarTipoServicio(@Body() datos: RegistrarTipoServicioDTO, @Request() req) {
-        // const usuario = req.user; // Accedemos al usuario responsable desde la request
-        return this.gestionEmpresaService.registrarTipoServicio(datos);
+        const usuario = req.user; // Accedemos al usuario responsable desde la request
+        return this.gestionEmpresaService.registrarTipoServicio(datos, usuario);
     }
 
     @Post('registrar-disponibilidad-aplicando-horario-forzado')
