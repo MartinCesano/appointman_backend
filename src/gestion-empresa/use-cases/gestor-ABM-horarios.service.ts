@@ -28,6 +28,15 @@ export class GestorABMHorariosService {
 
 
     /**
+     * @description Metodo para obtener los horarios de una empresa
+     * @param usuario
+     */
+    async getHorarios(usuario: IUsuario): Promise<IHorario[]> {
+        const empresa = await this.usuarioService.getEmpresa(usuario);
+        return this.empresaService.getHorarios(empresa.id);
+    }
+
+    /**
      * @description Registrar un horario
      * @param horario
      */

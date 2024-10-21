@@ -23,6 +23,18 @@ export class EmpresaService {
         }
     }
 
+    getHorarios(id: number): Promise<IHorario[]> {
+        return this.repository.findOne({
+            where: {id},
+            relations: ['horario'] // Ensure this matches the property name in the Empresa entity
+        }).then(empresa => {
+            if (!empresa) {
+                throw new Error(`Empresa with id ${id} not found`);
+            }
+            return empresa.horario as IHorario[];
+        });
+    }
+
 
     getServicios(id: number): Promise<IServicio[]> {
         return this.repository.findOne({

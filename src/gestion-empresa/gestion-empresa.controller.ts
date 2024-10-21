@@ -18,6 +18,14 @@ export class GestionEmpresaController {
         return this.gestionEmpresaService.getServicios(usuario);
     }
 
+    @UseGuards(AuthGuard)
+    @Get('horarios')
+    async getHorarios(@Request() req) {
+        const usuario = req.user; // Accedemos al usuario responsable desde la request
+        return this.gestionEmpresaService.getHorarios(usuario);
+    }
+
+
 
 
 
