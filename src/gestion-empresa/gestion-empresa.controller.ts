@@ -21,7 +21,6 @@ export class GestionEmpresaController {
 
 
 
-
     //#Region => Post Methods
     @UseGuards(AuthGuard)
     @Post('registrar-tipo-servicio')

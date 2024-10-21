@@ -6,4 +6,5 @@ export class RegistrarHorarioDTO {
     horaInicio: string;
     horaFin: string;
     diasActivos: string[];
+    idSucursal: number;
 }

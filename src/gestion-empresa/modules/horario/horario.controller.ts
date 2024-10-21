@@ -7,10 +7,10 @@ import { UpdateHorarioDto } from '../../interfaces/update-horario';
 export class HorarioController {
   constructor(private readonly horarioService: HorarioService) {}
 
-  @Post()
-  create(@Body() createHorarioDto: CreateHorarioDto) {
-    return this.horarioService.create(createHorarioDto);
-  }
+  // @Post()
+  // create(@Body() createHorarioDto: CreateHorarioDto) {
+  //   return this.horarioService.create(createHorarioDto);
+  // }
 
   @Get()
   findAll() {

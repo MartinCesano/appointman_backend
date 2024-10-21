@@ -1,11 +1,12 @@
-import { Injectable, HttpException } from '@nestjs/common';
-import { Hora } from './hora.entity';
-import { IHora} from "../../interfaces/hora.interface";
+import {Injectable, HttpException} from '@nestjs/common';
+import {Hora} from './hora.entity';
+import {IHora} from "../../interfaces/hora.interface";
 import {createQueryBuilder} from "typeorm";
 
 @Injectable()
 export class HoraService {
     repository: Hora;
+
     constructor() {
     }
 
@@ -18,6 +19,18 @@ export class HoraService {
         return 15;
     }
 
+    /**
+     * @description Metodo que trae todas las horas existentes en el sistema.
+     * @returns {Promise<Hora[]>} Retorna un array con todas las horas existentes en el sistema.
+     */
+    async getAll(): Promise<Hora[]> {
+        try {
+            return await Hora.find();
+        } catch (error) {
+            console.error('Error al obtener todas las horas:', error);
+            throw new HttpException('Error al obtener todas las horas', 500);
+        }
+    }
 
     /**
      * @description Metodo que inserta un array de horas en la base de datos en una sola consulta.

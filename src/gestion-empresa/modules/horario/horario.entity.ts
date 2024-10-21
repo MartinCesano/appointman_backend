@@ -1,10 +1,13 @@
-import { Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToMany } from 'typeorm';
+import {Entity, Column, BaseEntity, PrimaryGeneratedColumn, ManyToMany, ManyToOne} from 'typeorm';
 import { Hora } from '../../../gestion-reserva-cliente/modules/hora/hora.entity';
 import { IHora } from '../../../gestion-reserva-cliente/interfaces/hora.interface';
 import { IHorario } from '../../../gestion-reserva-cliente/interfaces/horario.interface';
+import { Sucursal } from '../sucursal/sucursal.entity';
 
 @Entity()
-export class Horario extends BaseEntity implements IHorario {
+export class
+
+Horario extends BaseEntity implements IHorario {
   @PrimaryGeneratedColumn()
   id: number;
 
@@ -22,4 +25,8 @@ export class Horario extends BaseEntity implements IHorario {
 
   @Column("simple-array", {default: ''})
   diasActivos: string;
+
+  @ManyToOne(() => Sucursal, sucursal => sucursal.horario)
+  sucursal: Sucursal;
+
 }
