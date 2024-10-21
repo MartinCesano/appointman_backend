@@ -15,7 +15,7 @@ import { Usuario } from '../auth/modules/usuario/usuario.entity';
 import { Sucursal } from '../gestion-empresa/modules/sucursal/sucursal.entity';
 import { Empresa } from '../gestion-empresa/modules/empresa/empresa.entity';
 import { PrestadorServicio } from '../gestion-empresa/modules/prestador-servicio/prestador-servicio.entity';
-import { Reserva } from '../gestion-reserva-cliente/modules/reserva/entities/reserva.entity';
+import { Reserva } from 'src/gestion-reserva-cliente/modules/reserva/reserva.entity';
 
 @Module({
   imports: [

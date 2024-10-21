@@ -6,7 +6,7 @@ import { IDisponibilidad } from '../../../gestion-empresa/interfaces/disponibili
 import { IHora } from '../../interfaces/hora.interface';
 import { Exclude } from 'class-transformer';
 import { IReserva } from '../../interfaces/reserva.interface';
-import { Reserva } from '../reserva/entities/reserva.entity';
+import { Reserva } from '../reserva/reserva.entity';
 
 @Entity() // Agregar el decorador @Entity
 export class Turno extends BaseEntity implements ITurno{

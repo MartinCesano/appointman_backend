@@ -2,7 +2,7 @@ import {BadRequestException, Injectable} from '@nestjs/common';
 import {Cliente} from './cliente.entity';
 import {DeepPartial, } from 'typeorm';
 import {RegistrarClienteDTO} from "../../../auth/interfaces/registrarCliente.dto";
-import { Reserva } from '../reserva/entities/reserva.entity';
+import { Reserva } from '../reserva/reserva.entity';
 
 
 @Injectable()

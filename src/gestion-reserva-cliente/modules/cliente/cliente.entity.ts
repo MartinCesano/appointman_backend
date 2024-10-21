@@ -3,7 +3,7 @@ import {BaseEntity} from "typeorm";
 import {ICliente} from "../../interfaces/cliente.interface";
 import { Usuario} from "../../../auth/modules/usuario/usuario.entity";
 import { IUsuario } from '../../../auth/interfaces/usuario.interface';
-import { Reserva } from '../reserva/entities/reserva.entity';
+import { Reserva } from '../reserva/reserva.entity';
 
 @Entity("cliente")
 export class Cliente extends BaseEntity implements ICliente {
