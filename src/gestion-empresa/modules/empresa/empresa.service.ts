@@ -14,11 +14,15 @@ export class EmpresaService {
 
     getEmpresaById(id: number): Promise<IEmpresa> {
         try {
-            return this.repository.findOne({where: {id}});
+            return this.repository.findOne({
+                where: { id },
+                relations: ['horario'], // Cargar la relación 'horario'
+            });
         } catch (error) {
-            throw new Error(`Error getting sucursal: ${error.message}`);
+            throw new Error(`Error getting empresa: ${error.message}`);
         }
     }
+
 
     getServicios(id: number): Promise<IServicio[]> {
         return this.repository.findOne({
@@ -56,9 +60,6 @@ export class EmpresaService {
         const empresa = await this.getEmpresaById(id);
         if (!empresa) {
             throw new Error(`Sucursal with id ${id} not found`);
-        }
-        if (!empresa.horario) {
-            empresa.horario = [];
         }
         empresa.horario.push(horario);
         await this.repository.save(empresa as Empresa);
