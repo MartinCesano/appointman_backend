@@ -12,14 +12,17 @@ import {IHorario} from '../../gestion-reserva-cliente/interfaces/horario.interfa
 import {RegistrarHorarioDTO} from "../interfaces/registrar-horario.dto";
 import {HoraService} from "../../gestion-reserva-cliente/modules/hora/hora.service";
 import {ITurno} from "../../gestion-reserva-cliente/interfaces/turno.interface";
-import { SucursalService} from "../modules/sucursal/sucursal.service";
+import {EmpresaService} from "../modules/empresa/empresa.service";
+import {IUsuario} from "../../auth/interfaces/usuario.interface";
+import {UsuarioService} from "../../auth/modules/usuario/usuario.service";
 
 @Injectable()
 export class GestorABMHorariosService {
     constructor(
         private horaService: HoraService,
         private horarioService: HorarioService,
-        private sucursalService: SucursalService,
+        private empresaService: EmpresaService,
+        private usuarioService: UsuarioService
     ) {
     }
 
@@ -28,7 +31,7 @@ export class GestorABMHorariosService {
      * @description Registrar un horario
      * @param horario
      */
-    async registrarHorario(horario: RegistrarHorarioDTO) {
+    async registrarHorario(horario: RegistrarHorarioDTO, usuario: IUsuario) {
 
         //creo las horas
         const multiploHoras = await this.horaService.getMultiplosHoras();
@@ -51,8 +54,11 @@ export class GestorABMHorariosService {
 
         const nuevoHorario = await this.horarioService.insert({...horario, diasActivos, horas: arrayHoras});
 
+        // obtengo la empresa
+        const empresa = await this.usuarioService.getEmpresa(usuario);
+
         // asigno el horario a la sucursal
-        this.sucursalService.agregarHorario(horario.idSucursal, nuevoHorario);
+        this.empresaService.agregarHorario(empresa.id, nuevoHorario);
 
         return nuevoHorario;
     }
@@ -86,10 +92,13 @@ export class GestorABMHorariosService {
      * @returns {Object} Retorna un objeto con dos arrays: horasACrear y horasCreadas
      *
      */
-    filtrarHorasExistentes(horasExistentes: IHora[], horasACrear: IHora[]): { horasACrear: IHora[], horasCreadas: IHora[] } {
+    filtrarHorasExistentes(horasExistentes: IHora[], horasACrear: IHora[]): {
+        horasACrear: IHora[],
+        horasCreadas: IHora[]
+    } {
         const horasNoCreadas = horasACrear.filter(hora => !horasExistentes.some(h => h.horaInicio === hora.horaInicio && h.horaFin === hora.horaFin));
         const horasYaCreadas = horasACrear.filter(hora => horasExistentes.some(h => h.horaInicio === hora.horaInicio && h.horaFin === hora.horaFin));
-        return { horasACrear: horasNoCreadas, horasCreadas: horasYaCreadas };
+        return {horasACrear: horasNoCreadas, horasCreadas: horasYaCreadas};
     }
 
 

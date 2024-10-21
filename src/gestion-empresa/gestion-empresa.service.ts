@@ -30,8 +30,8 @@ export class GestionEmpresaService {
         return this.gestorObtenerServiciosService.getServicios(usuario);
     }
 
-    async registrarHorario(datos: RegistrarHorarioDTO){
-        return this.gestorABMHorariosService.registrarHorario(datos);
+    async registrarHorario(datos: RegistrarHorarioDTO, usuario: IUsuario) {
+        return this.gestorABMHorariosService.registrarHorario(datos, usuario);
     }
 
 

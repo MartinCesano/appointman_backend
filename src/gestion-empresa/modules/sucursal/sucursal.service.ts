@@ -17,16 +17,16 @@ export class SucursalService {
         }
     }
 
-    async agregarHorario(id: number, horario: IHorario) {
-        const sucursal = await this.getSucursalById(id);
-        if (!sucursal) {
-            throw new Error(`Sucursal with id ${id} not found`);
-        }
-        if (!sucursal.horario) {
-            sucursal.horario = [];
-        }
-        sucursal.horario.push(horario);
-        await this.repository.save(sucursal as Sucursal);
+    async agregarDisponibilidad(id: number, horario: IHorario) {
+        // const sucursal = await this.getSucursalById(id);
+        // if (!sucursal) {
+        //     throw new Error(`Sucursal with id ${id} not found`);
+        // }
+        // if (!sucursal.horario) {
+        //     sucursal.horario = [];
+        // }
+        // sucursal.horario.push(horario);
+        // await this.repository.save(sucursal as Sucursal);
     }
 
 }

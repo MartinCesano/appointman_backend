@@ -34,10 +34,11 @@ export class GestionEmpresaController {
         return this.gestionEmpresaService.registrarDisponibilidadAplicandoHorarioForzado(datos);
     }
 
-
+    @UseGuards(AuthGuard)
     @Post('registrar-horario')
-    async registrarHorario(@Body() datos: RegistrarHorarioDTO) {
-        return this.gestionEmpresaService.registrarHorario(datos);
+    async registrarHorario(@Body() datos: RegistrarHorarioDTO, @Request() req) {
+        const usuario = req.user; // Accedemos al usuario responsable desde la request
+        return this.gestionEmpresaService.registrarHorario(datos, usuario);
     }
 
 

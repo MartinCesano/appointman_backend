@@ -34,7 +34,5 @@ export class Sucursal extends BaseEntity implements ISucursal {
     @ManyToOne(() => Empresa, empresa => empresa.sucursales)
     empresa: IEmpresa;
 
-    @OneToMany(() => Horario, horario => horario.sucursal)
-    horario: Horario[];
 
 }
