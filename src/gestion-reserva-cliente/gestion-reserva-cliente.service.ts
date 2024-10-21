@@ -1,12 +1,13 @@
 import { Injectable } from '@nestjs/common';
-import { GestorRegistrarClienteService } from './use-cases/gestor-registrar-cliente.service';
+import { GestorRegistrarReservaService } from './use-cases/gestor-registrar-reserva.service';
 
 @Injectable()
 export class GestionReservaClienteService {
-    constructor(private gestorRegistrarClienteService: GestorRegistrarClienteService) {
+    constructor(private gestorRegistrarClienteService: GestorRegistrarReservaService) {
     }
 
-    // async registrarCliente(datos) {
-    //     return this.gestorRegistrarClienteService.registrarCliente(datos);
-    // }
+
+    async registrarReservaDeTurno(datos) {
+        return this.gestorRegistrarClienteService.registrarReservaDeTurno(datos);
+    }
 }

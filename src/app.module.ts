@@ -7,7 +7,6 @@ import { RolModule } from "./auth/modules/rol/rol.module";
 import { UsuarioModule } from "./auth/modules/usuario/usuario.module";
 import { EstadoModule } from "./estado/estado.module";
 import { ClienteModule } from "./gestion-reserva-cliente/modules/cliente/cliente.module";
-import { ReservaTurnoModule } from "./gestion-reserva-cliente/modules/reserva-turno/reserva-turno.module";
 import { ServicioModule } from "./gestion-empresa/modules/servicio/servicio.module";
 import { TurnoModule } from "./gestion-reserva-cliente/modules/turno/turno.module";
 import { HoraModule } from "./gestion-reserva-cliente/modules/hora/hora.module";
@@ -20,6 +19,7 @@ import { DatabaseModule } from "./database/database.module";
 import { EmprendedorModule } from './gestion-empresa/modules/emprendedor/emprendedor.module';
 import { GestionEmpresaModule } from './gestion-empresa/gestion-empresa.module';
 import { GestionReservaClienteModule } from './gestion-reserva-cliente/gestion-reserva-cliente.module';
+import { ReservaModule } from "./gestion-reserva-cliente/modules/reserva/reserva.module";
 
 @Module({
   imports: [
@@ -30,7 +30,6 @@ import { GestionReservaClienteModule } from './gestion-reserva-cliente/gestion-r
     UsuarioModule,
     EstadoModule,
     ClienteModule,
-    ReservaTurnoModule,
     ServicioModule,
     TurnoModule,
     HoraModule,
@@ -42,6 +41,7 @@ import { GestionReservaClienteModule } from './gestion-reserva-cliente/gestion-r
     EmprendedorModule,
     GestionEmpresaModule,
     GestionReservaClienteModule,
+    ReservaModule
   ],
   controllers: [AppController],
   providers: [AppService],
