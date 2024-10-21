@@ -22,6 +22,7 @@ export class AuthService implements CanActivate {
 
   async register(body: RegistrarUsuarioDTO) {
     try {
+
       const user = await this.gestorRegistrarUsuario.registrarUsuario(body);
       
       return { status: 'created', user };

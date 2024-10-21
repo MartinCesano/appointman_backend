@@ -4,7 +4,7 @@ import {IEmpresa} from "../../gestion-empresa/interfaces/empresa.interface";
 
 
 export class RegistrarEmprendedorDTO {
-    cuil: string;
+    cuit: string;
     domicilio: string;
     idEmpresa: number;
     empresa: IEmpresa;

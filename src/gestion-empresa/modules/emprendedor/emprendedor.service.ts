@@ -14,11 +14,11 @@ export class EmprendedorService {
     constructor(private empresaService: EmpresaService) {
     }
 
-    registrar(nuevoEmprendedor: RegistrarEmprendedorDTO): Promise<Emprendedor> {
+    async registrar(nuevoEmprendedor: RegistrarEmprendedorDTO): Promise<Emprendedor> {
         try {
             const emprendedor = new Emprendedor();
             Object.assign(emprendedor, nuevoEmprendedor);
-            return this.repository.save(emprendedor);
+            return await this.repository.save(emprendedor);
         } catch (error) {
             throw new Error(`Error creating cliente: ${error.message}`);
         }
