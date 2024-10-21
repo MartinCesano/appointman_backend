@@ -5,6 +5,8 @@ import {ISucursal} from "src/gestion-empresa/interfaces/sucursal.interface";
 import {Empresa} from "./empresa.entity";
 import {IEmpresa} from "src/gestion-empresa/interfaces/empresa.interface";
 import {IServicio} from "../../interfaces/servicio.interface";
+import {IHorario} from "../../../gestion-reserva-cliente/interfaces/horario.interface";
+import {Sucursal} from "../sucursal/sucursal.entity";
 
 @Injectable()
 export class EmpresaService {
@@ -12,11 +14,15 @@ export class EmpresaService {
 
     getEmpresaById(id: number): Promise<IEmpresa> {
         try {
-            return this.repository.findOne({where: {id}});
+            return this.repository.findOne({
+                where: { id },
+                relations: ['horario'], // Cargar la relación 'horario'
+            });
         } catch (error) {
-            throw new Error(`Error getting sucursal: ${error.message}`);
+            throw new Error(`Error getting empresa: ${error.message}`);
         }
     }
+
 
     getServicios(id: number): Promise<IServicio[]> {
         return this.repository.findOne({
@@ -49,4 +55,14 @@ export class EmpresaService {
     remove(id: number) {
         return `This action removes a #${id} empresa`;
     }
+
+    async agregarHorario(id: number, horario: IHorario) {
+        const empresa = await this.getEmpresaById(id);
+        if (!empresa) {
+            throw new Error(`Sucursal with id ${id} not found`);
+        }
+        empresa.horario.push(horario);
+        await this.repository.save(empresa as Empresa);
+    }
+
 }

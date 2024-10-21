@@ -2,6 +2,7 @@ import {Controller, Post, Body, Request, UseGuards, Get} from '@nestjs/common';
 import {GestionEmpresaService} from './gestion-empresa.service';
 import {RegistrarTipoServicioDTO} from './interfaces/registrarTipoServicio';
 import {AuthGuard} from "../auth/guards/auth.guard";
+import {RegistrarHorarioDTO} from "./interfaces/registrar-horario.dto";
 
 @Controller('gestion-empresa')
 export class GestionEmpresaController {
@@ -20,7 +21,6 @@ export class GestionEmpresaController {
 
 
 
-
     //#Region => Post Methods
     @UseGuards(AuthGuard)
     @Post('registrar-tipo-servicio')
@@ -34,6 +34,12 @@ export class GestionEmpresaController {
         return this.gestionEmpresaService.registrarDisponibilidadAplicandoHorarioForzado(datos);
     }
 
+    @UseGuards(AuthGuard)
+    @Post('registrar-horario')
+    async registrarHorario(@Body() datos: RegistrarHorarioDTO, @Request() req) {
+        const usuario = req.user; // Accedemos al usuario responsable desde la request
+        return this.gestionEmpresaService.registrarHorario(datos, usuario);
+    }
 
 
 

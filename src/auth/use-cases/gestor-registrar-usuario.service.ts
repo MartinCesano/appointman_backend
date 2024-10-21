@@ -43,6 +43,7 @@ export class GestorRegistrarUsuarioService {
                             break;
                         case "emprendedor":
                             usuarioCreado.emprendedor = await this.creacionEmprendedor(body.emprendedor);
+                            console.log(usuarioCreado.emprendedor)
                             break;
                     }
                     usuarioCreado.roles.push(await this.getRol(rol)); //asigno el rol correspondiente
