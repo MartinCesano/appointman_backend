@@ -1,7 +1,9 @@
-import { IServicio } from "../../gestion-empresa/interfaces/servicio.interface";
+import { ITurno } from './turno.interface';
+import { ICliente } from './cliente.interface';
+
 export interface IReserva {
-    horaInicio: string;
-    fecha: Date;
-    tiempoTotal: number;
-    servicio: IServicio[];
+    id: number;
+    fecha: string;
+    turnos: ITurno[];
+    cliente: ICliente;
 }
