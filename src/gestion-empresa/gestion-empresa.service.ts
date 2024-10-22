@@ -34,6 +34,10 @@ export class GestionEmpresaService {
         return this.gestorABMHorariosService.registrarHorario(datos, usuario);
     }
 
+    async getHorarios(usuario: IUsuario) {
+        return this.gestorABMHorariosService.getHorarios(usuario);
+    }
+
 
 
 
