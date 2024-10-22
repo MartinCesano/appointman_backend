@@ -5,11 +5,7 @@ import {Empresa} from "./empresa.entity";
 import { IEmpresa } from '../../interfaces/empresa.interface';
 import {IServicio} from "../../interfaces/servicio.interface";
 import {IHorario} from "../../../gestion-reserva-cliente/interfaces/horario.interface";
-<<<<<<< HEAD
-import {Sucursal} from "../sucursal/sucursal.entity";
 import {IPrestadorServicio} from "../../interfaces/prestador-servicio.interface";
-=======
->>>>>>> feature/estados
 
 @Injectable()
 export class EmpresaService {
