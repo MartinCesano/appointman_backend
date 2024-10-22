@@ -1,8 +1,6 @@
 import {BadRequestException, Injectable} from '@nestjs/common';
 import {Cliente} from './cliente.entity';
-import {DeepPartial, } from 'typeorm';
 import {RegistrarClienteDTO} from "../../../auth/interfaces/registrarCliente.dto";
-import { Reserva } from '../reserva/reserva.entity';
 
 
 @Injectable()
@@ -34,25 +32,6 @@ export class ClienteService {
         return await this.repository.save(cliente);
     }
 
-    async registrarReserva(reserva: Reserva, idCliente: number): Promise<Reserva> {
-        // Buscar al cliente de forma síncrona
-        const cliente = await this.buscar(idCliente);
-    
-        // Si no se encuentra el cliente, lanzar un error
-        if (!cliente) {
-            throw new Error(`Cliente con ID ${idCliente} no encontrado`);
-        }
-        console.log(cliente);
-    
-        // Asociar la nueva reserva al cliente
-        cliente.reservas.push(reserva);
-    
-        // Guardar los cambios del cliente con la nueva reserva
-        await this.actualizar(cliente);
-    
-        return reserva;
-    }
-    
 
 
 
