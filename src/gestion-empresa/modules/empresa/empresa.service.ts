@@ -1,12 +1,10 @@
 import {Injectable} from '@nestjs/common';
 import {CreateEmpresaDto} from './dto/create-empresa.dto';
 import {UpdateEmpresaDto} from './dto/update-empresa.dto';
-import {ISucursal} from "src/gestion-empresa/interfaces/sucursal.interface";
 import {Empresa} from "./empresa.entity";
-import {IEmpresa} from "src/gestion-empresa/interfaces/empresa.interface";
+import { IEmpresa } from '../../interfaces/empresa.interface';
 import {IServicio} from "../../interfaces/servicio.interface";
 import {IHorario} from "../../../gestion-reserva-cliente/interfaces/horario.interface";
-import {Sucursal} from "../sucursal/sucursal.entity";
 
 @Injectable()
 export class EmpresaService {
