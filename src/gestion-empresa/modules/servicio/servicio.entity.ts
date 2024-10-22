@@ -3,7 +3,7 @@ import { IServicio } from '../../interfaces/servicio.interface';
 import { Empleado } from '../empleado/empleado.entity';
 import { IEmpleado } from '../../interfaces/empleado.interface';
 import {IEmpresa} from "../../interfaces/empresa.interface";
-import { Empresa} from "src/gestion-empresa/modules/empresa/empresa.entity";
+import { Empresa } from '../empresa/empresa.entity';
 import { IPrestadorServicio } from '../../interfaces/prestador-servicio.interface';
 import { PrestadorServicio } from '../prestador-servicio/prestador-servicio.entity';
 

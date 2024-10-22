@@ -9,6 +9,8 @@ import { HorarioService } from '../modules/horario/horario.service';
 import { IHora } from '../../gestion-reserva-cliente/interfaces/hora.interface';
 import { PrestadorServicioService } from '../modules/prestador-servicio/prestador-servicio.service';
 import { IHorario } from '../../gestion-reserva-cliente/interfaces/horario.interface';
+import { EstadoTurnoService } from '../../gestion-reserva-cliente/modules/estado-turno/estado-turno.service';
+import { EstadoTurno } from '../../gestion-reserva-cliente/modules/estado-turno/estado-turno.entity';
 
 @Injectable()
 export class GestorRegistrarDisponibilidadService {
@@ -17,6 +19,7 @@ export class GestorRegistrarDisponibilidadService {
         private readonly turnoService: TurnoService,
         private readonly prestadorServicioService: PrestadorServicioService,
         private readonly horarioService: HorarioService,
+        private readonly estadoTurnoService: EstadoTurnoService,
     ) { }
 
     async registrarDisponibilidadAplicandoHorarioForzado(aplicarHorarioDTO: aplicarHorarioDTO) {
@@ -30,6 +33,7 @@ export class GestorRegistrarDisponibilidadService {
             const horas = horario.horas;
             const diasActivos = this.filtrarDiasActivos(horario);
             console.log('Días activos:', diasActivos);
+            const estadoDisponible = await this.estadoTurnoService.buscarPorNombre('disponible');
 
 
             // Generar disponibilidades y turnos
@@ -39,7 +43,8 @@ export class GestorRegistrarDisponibilidadService {
                 endDate, 
                 diasActivos, 
                 horas, 
-                horario
+                horario, 
+                estadoDisponible,
             );
 
             // Retornar un resumen con los resultados
@@ -98,7 +103,8 @@ export class GestorRegistrarDisponibilidadService {
         endDate: DateTime,
         diasActivos: any[],
         horas: any[],
-        horario: any
+        horario: any, 
+        estadoDisponible: EstadoTurno,
     ) {
         const disponibilidades: Disponibilidad[] = [];
         const turnosCreados: Turno[] = [];
@@ -115,7 +121,7 @@ export class GestorRegistrarDisponibilidadService {
                         await this.turnoService.borrar(disponibilidad.id);
                         disponibilidad.turnos = [];
 
-                        const turnos = await this.registrarTurnos(disponibilidad, horas);
+                        const turnos = await this.registrarTurnos(disponibilidad, horas, estadoDisponible);
                         turnosCreados.push(...turnos);
 
                         await this.disponibilidadService.actualizar(disponibilidad);
@@ -150,12 +156,13 @@ export class GestorRegistrarDisponibilidadService {
         }
     }
 
-    private async registrarTurnos(disponibilidad: Disponibilidad, horas: IHora[]): Promise<Turno[]> {
+    private async registrarTurnos(disponibilidad: Disponibilidad, horas: IHora[], estadoDisponible: EstadoTurno): Promise<Turno[]> {
         const turnos: Turno[] = []; // Crear un array para almacenar los turnos creados
         try {
             for (const hora of horas) {
                 const turno = new Turno();
                 turno.hora = hora;
+                turno.estadoTurno = estadoDisponible;
                 // No es necesario asignar disponibilidad aquí, ya que no hay relación inversa
                 await this.turnoService.registrar(turno);
         

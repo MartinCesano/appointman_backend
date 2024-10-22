@@ -1,6 +1,7 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable, BaseEntity, OneToMany } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BaseEntity, OneToMany } from 'typeorm';
 import { Cliente } from '../cliente/cliente.entity';
 import { Turno } from '../turno/turno.entity';
+import { EstadoReserva } from '../estado-reserva/estado-reserva.entity';
 
 @Entity()
 export class Reserva extends BaseEntity {
@@ -18,4 +19,7 @@ export class Reserva extends BaseEntity {
 
     @OneToMany(() => Turno, turno => turno.reserva, { cascade: true })
     turnos: Turno[];
+
+    @ManyToOne(() => EstadoReserva, estadoReserva => estadoReserva.reservas)
+    estadoReserva: EstadoReserva;
 }
