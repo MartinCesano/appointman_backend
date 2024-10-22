@@ -7,6 +7,7 @@ import {IEmpresa} from "src/gestion-empresa/interfaces/empresa.interface";
 import {IServicio} from "../../interfaces/servicio.interface";
 import {IHorario} from "../../../gestion-reserva-cliente/interfaces/horario.interface";
 import {Sucursal} from "../sucursal/sucursal.entity";
+import {IPrestadorServicio} from "../../interfaces/prestador-servicio.interface";
 
 @Injectable()
 export class EmpresaService {
@@ -15,7 +16,7 @@ export class EmpresaService {
     getEmpresaById(id: number): Promise<IEmpresa> {
         try {
             return this.repository.findOne({
-                where: { id },
+                where: {id},
                 relations: ['horario'], // Cargar la relación 'horario'
             });
         } catch (error) {
@@ -75,6 +76,28 @@ export class EmpresaService {
         }
         empresa.horario.push(horario);
         await this.repository.save(empresa as Empresa);
+    }
+
+    /**
+     * @description Obtengo los prestadores de servicios asociados a una empresa
+     * @param empresa
+     * @returns Promise<IPrestadorServicio[]> Lista de prestadores de servicios
+     */
+    async getPrestadorServicio(empresa: IEmpresa): Promise<IPrestadorServicio[]> {
+        try {
+            const empresaWithPrestadores = await this.repository.findOne({
+                where: {id: empresa.id},
+                relations: ['prestadores'] // Ensure this matches the property name in the Empresa entity
+            });
+
+            if (!empresaWithPrestadores) {
+                throw new Error(`Empresa with id ${empresa.id} not found`);
+            }
+
+            return empresaWithPrestadores.prestadores as IPrestadorServicio[];
+        } catch (error) {
+            throw new Error(`Error getting prestadores de servicio: ${error.message}`);
+        }
     }
 
 }

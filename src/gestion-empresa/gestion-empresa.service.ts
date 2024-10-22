@@ -7,6 +7,7 @@ import { IUsuario} from "../auth/interfaces/usuario.interface";
 import {GestorObtenerServiciosService} from "./use-cases/gestor-obtener-servicios.service";
 import {RegistrarHorarioDTO} from "./interfaces/registrar-horario.dto";
 import {GestorABMHorariosService} from "./use-cases/gestor-ABM-horarios.service";
+import {GestorObtenerPrestadorServicio} from "./use-cases/gestor-get-prestadorServicio.service";
 
 @Injectable()
 export class GestionEmpresaService {
@@ -14,7 +15,8 @@ export class GestionEmpresaService {
         private gestorRegistrarTipoServicioService: GestorRegistrarTipoServicioService, 
         private gestorRegistrarDisponibilidad: GestorRegistrarDisponibilidadService,
         private gestorObtenerServiciosService: GestorObtenerServiciosService,
-        private gestorABMHorariosService: GestorABMHorariosService
+        private gestorABMHorariosService: GestorABMHorariosService,
+        private gestorObtenerPrestadorServicio: GestorObtenerPrestadorServicio
     ) {
     }
 
@@ -38,6 +40,9 @@ export class GestionEmpresaService {
         return this.gestorABMHorariosService.getHorarios(usuario);
     }
 
+    async getPrestadorServicio(usuario: IUsuario) {
+        return this.gestorObtenerPrestadorServicio.getPrestadorServicio(usuario);
+    }
 
 
 

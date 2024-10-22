@@ -25,6 +25,13 @@ export class GestionEmpresaController {
         return this.gestionEmpresaService.getHorarios(usuario);
     }
 
+    @UseGuards(AuthGuard)
+    @Get('prestador-servicio')
+    async getPrestadorServicio(@Request() req) {
+        const usuario = req.user; // Accedemos al usuario responsable desde la request
+        return this.gestionEmpresaService.getPrestadorServicio(usuario);
+    }
+
 
 
 

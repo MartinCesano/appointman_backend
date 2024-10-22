@@ -40,7 +40,7 @@ export class Empresa extends BaseEntity implements IEmpresa {
     @OneToMany(() => Sucursal, sucursal => sucursal.empresa)
     sucursales: Sucursal[];
 
-    @ManyToOne(() => PrestadorServicio, prestador => prestador.empresa)
+    @OneToMany(() => PrestadorServicio, prestador => prestador.empresa)
     prestadores: IPrestadorServicio[];
 
     @OneToMany(() => Empleado, empleado => empleado.empresa)

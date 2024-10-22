@@ -16,6 +16,7 @@ import { PrestadorServicioModule } from './modules/prestador-servicio/prestador-
 import { GestorObtenerServiciosService} from "./use-cases/gestor-obtener-servicios.service";
 import { GestorABMHorariosService} from "./use-cases/gestor-ABM-horarios.service";
 import { EmpresaModule} from "./modules/empresa/empresa.module";
+import {GestorObtenerPrestadorServicio} from "./use-cases/gestor-get-prestadorServicio.service";
 
 @Module({
   controllers: [GestionEmpresaController],
@@ -25,7 +26,8 @@ import { EmpresaModule} from "./modules/empresa/empresa.module";
     GestorRegistrarDisponibilidadService,
     GestorObtenerServiciosService,
     JwtService,
-    GestorABMHorariosService
+    GestorABMHorariosService,
+    GestorObtenerPrestadorServicio
   ],
   imports: [
     ServicioModule, 
