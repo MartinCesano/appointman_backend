@@ -7,7 +7,7 @@ import { DeepPartial } from 'typeorm';
 export class EstadoReservaService {
     repository = EstadoReserva; 
 
-    async buscarEstadoReservaPorNombre(nombre: string): Promise<EstadoReserva> {
+    async buscarPorNombre(nombre: string): Promise<EstadoReserva> {
         return this.repository.findOne({where : {nombre} });
     }
 

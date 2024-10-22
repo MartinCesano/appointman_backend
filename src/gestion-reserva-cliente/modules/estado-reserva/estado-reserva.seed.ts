@@ -16,7 +16,7 @@ export class EstadoReservaSeeder {
     ];
 
     for (const estado of estados) {
-      const existingRole = await this.estadoReservaService.buscarEstadoReservaPorNombre(estado.nombre);
+      const existingRole = await this.estadoReservaService.buscarPorNombre(estado.nombre);
       if (!existingRole) {
         await this.estadoReservaService.registrar(estado);
       }

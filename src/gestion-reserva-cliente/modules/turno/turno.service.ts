@@ -3,6 +3,7 @@ import { Turno } from './turno.entity';
 import { Hora } from '../hora/hora.entity';
 import { Disponibilidad } from '../../../gestion-empresa/modules/disponibilidad/disponibilidad.entity';
 import { Reserva } from '../reserva/reserva.entity';
+import { EstadoTurno } from '../estado-turno/estado-turno.entity';
 
 @Injectable()
 export class TurnoService {
@@ -23,6 +24,11 @@ export class TurnoService {
             throw new Error('Turno not found');
         }
         turno.hora = hora;
+        await this.repository.save(turno);
+    }
+
+    async setEstado(turno: Turno, estado: EstadoTurno): Promise<void> {
+        turno.estadoTurno = estado;
         await this.repository.save(turno);
     }
 

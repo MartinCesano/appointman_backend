@@ -6,6 +6,7 @@ import { EstadoReservaSeeder } from './estado-reserva.seed';
 @Module({
   controllers: [EstadoReservaController],
   providers: [EstadoReservaService, EstadoReservaSeeder],
+  exports: [EstadoReservaService]
 })
 export class EstadoReservaModule {
   constructor(private readonly estadoReservaSeeder: EstadoReservaSeeder) {}
