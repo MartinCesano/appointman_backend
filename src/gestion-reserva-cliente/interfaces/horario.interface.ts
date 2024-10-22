@@ -1,6 +1,6 @@
 import { IHora } from "./hora.interface";
 export interface IHorario {
-  id: number;
+  id?: number;
   nombre: string;
   horaInicio: string;
   horaFin: string;

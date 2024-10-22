@@ -13,6 +13,11 @@ import { JwtModule} from "../auth/modules/jwt/jwt.module";
 import { JwtService} from "../auth/modules/jwt/jwt.service";
 import { UsuarioModule} from "../auth/modules/usuario/usuario.module";
 import { PrestadorServicioModule } from './modules/prestador-servicio/prestador-servicio.module';
+import { GestorObtenerServiciosService} from "./use-cases/gestor-obtener-servicios.service";
+import { GestorABMHorariosService} from "./use-cases/gestor-ABM-horarios.service";
+import { EmpresaModule} from "./modules/empresa/empresa.module";
+import { EstadoTurnoModule } from '../gestion-reserva-cliente/modules/estado-turno/estado-turno.module';
+import {GestorObtenerPrestadorServicio} from "./use-cases/gestor-get-prestadorServicio.service";
 
 @Module({
   controllers: [GestionEmpresaController],
@@ -20,7 +25,10 @@ import { PrestadorServicioModule } from './modules/prestador-servicio/prestador-
     GestionEmpresaService,
     GestorRegistrarTipoServicioService,
     GestorRegistrarDisponibilidadService,
+    GestorObtenerServiciosService,
     JwtService,
+    GestorABMHorariosService,
+    GestorObtenerPrestadorServicio
   ],
   imports: [
     ServicioModule, 
@@ -33,6 +41,8 @@ import { PrestadorServicioModule } from './modules/prestador-servicio/prestador-
     JwtModule,
     UsuarioModule,
     PrestadorServicioModule,
+    EmpresaModule, 
+    EstadoTurnoModule,
   ]
 })
 export class GestionEmpresaModule {}

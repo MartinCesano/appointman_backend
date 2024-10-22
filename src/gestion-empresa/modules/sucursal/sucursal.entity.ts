@@ -1,8 +1,18 @@
-import {BaseEntity, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {
+    BaseEntity,
+    Column,
+    Entity,
+    JoinTable,
+    ManyToMany,
+    ManyToOne,
+    OneToMany,
+    OneToOne,
+    PrimaryGeneratedColumn
+} from "typeorm";
 import { Empresa } from "../empresa/empresa.entity";
 import { ISucursal } from "../../interfaces/sucursal.interface";
 import { IEmpresa } from "../../interfaces/empresa.interface";
-import { Servicio } from "../servicio/servicio.entity";
+import { Horario } from "../horario/horario.entity";
 
 @Entity("sucursal")
 export class Sucursal extends BaseEntity implements ISucursal {
@@ -24,8 +34,5 @@ export class Sucursal extends BaseEntity implements ISucursal {
     @ManyToOne(() => Empresa, empresa => empresa.sucursales)
     empresa: IEmpresa;
 
-    @ManyToMany(() => Servicio, servicio => servicio.sucursales)
-    @JoinTable()
-    servicios: Servicio[];
 
 }

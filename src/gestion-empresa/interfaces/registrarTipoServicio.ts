@@ -3,5 +3,5 @@ export class RegistrarTipoServicioDTO {
     descripcion?: string | null;
     precio: number;
     duracion: number;
-    idSucursal: number;
+    idEmpresa: number;
 }

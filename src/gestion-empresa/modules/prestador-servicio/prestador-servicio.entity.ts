@@ -1,4 +1,4 @@
-import { BaseEntity, Column, Entity, JoinTable, ManyToMany, OneToMany, PrimaryGeneratedColumn } from "typeorm";
+import {BaseEntity, Column, Entity, JoinTable, ManyToMany, ManyToOne, OneToMany, PrimaryGeneratedColumn} from "typeorm";
 import { Servicio } from "../servicio/servicio.entity";
 import { IEmpresa } from "../../interfaces/empresa.interface";
 import { Empresa } from "../empresa/empresa.entity";
@@ -19,7 +19,7 @@ export class PrestadorServicio extends BaseEntity implements IPrestadorServicio 
     @JoinTable()
     servicios: Servicio[];
 
-    @OneToMany(() => Empresa, empresa => empresa.prestadores)
+    @ManyToOne(() => Empresa, empresa => empresa.prestadores)
     empresa: IEmpresa;
 
     @ManyToMany(()=> Empleado, empleado => empleado.prestadores)

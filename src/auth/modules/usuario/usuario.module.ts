@@ -11,7 +11,7 @@ import {EmpleadoModule} from "../../../gestion-empresa/modules/empleado/empleado
 @Module({
   providers: [UsuarioService],
   controllers: [UsuarioController],
-  imports: [JwtModule, PermisoModule, RolModule, ClienteModule, EmprendedorModule, EmpleadoModule],
+  imports: [JwtModule, PermisoModule, RolModule, ClienteModule, EmprendedorModule, EmpleadoModule, ],
   exports: [UsuarioService],
 })
 export class UsuarioModule {}

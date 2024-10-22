@@ -16,8 +16,7 @@ export class ServicioService {
             servicio.descripcion = nuevoServicio.descripcion;
             servicio.precio = nuevoServicio.precio;
             servicio.duracion = nuevoServicio.duracion;
-            servicio.sucursales = []
-            servicio.sucursales.push(nuevoServicio.sucursal[0]);
+            servicio.empresa = nuevoServicio.empresa;
             return this.repository.save(servicio);
         } catch (error) {
             throw new Error(`Error creating servicio: ${error.message}`);

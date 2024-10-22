@@ -1,17 +1,19 @@
 import {HttpException, Injectable} from '@nestjs/common';
 import {RegistrarUsuarioDTO} from '../interfaces/registrarUsuario.dto';
-import { ClienteService } from '../../gestion-reserva-cliente/modules/cliente/cliente.service';
-import { EmpleadoService } from '../../gestion-empresa/modules/empleado/empleado.service';
-import { EmprendedorService } from '../../gestion-empresa/modules/emprendedor/emprendedor.service';
+import {ClienteService} from '../../gestion-reserva-cliente/modules/cliente/cliente.service';
+import {EmpleadoService} from '../../gestion-empresa/modules/empleado/empleado.service';
+import {EmprendedorService} from '../../gestion-empresa/modules/emprendedor/emprendedor.service';
 import {Usuario} from '../modules/usuario/usuario.entity';
 import {RolService} from '../modules/rol/rol.service';
 import {RegistrarClienteDTO} from '../interfaces/registrarCliente.dto';
 import {RegistrarEmprendedorDTO} from '../interfaces/registrarEmprendedor.dto';
-import { Emprendedor } from '../../gestion-empresa/modules/emprendedor/emprendedor.entity';
-import { Cliente } from '../../gestion-reserva-cliente/modules/cliente/cliente.entity';
-import { Empleado } from '../../gestion-empresa/modules/empleado/empleado.entity';
+import {Emprendedor} from '../../gestion-empresa/modules/emprendedor/emprendedor.entity';
+import {Cliente} from '../../gestion-reserva-cliente/modules/cliente/cliente.entity';
+import {Empleado} from '../../gestion-empresa/modules/empleado/empleado.entity';
 import {RegistrarEmpleadoDTO} from '../interfaces/registrarEmpleado.dto';
-import { UsuarioService } from '../modules/usuario/usuario.service';
+import {UsuarioService} from '../modules/usuario/usuario.service';
+import {EmpresaService} from "../../gestion-empresa/modules/empresa/empresa.service";
+
 
 @Injectable()
 export class GestorRegistrarUsuarioService {
@@ -41,6 +43,7 @@ export class GestorRegistrarUsuarioService {
                             break;
                         case "emprendedor":
                             usuarioCreado.emprendedor = await this.creacionEmprendedor(body.emprendedor);
+                            console.log(usuarioCreado.emprendedor)
                             break;
                     }
                     usuarioCreado.roles.push(await this.getRol(rol)); //asigno el rol correspondiente
@@ -61,6 +64,9 @@ export class GestorRegistrarUsuarioService {
     }
 
     async creacionEmprendedor(datosEmprendedor: RegistrarEmprendedorDTO): Promise<Emprendedor> {
+        const empresaService = new EmpresaService()
+        const empresaDeEmpprendedor = await empresaService.getEmpresaById(datosEmprendedor.idEmpresa)
+        datosEmprendedor.empresa = empresaDeEmpprendedor
         return await this.emprendedorService.registrar(datosEmprendedor)
     }
 

@@ -1,8 +1,9 @@
-import { ISucursal } from './sucursal.interface';
+import {IEmpresa} from './empresa.interface';
+
 export interface IServicio {
     nombre: string;
     precio: number;
     duracion: number;
     descripcion?: string | null;
-    sucursal?: ISucursal[];
+    empresa: IEmpresa;
 }

@@ -5,7 +5,6 @@ import { TurnoController } from './turno.controller';
 @Module({
   controllers: [TurnoController],
   providers: [TurnoService],
-  imports: [ ],
   exports: [TurnoService]
   
 })
