@@ -18,9 +18,10 @@ export class GestorCancelarReservaService {
         if (!reserva) {
             throw new Error(`Reserva con ID ${idReserva} no encontrada`);
         }
+        const estadoDisponibleTurno = await this.estadoTurnoService.buscarPorNombre('disponible');
         
         for (const turno of reserva.turnos) {
-            const estadoDisponibleTurno = await this.estadoTurnoService.buscarPorNombre('disponible');
+            turno.reserva = null;
             await this.turnoService.setEstado(turno, estadoDisponibleTurno);
         }
         const estadoCanceladoReserva = await this.estadoReservaService.buscarPorNombre('cancelado');

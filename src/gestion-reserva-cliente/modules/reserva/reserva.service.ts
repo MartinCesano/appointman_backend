@@ -16,8 +16,11 @@ export class ReservaService {
     }
 
     async buscar(id: number): Promise<Reserva> {
-        return await this.repository.findOne({where: {id}});
-    }
+        return this.repository.findOne({
+          where: { id },
+          relations: ['turnos'],
+        });
+      }
 
     async setEstado(reserva: Reserva, estado: EstadoReserva): Promise<Reserva> {
         reserva.estadoReserva = estado;
