@@ -7,10 +7,11 @@ import { ReservaModule } from './modules/reserva/reserva.module';
 import { TurnoModule } from './modules/turno/turno.module';
 import { EstadoReservaModule } from './modules/estado-reserva/estado-reserva.module';
 import { EstadoTurnoModule } from './modules/estado-turno/estado-turno.module';
+import { GestorCancelarReservaService } from './use-cases/gestor-cancelar-reserva.service';
 
 @Module({
   controllers: [GestionReservaClienteController],
-  providers: [GestionReservaClienteService, GestorRegistrarReservaService], 
+  providers: [GestionReservaClienteService, GestorRegistrarReservaService, GestorCancelarReservaService], 
   imports: [ClienteModule, ReservaModule, TurnoModule, EstadoReservaModule, EstadoTurnoModule], 
 })
 export class GestionReservaClienteModule {}

@@ -12,4 +12,9 @@ export class GestionReservaClienteController {
     registrarReservaDeTurno(@Body() body: registrarReservaDeTurnoDTO) {
         return this.gestionReservaClienteService.registrarReservaDeTurno(body);
     }
+
+    @Post("cancelar-reserva-de-turno")
+    cancelarReservaDeTurno(@Body() body: {idReserva: number}) {
+        return this.gestionReservaClienteService.cancelarReservaDeTurno(body.idReserva);
+    }
 }
