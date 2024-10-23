@@ -179,7 +179,7 @@ export class UsuarioService {
         });
     }
 
-    async buscarPorEmail(email: string): Promise<Usuario> { 
+    async buscarPorEmail(email: string): Promise<IUsuario> { 
         return this.repository.findOne({where: {email}});
     }
 
