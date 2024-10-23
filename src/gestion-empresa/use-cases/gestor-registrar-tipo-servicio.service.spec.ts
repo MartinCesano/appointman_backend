@@ -3,7 +3,6 @@ import { GestorRegistrarTipoServicioService } from './gestor-registrar-tipo-serv
 import { ServicioService } from '../modules/servicio/servicio.service';
 import { UsuarioService } from '../../auth/modules/usuario/usuario.service';
 import { RegistrarTipoServicioDTO } from '../interfaces/registrarTipoServicio';
-import { IUsuario } from '../../auth/interfaces/usuario.interface';
 
 describe('GestorRegistrarTipoServicioService', () => {
   let service: GestorRegistrarTipoServicioService;
@@ -18,7 +17,7 @@ describe('GestorRegistrarTipoServicioService', () => {
           provide: ServicioService,
           useValue: {
             create: jest.fn().mockResolvedValue({  // Mock para el método create
-              nombre: 'corte7',
+              nombre: 'Corte de Pelo',
               duracion: 40,
               precio: 8000,
               empresa: { id: 1, nombre: 'Empresa Test' }
@@ -48,17 +47,39 @@ describe('GestorRegistrarTipoServicioService', () => {
     expect(service).toBeDefined();
   });
 
-  it('debería devolver estado creado', async () => {
-    const dto: RegistrarTipoServicioDTO = { nombre: 'corte7', duracion: 40, precio: 8000, idEmpresa: 1 };
+  it('debería devolver el servicio asociado a la empresa', async () => {
+    const dto: RegistrarTipoServicioDTO = { nombre: 'Corte de Pelo', duracion: 40, precio: 4000, idEmpresa: 1 };
     const usuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
 
     const result = await service.registrarTipoServicio(dto, usuario);
 
     // Comprobar que el resultado tiene las propiedades esperadas
-    expect(result).toHaveProperty('nombre', 'corte7');
+    expect(result).toHaveProperty('nombre', 'Corte de Pelo');
     expect(result).toHaveProperty('duracion', 40);
     expect(result).toHaveProperty('precio', 8000);
     expect(result).toHaveProperty('empresa');
   });
+
+  it('debería devolver error porque la duracion no es multiplo de 5', async () => {
+    const dto: RegistrarTipoServicioDTO = { nombre: 'Tintura', duracion: 62, precio: 8000, idEmpresa: 1 };
+    const usuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+
+    const result = await service.registrarTipoServicio(dto, usuario);
+
+    // Comprobar que el resultado tiene las propiedades esperadas
+    expect(result).toEqual({ error: 'La duracion debe ser mayor a 0 y multiplo de 5' });
+  });
+
+  it('debería devolver error porque la duracion es 0', async () => {
+    const dto: RegistrarTipoServicioDTO = { nombre: 'Nutricion', duracion: 0, precio: 8000, idEmpresa: 1 };
+    const usuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+
+    const result = await service.registrarTipoServicio(dto, usuario);
+
+    // Comprobar que el resultado tiene las propiedades esperadas
+    expect(result).toEqual({ error: 'La duracion debe ser mayor a 0 y multiplo de 5' });
+  });
+
+  
 
 });
