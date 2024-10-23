@@ -20,7 +20,6 @@ export class EmpleadoSeeder {
     for (const empleado of empleados) {
       const existingRole = await this.empleadoService.buscarPorCuil(empleado.cuil);
       if (!existingRole) {
-        empleado.usuario.empleado = empleado;
         await this.empleadoService.crear(empleado);
       }
     }

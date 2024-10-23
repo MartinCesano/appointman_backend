@@ -24,7 +24,13 @@ export class ClienteService {
     async buscar(idCliente: number): Promise<Cliente> {
         return this.repository.findOne({
             where: { id: idCliente },
-            relations: ['reservas'] // Asegúrate de cargar las relaciones necesarias
+            relations: ['reservas'] 
+        });
+    }
+    async buscarPorDocumento(documento: number): Promise<Cliente> {
+        return this.repository.findOne({
+            where: { documento: documento },
+            relations: ['reservas'] 
         });
     }
 
