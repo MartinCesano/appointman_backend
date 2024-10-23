@@ -71,11 +71,12 @@ export class UsuarioService {
         return hasPermission;
     }
 
-    async registrar(dataUsuario: Usuario) {
+    async registrar(dataUsuario: DeepPartial<Usuario>): Promise<Usuario> {
         try {
             const nuevoUsuario = new Usuario();
             Object.assign(nuevoUsuario, dataUsuario);
             nuevoUsuario.contrasena = hashSync(dataUsuario.contrasena, 10);
+            console.log(nuevoUsuario);
             return await this.repository.save(nuevoUsuario);
         } catch (error) {
             throw new HttpException('Error de creación', 500);
@@ -176,6 +177,10 @@ export class UsuarioService {
         return this.getEmprendedor(idUsuario).then(emprendedor => {
             return this.emprendedorService.getServicios(emprendedor.id);
         });
+    }
+
+    async buscarPorEmail(email: string): Promise<Usuario> { 
+        return this.repository.findOne({where: {email}});
     }
 
 

@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Empleado } from './empleado.entity';
 import { RegistrarEmpleadoDTO } from '../../../auth/interfaces/registrarEmpleado.dto';
+import { DeepPartial } from 'typeorm';
 @Injectable()
 export class EmpleadoService {
   repository = Empleado;
@@ -16,8 +17,15 @@ export class EmpleadoService {
     }
   }
 
+  crear(empleado: DeepPartial<Empleado>): Promise<Empleado> {
+    return this.repository.save(empleado);
+  }
+
   buscar(id: number): Promise<Empleado> {
     return this.repository.findOne({ where: { id } });
+  }
+  buscarPorCuil(cuil: string): Promise<Empleado> {
+    return this.repository.findOne({ where: { cuil } });
   }
 
 }
