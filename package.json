@@ -17,6 +17,7 @@
     "test:auth": "jest --config ./jest.config.js --runInBand --testPathPattern=src/auth/auth.controller.spec.ts",
     "test:cliente": "jest --config ./jest.config.js --runInBand --testPathPattern=src/gestion-reserva-cliente/modules/cliente/cliente.service.spec.ts",
     "test:regisrarServicio": "jest --config ./jest.config.js --runInBand --testPathPattern=src/gestion-empresa/use-cases/gestor-registrar-tipo-servicio.service.spec.ts", 
+    "test:registrarHorario": "jest --config ./jest.config.js --runInBand --testPathPattern=src/gestion-empresa/use-cases/gestor-ABM-horario.service.spec.ts",
 
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
