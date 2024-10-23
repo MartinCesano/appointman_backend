@@ -5,6 +5,7 @@ import {IEmprendedor} from "../../interfaces/emprendedor.interface";
 import {IEmpresa} from "../../interfaces/empresa.interface";
 import {EmpresaService} from "../empresa/empresa.service";
 import {IServicio} from "../../interfaces/servicio.interface";
+import { DeepPartial } from 'typeorm';
 
 
 @Injectable()
@@ -24,6 +25,14 @@ export class EmprendedorService {
         }
     }
 
+    async crear(emprendedor: DeepPartial<Emprendedor>): Promise<Emprendedor> {
+        try {
+            return this.repository.save(emprendedor);
+        } catch (error) {
+            throw new Error(`Error creating emprendedor: ${error.message}`);
+        }
+    }
+
     getEmpresa(id: number): Promise<IEmpresa> {
         return this.repository.findOne({
             where: {id},
@@ -38,6 +47,10 @@ export class EmprendedorService {
         })
 
         return this.empresaService.getServicios(emprendedor.empresa.id)
+    }
+
+    async buscarPorCuit(cuit: string): Promise<Emprendedor> {
+        return this.repository.findOne({where: {cuit}});
     }
 
 

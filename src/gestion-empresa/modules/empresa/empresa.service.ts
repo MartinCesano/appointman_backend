@@ -6,6 +6,7 @@ import { IEmpresa } from '../../interfaces/empresa.interface';
 import {IServicio} from "../../interfaces/servicio.interface";
 import {IHorario} from "../../../gestion-reserva-cliente/interfaces/horario.interface";
 import {IPrestadorServicio} from "../../interfaces/prestador-servicio.interface";
+import { DeepPartial } from 'typeorm';
 
 @Injectable()
 export class EmpresaService {
@@ -47,24 +48,12 @@ export class EmpresaService {
         });
     }
 
-    create(createEmpresaDto: CreateEmpresaDto) {
-        return 'This action adds a new empresa';
+    buscarPorCuit(cuit: string): Promise<IEmpresa> {
+        return this.repository.findOne({where: {cuit}});
     }
 
-    findAll() {
-        return `This action returns all empresa`;
-    }
-
-    findOne(id: number) {
-        return `This action returns a #${id} empresa`;
-    }
-
-    update(id: number, updateEmpresaDto: UpdateEmpresaDto) {
-        return `This action updates a #${id} empresa`;
-    }
-
-    remove(id: number) {
-        return `This action removes a #${id} empresa`;
+    registrar(empresa: DeepPartial<Empresa>): Promise<Empresa> {
+        return this.repository.save(empresa);
     }
 
     async agregarHorario(id: number, horario: IHorario) {
