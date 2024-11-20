@@ -43,12 +43,15 @@ describe('GestorABMHorariosService', () => {
         {
           provide: HorarioService,
           useValue: {
-            insert: jest.fn().mockResolvedValue({
-              nombre: 'Fin de samana3',
-              horaInicio: '12:00',
-              horaFin: '16:00',
-              diasActivos: ['martes', 'miercoles', 'jueves', 'viernes'],
-              horas: []
+            insert: jest.fn((dto: RegistrarHorarioDTO) => {
+              // Mock dinámico que retorna diferentes valores según el DTO
+              return Promise.resolve({
+                nombre: dto.nombre,
+                horaInicio: dto.horaInicio,
+                horaFin: dto.horaFin,
+                diasActivos: dto.diasActivos,
+                horas: [],
+              });
             }),
           },
         },
@@ -88,6 +91,36 @@ describe('GestorABMHorariosService', () => {
     expect(result).toHaveProperty('nombre', 'Fin de samana3');
     expect(result).toHaveProperty('horaInicio', "12:00");
     expect(result).toHaveProperty('horaFin', "16:00");
-    expect(result).toHaveProperty('diasActivos', ["martes", "miercoles", "jueves", "viernes"]);
+    expect(result).toHaveProperty('diasActivos', "martes,miercoles,jueves,viernes");
   });
+
+  it('debería registrar el horario en un tiempo razonable', async () => {
+    const dto: RegistrarHorarioDTO = {
+      nombre: "Fin de semana rápido",
+      horaInicio: "10:00",
+      horaFin: "14:00",
+      diasActivos: ["lunes", "miércoles", "viernes"]
+    };
+
+    const usuario: IUsuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+
+    // Medir el tiempo de ejecución
+    const startTime = performance.now();
+    const result = await service.registrarHorario(dto, usuario);
+    const endTime = performance.now();
+
+    const duration = endTime - startTime;
+    console.log(`Tiempo de ejecución: ${duration} ms`);
+
+    // Verificar que los datos sean correctos
+    expect(result).toHaveProperty('nombre', 'Fin de semana rápido');
+    expect(result).toHaveProperty('horaInicio', "10:00");
+    expect(result).toHaveProperty('horaFin', "14:00");
+    expect(result).toHaveProperty('diasActivos', "lunes,miércoles,viernes");
+
+    // Asegurarse de que el tiempo de ejecución no sea mayor a 500 ms
+    expect(duration).toBeLessThan(30);
+  });
+
+  
 });
