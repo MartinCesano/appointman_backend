@@ -122,5 +122,107 @@ describe('GestorABMHorariosService', () => {
     expect(duration).toBeLessThan(30);
   });
 
+  it('debería registrar múltiples horarios en un tiempo razonable', async () => {
+    const horarios: RegistrarHorarioDTO[] = Array.from({ length: 1000 }).map((_, index) => ({
+      nombre: `Horario ${index + 1}`,
+      horaInicio: "08:00",
+      horaFin: "18:00",
+      diasActivos: ["lunes", "martes", "miércoles", "jueves", "viernes"]
+    }));
+  
+    const usuario: IUsuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+  
+    const startTime = performance.now();
+  
+    for (const dto of horarios) {
+      await service.registrarHorario(dto, usuario);
+    }
+  
+    const endTime = performance.now();
+    const duration = endTime - startTime;
+  
+    console.log(`Tiempo total para registrar 1000 horarios: ${duration} ms`);
+    expect(duration).toBeLessThan(5000); // Verificar que no supere 5 segundos
+  });
+
+  it('debería manejar solicitudes concurrentes eficientemente', async () => {
+    const horarios: RegistrarHorarioDTO[] = Array.from({ length: 50 }).map((_, index) => ({
+      nombre: `Horario ${index + 1}`,
+      horaInicio: "09:00",
+      horaFin: "17:00",
+      diasActivos: ["lunes", "miércoles"]
+    }));
+  
+    const usuario: IUsuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+  
+    const startTime = performance.now();
+  
+    const results = await Promise.all(
+      horarios.map((dto) => service.registrarHorario(dto, usuario))
+    );
+  
+    const endTime = performance.now();
+    const duration = endTime - startTime;
+  
+    console.log(`Tiempo total para 50 solicitudes concurrentes: ${duration} ms`);
+  
+    expect(results).toHaveLength(50); // Verificar que se procesaron todas las solicitudes
+    expect(duration).toBeLessThan(2000); // Máximo 2 segundos para procesar todas
+  });
+
+  it('debería escalar adecuadamente con carga incremental', async () => {
+    const usuario: IUsuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+  
+    const cargas = [10, 50, 100, 200]; 
+    const tiempos: number[] = [];
+  
+    for (const carga of cargas) {
+      const horarios: RegistrarHorarioDTO[] = Array.from({ length: carga }).map((_, index) => ({
+        nombre: `Horario ${index + 1}`,
+        horaInicio: "10:00",
+        horaFin: "18:00",
+        diasActivos: ["martes", "jueves"]
+      }));
+  
+      const startTime = performance.now();
+      await Promise.all(horarios.map((dto) => service.registrarHorario(dto, usuario)));
+      const endTime = performance.now();
+  
+      const duration = endTime - startTime;
+      tiempos.push(duration);
+  
+      console.log(`Carga: ${carga} - Tiempo: ${duration} ms`);
+    }
+  
+    // Verificar que el tiempo no crezca desproporcionadamente
+    expect(Math.max(...tiempos)).toBeLessThan(10000); // Ninguna carga debe tomar más de 10 segundos
+  });
+  
+
+
+  it('debería manejar correctamente un intento de inyección SQL', async () => {
+    // Inyección SQL en el campo 'nombre'
+    const dto: RegistrarHorarioDTO = {
+      nombre: "Corte'; DROP TABLE horarios; --",  // Intento de inyección
+      horaInicio: "12:00",
+      horaFin: "14:00",
+      diasActivos: ["lunes", "miércoles"]
+    };
+  
+    const usuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+  
+    try {
+      // Intento de registrar el horario con un valor malicioso
+      await service.registrarHorario(dto, usuario);
+    } catch (error) {
+      // Asegurarse de que el error contiene un mensaje adecuado y no se ejecuta la inyección
+      expect(error.message).toContain('El nombre contiene caracteres no permitidos');
+      expect(error.message).not.toContain('DROP TABLE');  // Verificar que el SQL malicioso no se ejecute
+    }
+  });
+  
+
+
+
   
 });

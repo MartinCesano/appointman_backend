@@ -85,7 +85,7 @@ export class UsuarioService {
 
 
     async login(body: LoginDTO) {
-        const user = await this.findByEmail(body.email);
+        const user = await this.buscarPorEmail(body.email);
 
         if (!user) {
             throw new UnauthorizedException('User not found');
@@ -103,8 +103,10 @@ export class UsuarioService {
         };
     }
 
-    async findByEmail(email: string): Promise<Usuario> {
-        return await this.repository.findOneBy({email});
+    
+
+    async buscarPorEmail(email: string): Promise<IUsuario> { 
+        return this.repository.findOne({where: {email}});
     }
 
     async assignPermissionToUser(idUsuario: number, body: { idPermiso: number }): Promise<Usuario> {
@@ -179,9 +181,7 @@ export class UsuarioService {
         });
     }
 
-    async buscarPorEmail(email: string): Promise<IUsuario> { 
-        return this.repository.findOne({where: {email}});
-    }
+    
 
 
 

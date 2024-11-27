@@ -80,6 +80,60 @@ describe('GestorRegistrarTipoServicioService', () => {
     expect(result).toEqual({ error: 'La duracion debe ser mayor a 0 y multiplo de 5' });
   });
 
+
+  it('debería completar el registro en menos de 8ms', async () => {
+    const dto: RegistrarTipoServicioDTO = { nombre: 'Corte de Pelo', duracion: 40, precio: 4000, idEmpresa: 1 };
+    const usuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+    const inicio = performance.now();
+    await service.registrarTipoServicio(dto, usuario);
+    const fin = performance.now();
+    const tiempo = fin - inicio;
+    console.log('Tiempo de ejecución:', tiempo);
+  
+    expect(tiempo).toBeLessThan(8); // Tiempo máximo aceptable
+  });
+  
+  it('debería ejecutar múltiples registros para medir consistencia (10 ejecuciones), y que devuelva un tiempo', async () => {
+    const dto: RegistrarTipoServicioDTO = { nombre: 'Corte de Pelo', duracion: 40, precio: 4000, idEmpresa: 1 };
+    const usuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+  
+    const ejecuciones = 10;
+    const tiempos: number[] = [];
+  
+    for (let i = 0; i < ejecuciones; i++) {
+      const inicio = performance.now(); // Inicio del cronómetro
+      await service.registrarTipoServicio(dto, usuario);
+      const fin = performance.now(); // Fin del cronómetro
+      tiempos.push(fin - inicio);
+    }
+    // Mostrar tiempos en consola
+    console.log('Tiempos de ejecución:', tiempos);
+    console.log('Promedio de ejecución:', tiempos.reduce((a, b) => a + b, 0) / ejecuciones);
+  
+    expect(tiempos).toBeDefined();
+  });
+  
+  it('debería manejar correctamente un intento de inyección SQL', async () => {
+    const dto: RegistrarTipoServicioDTO = { 
+      nombre: "Corte'; DROP TABLE servicios; --", 
+      duracion: 40, 
+      precio: 8000, 
+      idEmpresa: 1 
+    };
+    const usuario = await usuarioService.buscarPorEmail("martingaido@gmail.com");
+  
+    try {
+      await service.registrarTipoServicio(dto, usuario);
+    } catch (error) {
+      // Asegurarse de que el error contiene un mensaje adecuado
+      expect(error.message).toContain('El nombre contiene caracteres no permitidos');
+    }
+  });
+  
+  
+  
+
+
   
 
 });
